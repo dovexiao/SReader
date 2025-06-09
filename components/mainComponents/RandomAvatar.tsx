@@ -47,7 +47,7 @@ const RandomAvatar: React.FC<RandomAvatarProps> = ({ size }) => {
 
     return (
         <View style={[styles.teamAvatar, { backgroundColor: colors, width: size, height: size, borderRadius: size / 2 }]}>
-            <Text style={styles.teamNumber}>用户</Text>
+            <Text style={[styles.teamNumber, { fontSize: size / 2 }]}>用户</Text>
         </View>
     );
 };
@@ -59,7 +59,6 @@ const styles = StyleSheet.create({
     },
     teamNumber: {
         color: '#FFFFFF',
-        fontSize: 18,
         fontWeight: 'bold',
     },
 });
