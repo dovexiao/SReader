@@ -14,8 +14,8 @@ import SocializeMain from './SocializeScreen';
 import {Divider} from '@ui-kitten/components';
 
 const tabs = [
-    { key: 'CHAT_SPACE', icon: 'message-square-outline', label: '聊天', screen: ChatMain },
-    { key: 'xxx1', icon: 'bulb-outline', label: '学习', screen: LearnMain },
+    { key: 'CHAT_SPACE', icon: 'android-messages', label: '聊天', screen: ChatMain },
+    { key: 'xxx1', icon: 'head-lightbulb-outline', label: '学习', screen: LearnMain },
     { key: 'xxx2', icon: 'compass-outline', label: '发现', screen: SocializeMain },
 ];
 

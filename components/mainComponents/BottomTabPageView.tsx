@@ -1,6 +1,17 @@
-import React, { useRef } from 'react';
-import {View, StyleSheet, PanResponder, Animated, Dimensions, Pressable, Text} from 'react-native';
-import {Icon, useTheme} from '@ui-kitten/components';
+import React, {useEffect, useRef} from 'react';
+import {Dimensions, Pressable, StyleSheet, View, Text} from 'react-native';
+import {useTheme} from '@ui-kitten/components';
+import Animated, {
+    interpolate,
+    runOnJS,
+    SensorType, useAnimatedProps,
+    useAnimatedSensor,
+    useAnimatedStyle,
+    useDerivedValue,
+    useSharedValue,
+    withSpring,
+} from "react-native-reanimated";
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 const { width: SCREEN_WIDTH } = Dimensions.get('window');
 
@@ -15,92 +26,128 @@ type TabBottomPageViewProps = {
 };
 
 const BottomTabPageView: React.FC<TabBottomPageViewProps> = ({ tabs, children }) => {
-    const pan = useRef(new Animated.Value(0)).current;
-    const selectedIndexRef = useRef(0);
-    const [selectedIndex, setSelectIndex] = React.useState(0);
+    const pan = useSharedValue<number>(0);
+    const selectedIndex = useSharedValue(0);
+    const bottomState = useSharedValue(0);
+    const gravitySensorX = useSharedValue<number>(0);
+    const intervalId = useRef<NodeJS.Timeout | null>(null);
+    const gravitySensorXOrigin = useSharedValue<number | null>(null);
     const themes = useTheme();
 
     const childrenArray = React.Children.toArray(children);
     const PAGE_COUNT = childrenArray.length;
 
-    // 手势响应器配置
-    // const panResponder = useRef(
-    //     PanResponder.create({
-    //         // onStartShouldSetPanResponderCapture: (_, gestureState) => {
-    //         //     // // 捕获所有手势事件
-    //         //     console.log('开始捕获所有手势事件', gestureState.dx, gestureState.dx, new Date());
-    //         //     return true;
-    //         // },
-    //         onMoveShouldSetPanResponder: (_, gestureState) => {
-    //             // 只响应水平滑动
-    //             // console.log('开始响应特殊手势事件', gestureState.dx, gestureState.dy, new Date());
-    //             const isHorizontal = Math.abs(gestureState.dx) > Math.abs(gestureState.dy);
-    //             const isSignificant = Math.abs(gestureState.dx) > 0;
-    //             // console.log(isHorizontal && isSignificant);
-    //             return isHorizontal && isSignificant;
-    //             // return true;
-    //         },
-    //         onPanResponderMove: (_, gestureState) => {
-    //             // 限制滑动范围 [-SCREEN_WIDTH, SCREEN_WIDTH]
-    //             const currentIndex = selectedIndexRef.current;
-    //             const newX = Math.max(-SCREEN_WIDTH, Math.min(gestureState.dx, SCREEN_WIDTH));
-    //             const baseX = currentIndex * -SCREEN_WIDTH;
-    //             const finallyX = Math.max(-SCREEN_WIDTH * 3, Math.min(baseX + newX, 0));
-    //             // clampedX
-    //             pan.setValue(finallyX);
-    //         },
-    //         onPanResponderRelease: (_, gestureState) => {
-    //             // 判断滑动方向
-    //             const currentIndex = selectedIndexRef.current;
-    //             // console.log('手势滑动总距离', gestureState.dx);
-    //             // console.log('当前选择index', currentIndex);
-    //             if (gestureState.dx < -SCREEN_WIDTH * 0.05 && currentIndex < 3) {
-    //                 animateToPosition(currentIndex + 1);
-    //                 // handleModuleSelectedIndex(currentIndex + 1)
-    //             } else if (gestureState.dx > SCREEN_WIDTH * 0.05 && currentIndex > 0) {
-    //                 animateToPosition(currentIndex - 1);
-    //                 // handleModuleSelectedIndex(currentIndex - 1)
-    //             } else {
-    //                 // console.log('滑动复位');
-    //                 animateToPosition(currentIndex);
-    //             }
-    //         },
-    //         onPanResponderGrant: () => {
-    //             // console.log('手势正式激活');
-    //         },
-    //         onPanResponderReject: () => {
-    //             // console.log('手势被拒绝');
-    //         },
-    //         onPanResponderTerminate: () => {
-    //             // console.log('手势被系统强制终止');
-    //             animateToPosition(selectedIndexRef.current);
-    //         },
-    //         onPanResponderTerminationRequest: () => false,
-    //     })
-    // ).current;
+    const gravitySensor = useAnimatedSensor(SensorType.GRAVITY);
+    const tiltThreshold: number = 2;
+
+    const latestGravityX = useSharedValue(0);
+
+    useDerivedValue(() => {
+        latestGravityX.value = gravitySensor.sensor.value.x;
+    });
+
+    const startInterval = () => {
+        // console.log('开始监听传感器1');
+        if (intervalId.current !== null) return;
+        // console.log('开始监听传感器2')
+        intervalId.current = setInterval(() => {
+            if (gravitySensorXOrigin.value === null) {
+                gravitySensorXOrigin.value = latestGravityX.value;
+            }
+            const x = latestGravityX.value - gravitySensorXOrigin.value;
+            if (Math.abs(x) > tiltThreshold) {
+                gravitySensorX.value = x;
+                // console.log('sensorX间隔后发生变化', gravitySensorX.value);
+            } else {
+                gravitySensorX.value = 0;
+                // console.log('sensorX间隔后发生变化', gravitySensorX.value);
+            }
+        }, 100);
+    };
+
+    const stopInterval = () => {
+        if (intervalId.current !== null) {
+            clearInterval(intervalId.current);
+            intervalId.current = null;
+        }
+    };
+
+    useEffect(() => {
+        return () => {
+            stopInterval()
+        };
+    }, [])
+
+    const handleSensorTrigger = (index: number) => {
+        // 'worklet';
+        bottomState.value = index;
+    }
+
+    const pagePan = useDerivedValue(() => {
+        const newGravitySensorX = gravitySensorX.value;
+        const currentIndex = selectedIndex.value;
+        // console.log('pagePan需要发生变化', newGravitySensorX);
+        runOnJS(stopInterval)();
+
+        // 向左倾斜切换上一页
+        if (newGravitySensorX < 0 && currentIndex > 0) {
+            // console.log('左倾斜sensorX', newGravitySensorX)
+            // console.log('切换到', (currentIndex - 1) * -SCREEN_WIDTH);
+            runOnJS(handleSensorTrigger)(currentIndex - 1);
+            return withSpring((currentIndex - 1) * -SCREEN_WIDTH, {
+                mass: 1,
+                stiffness: 100,
+                damping: 50,
+            }, () => {
+                // runOnJS(setSelectIndex)(currentIndex - 1);
+                // console.log('旧值', selectedIndex.value, pan.value);
+                selectedIndex.value = currentIndex - 1;
+                pan.value = (currentIndex - 1) * -SCREEN_WIDTH;
+                gravitySensorX.value = 0;
+                // console.log('新值', selectedIndex.value, pan.value);
+                runOnJS(startInterval)();
+            });
+        }
+        // 向右倾斜切换下一页
+        else if (newGravitySensorX > 0 && currentIndex < PAGE_COUNT - 1) {
+            // console.log('右倾斜sensorX', newGravitySensorX)
+            // console.log('切换到', (currentIndex + 1) * -SCREEN_WIDTH);
+            runOnJS(handleSensorTrigger)(currentIndex + 1);
+            return withSpring((currentIndex + 1) * -SCREEN_WIDTH, {
+                mass: 1,
+                stiffness: 100,
+                damping: 50,
+            }, () => {
+                // runOnJS(setSelectIndex)(currentIndex + 1);
+                // console.log('旧值', selectedIndex.value, pan.value);
+                selectedIndex.value = currentIndex + 1;
+                pan.value = (currentIndex + 1) * -SCREEN_WIDTH;
+                gravitySensorX.value = 0;
+                // console.log('新值', selectedIndex.value, pan.value);
+                runOnJS(startInterval)();
+            });
+        }
+        runOnJS(startInterval)();
+        return pan.value;
+    });
 
     // 动画到指定位置
-    const animateToPosition = React.useCallback((index: number) => {
-        selectedIndexRef.current = index;
-        setSelectIndex(index);
-        Animated.spring(pan, {
-            toValue: index * -SCREEN_WIDTH,
-            useNativeDriver: true,
-            tension: 30,
-            friction: 8,
-        }).start();
-    }, [pan]);
+    const animateToPosition = (index: number) => {
+        const targetX = index * -SCREEN_WIDTH;
+        bottomState.value = index;
+        pan.value = withSpring(targetX, {
+            mass: 1,
+            stiffness: 100,
+            damping: 50,
+        }, () => {
+            selectedIndex.value = index;
+        });
+        // console.log(targetX, index, pan.value);
+    };
 
-    // React.useEffect(() => {
-    //     const listener = pan.addListener(value => {
-    //         // console.log('pan value:', value.value);
-    //     });
-    //
-    //     // 清除监听器
-    //     return () => {
-    //         pan.removeListener(listener);
-    //     };
-    // }, [pan]);
+    const pageAnimatedStyle = useAnimatedStyle(() => ({
+        transform: [{ translateX: pagePan.value }],
+    }));
 
     const PAGE_WIDTH = SCREEN_WIDTH;
 
@@ -112,10 +159,17 @@ const BottomTabPageView: React.FC<TabBottomPageViewProps> = ({ tabs, children })
         (PAGE_WIDTH / PAGE_COUNT) * (PAGE_COUNT - 1 - i)
     );
 
-    const indicatorPosition = pan.interpolate({
-        inputRange,
-        outputRange,
-        extrapolate: 'clamp',
+    const indicatorAnimatedStyle = useAnimatedStyle(() => {
+        const indicatorPosition = interpolate(
+            pagePan.value,
+            inputRange,
+            outputRange,
+            'clamp'
+        );
+
+        return {
+            transform: [{ translateX: indicatorPosition }],
+        }
     });
 
     return (
@@ -124,8 +178,8 @@ const BottomTabPageView: React.FC<TabBottomPageViewProps> = ({ tabs, children })
             <Animated.View
                 style={[
                     styles.contentContainer,
+                    pageAnimatedStyle,
                     {
-                        transform: [{ translateX: pan }],
                         width: SCREEN_WIDTH * 4,
                     },
                 ]}
@@ -143,41 +197,66 @@ const BottomTabPageView: React.FC<TabBottomPageViewProps> = ({ tabs, children })
             <Animated.View
                 style={[
                     styles.indicator,
+                    indicatorAnimatedStyle,
+                    // {
+                    //     transform: [{ translateX: indicatorPosition }],
+                    // },
                     {
                         width: SCREEN_WIDTH / PAGE_COUNT,
-                        transform: [{ translateX: indicatorPosition }],
+                        // transform: [{ translateX: indicatorPosition }],
                         backgroundColor: themes['color-primary-500'],
                     },
                 ]}
             />
-            <View style={styles.tabBar}>
+            <Animated.View style={styles.tabBar}>
                 {tabs.map((item, index) => {
-                    // const Icon = item.icon;
-                    const isActive = selectedIndex === index;
+                    const size = useDerivedValue(() => {
+                        return bottomState.value === index ? 27 : 27;
+                    });
+
+                    const color  = useDerivedValue(() => {
+                        return bottomState.value === index ? themes['color-primary-500'] : '#888888';
+                    });
+
+                    const iconStyle = useAnimatedStyle(() => ({
+                        color: color.value,
+                        // width: size.value,
+                        // height: size.value,
+                    }));
+
+                    const labelStyle = useAnimatedStyle(() => ({
+                        color: color.value,
+                    }));
+
+                    const AnimatedPressable = Animated.createAnimatedComponent(Pressable);
+                    const AnimatedIcon = Animated.createAnimatedComponent(Icon);
+                    const AnimatedText = Animated.createAnimatedComponent(Text);
 
                     return (
-                        <Pressable
+                        <AnimatedPressable
                             key={index}
                             style={styles.tabItem}
                             onPress={() => animateToPosition(index)}
                         >
-                            {item.icon && <Icon
-                                name={item.icon}
-                                fill={isActive ? themes['color-primary-500'] : '#888888'}
-                                style={{width: isActive ? 27 : 24, height: isActive ? 27 : 24}}
-                            />}
-                            {item.label && <Text
+                            {item.icon && (
+                                <AnimatedIcon
+                                    name={item.icon}
+                                    size={size.value}
+                                    style={iconStyle}
+                                />
+                            )}
+                            {item.label && <AnimatedText
                                 style={[
                                     styles.tabLabel,
-                                    {color: isActive ? themes['color-primary-500'] : '#888888'},
+                                    labelStyle,
                                 ]}
                             >
                                 {item.label}
-                            </Text>}
-                        </Pressable>
+                            </AnimatedText>}
+                        </AnimatedPressable>
                     );
                 })}
-            </View>
+            </Animated.View>
         </View>
     );
 };
@@ -208,7 +287,6 @@ const styles = StyleSheet.create({
         top: 0,
         height: 4,
         borderRadius: 0,
-        zIndex: 0,
     },
     tabItem: {
         flex: 1,
