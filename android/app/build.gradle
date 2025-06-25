@@ -128,3 +128,9 @@ dependencies {
     }
 }
 apply from: "../../node_modules/react-native-vector-icons/fonts.gradle"
+
+repositories {
+    maven { url 'https://maven.aliyun.com/repository/public' }  // 阿里云镜像
+    maven { url 'https://maven.aliyun.com/repository/google' }  // 如果是 Google 依赖
+    mavenCentral()  // 保留原有源
+}
