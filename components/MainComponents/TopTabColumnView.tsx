@@ -56,10 +56,10 @@ const TopTabColumnView: React.FC<TabBottomPageViewProps> = ({ tabs, children }) 
                 const currentIndex = selectedIndexRef.current;
                 // console.log('手势滑动总距离', gestureState.dx);
                 // console.log('当前选择index', currentIndex);
-                if (gestureState.dx < -SCREEN_WIDTH * 0.05 && currentIndex < PAGE_COUNT - 1) {
+                if (gestureState.dx < -SCREEN_WIDTH * 0.1 && currentIndex < PAGE_COUNT - 1) {
                     animateToPosition(currentIndex + 1);
                     // handleModuleSelectedIndex(currentIndex + 1)
-                } else if (gestureState.dx > SCREEN_WIDTH * 0.05 && currentIndex > 0) {
+                } else if (gestureState.dx > SCREEN_WIDTH * 0.1 && currentIndex > 0) {
                     animateToPosition(currentIndex - 1);
                     // handleModuleSelectedIndex(currentIndex - 1)
                 } else {

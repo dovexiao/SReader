@@ -6,8 +6,8 @@ import {
     StyleSheet,
     View
 } from 'react-native';
-import TopAvatarColumn from '../components/mainComponents/TopAvatarColumn.tsx';
-import BottomTabPageView from '../components/mainComponents/BottomTabPageView.tsx';
+import TopAvatarColumn from '../components/MainComponents/TopAvatarColumn.tsx';
+import BottomTabPageView from '../components/MainComponents/BottomTabPageView.tsx';
 import ChatMain from './ChatScreen';
 import LearnMain from './LearnScreen';
 import SocializeMain from './SocializeScreen';

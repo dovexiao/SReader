@@ -13,7 +13,7 @@ import {
 } from 'react-native';
 import getItemLayout from 'react-native-get-item-layout-section-list';
 import {useTheme} from '@ui-kitten/components';
-import RandomAvatar from "../../components/mainComponents/RandomAvatar.tsx";
+import RandomAvatar from '../../components/MainComponents/RandomAvatar.tsx';
 
 const { width, height } = Dimensions.get('window');
 const ALPHABET = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ#'.split('');

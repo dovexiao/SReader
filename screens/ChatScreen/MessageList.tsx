@@ -1,8 +1,8 @@
 import React from 'react';
 import {FlatList, Image, Pressable, StyleSheet, View} from 'react-native';
-import RandomAvatar from '../../components/mainComponents/RandomAvatar.tsx';
+import RandomAvatar from '../../components/MainComponents/RandomAvatar.tsx';
 import { Text } from '@ui-kitten/components';
-import {formatTimestamp} from '../../components/mainComponents/formatTimestamp.ts';
+import {formatTimestamp} from '../../components/MainComponents/formatTimestamp.ts';
 
 export interface ChatSpaceType {
     spaceId: string,

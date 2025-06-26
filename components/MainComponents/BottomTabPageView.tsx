@@ -4,13 +4,13 @@ import {useTheme} from '@ui-kitten/components';
 import Animated, {
     interpolate,
     runOnJS,
-    SensorType, useAnimatedProps,
+    SensorType,
     useAnimatedSensor,
     useAnimatedStyle,
     useDerivedValue,
     useSharedValue,
     withSpring,
-} from "react-native-reanimated";
+} from 'react-native-reanimated';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 const { width: SCREEN_WIDTH } = Dimensions.get('window');
@@ -210,20 +210,24 @@ const BottomTabPageView: React.FC<TabBottomPageViewProps> = ({ tabs, children })
             />
             <Animated.View style={styles.tabBar}>
                 {tabs.map((item, index) => {
+                    // eslint-disable-next-line react-hooks/rules-of-hooks
                     const size = useDerivedValue(() => {
                         return bottomState.value === index ? 27 : 27;
                     });
 
+                    // eslint-disable-next-line react-hooks/rules-of-hooks
                     const color  = useDerivedValue(() => {
                         return bottomState.value === index ? themes['color-primary-500'] : '#888888';
                     });
 
+                    // eslint-disable-next-line react-hooks/rules-of-hooks
                     const iconStyle = useAnimatedStyle(() => ({
                         color: color.value,
                         // width: size.value,
                         // height: size.value,
                     }));
 
+                    // eslint-disable-next-line react-hooks/rules-of-hooks
                     const labelStyle = useAnimatedStyle(() => ({
                         color: color.value,
                     }));

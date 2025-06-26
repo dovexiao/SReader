@@ -5,9 +5,9 @@ import {
     Text, TextInput, TouchableOpacity, View,
 } from 'react-native';
 import {NavigationProps} from '../../types/navigationType.ts';
-import {Icon} from "@ui-kitten/components";
-import RandomAvatar from "../../components/mainComponents/RandomAvatar.tsx";
-import LinearGradient from "react-native-linear-gradient";
+import {Icon} from '@ui-kitten/components';
+import RandomAvatar from '../../components/MainComponents/RandomAvatar.tsx';
+import LinearGradient from 'react-native-linear-gradient';
 
 const SocializeMain: React.FC<NavigationProps> = ({ navigation }) => {
     const [isFilled, setIsFilled] = useState(false);
@@ -32,7 +32,7 @@ const SocializeMain: React.FC<NavigationProps> = ({ navigation }) => {
             duration: 'Today',
             category: 'Programming',
             type: '笔记',
-            image: 'https://images.unsplash.com/photo-1627398242454-45a1465c2479?w=400&h=240&fit=crop'
+            image: 'https://images.unsplash.com/photo-1627398242454-45a1465c2479?w=400&h=240&fit=crop',
         },
         {
             id: '2',
@@ -44,7 +44,7 @@ const SocializeMain: React.FC<NavigationProps> = ({ navigation }) => {
             duration: 'Today',
             category: 'Science',
             type: '帖子',
-            image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=400&h=240&fit=crop'
+            image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=400&h=240&fit=crop',
         },
         {
             id: '3',
@@ -56,7 +56,7 @@ const SocializeMain: React.FC<NavigationProps> = ({ navigation }) => {
             duration: 'Today',
             category: 'Programming',
             type: '题目',
-            image: 'https://images.unsplash.com/photo-1633356122544-f134324a6cee?w=400&h=240&fit=crop'
+            image: 'https://images.unsplash.com/photo-1633356122544-f134324a6cee?w=400&h=240&fit=crop',
         },
         {
             id: '4',
@@ -68,8 +68,8 @@ const SocializeMain: React.FC<NavigationProps> = ({ navigation }) => {
             duration: 'Today',
             category: 'Art',
             type: '录音',
-            image: 'https://images.unsplash.com/photo-1561070791-2526d30994b5?w=400&h=240&fit=crop'
-        }
+            image: 'https://images.unsplash.com/photo-1561070791-2526d30994b5?w=400&h=240&fit=crop',
+        },
     ];
 
     const renderFilterButton = (title, isSelected, onPress, showPlus = false) => (
@@ -80,13 +80,13 @@ const SocializeMain: React.FC<NavigationProps> = ({ navigation }) => {
                 isSelected && styles.selectedFilterButton,
                 isSelected && title === 'Programming' && styles.programmingSelected,
                 isSelected && title === 'Science' && styles.scienceSelected,
-                isSelected && title === 'Art' && styles.artSelected
+                isSelected && title === 'Art' && styles.artSelected,
             ]}
             onPress={onPress}
         >
             <Text style={[
                 styles.filterButtonText,
-                isSelected && styles.selectedFilterButtonText
+                isSelected && styles.selectedFilterButtonText,
             ]}>
                 {title}
             </Text>
@@ -115,13 +115,13 @@ const SocializeMain: React.FC<NavigationProps> = ({ navigation }) => {
                             styles.categoryTag,
                             item.category === 'Programming' && styles.programmingTag,
                             item.category === 'Science' && styles.scienceTag,
-                            item.category === 'Art' && styles.artTag
+                            item.category === 'Art' && styles.artTag,
                         ]}>
                             <Text style={[
                                 styles.categoryTagText,
                                 item.category === 'Programming' && styles.programmingTagText,
                                 item.category === 'Science' && styles.scienceTagText,
-                                item.category === 'Art' && styles.artTagText
+                                item.category === 'Art' && styles.artTagText,
                             ]}>
                                 {item.category}
                             </Text>
