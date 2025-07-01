@@ -72,6 +72,13 @@ ext.enableProguardInReleaseBuilds = false
  */
 ext.jscFlavor = 'io.github.react-native-community:jsc-android:2026004.+'
 
+project.ext.envConfigFiles = [
+    debug: ".env.development",  // 调试包配置
+    release: ".env.production"  // 正式包配置
+]
+
+apply from: project(':react-native-config').projectDir.getPath() + "/dotenv.gradle"
+
 android {
     ndkVersion rootProject.ext.ndkVersion
     buildToolsVersion rootProject.ext.buildToolsVersion

@@ -82,7 +82,7 @@ android/app/.cxx/
 ios/build/
 
 # Environment files
-.env
+.env*
 !.env.example
 
 # Debug logs

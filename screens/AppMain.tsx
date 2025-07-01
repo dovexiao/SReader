@@ -4,7 +4,7 @@ import {
     SafeAreaView,
     StatusBar,
     StyleSheet,
-    View
+    View,
 } from 'react-native';
 import TopAvatarColumn from '../components/MainComponents/TopAvatarColumn.tsx';
 import BottomTabPageView from '../components/MainComponents/BottomTabPageView.tsx';

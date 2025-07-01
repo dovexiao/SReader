@@ -13,6 +13,7 @@ import { ThemeContext } from './hooks/ThemeContext.tsx';
 import { default as lightTheme } from './light-theme.json';
 import { default as darkTheme } from './dark-theme.json';
 import {AppStackNavigator} from './screens/AppNavigation.tsx';
+import {GlobalProvider} from './hooks/GlobalContext.tsx';
 
 type Theme = 'light' | 'dark';
 
@@ -33,7 +34,9 @@ function App(): JSX.Element {
             <IconRegistry icons={EvaIconsPack}/>
             <ThemeContext.Provider value={{ theme, toggleTheme }}>
                 <ApplicationProvider {...eva} theme={{...eva[theme], ...customTheme}}>
-                    <AppStackNavigator />
+                    <GlobalProvider>
+                        <AppStackNavigator />
+                    </GlobalProvider>
                 </ApplicationProvider>
             </ThemeContext.Provider>
         </>
