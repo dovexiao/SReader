@@ -1,12 +1,14 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { TouchableWithoutFeedback, StyleSheet, View } from 'react-native';
 import { Icon, IconElement, Input, Text } from '@ui-kitten/components';
+import { useGlobal } from '../../hooks/GlobalContext.tsx';
+import { useVerificationStore } from '../../stores/verification.store.ts';
+import { useLoginStore } from '../../stores/login.store.ts';
+import { useRegisterStore } from '../../stores/register.store.ts';
 
 type InputProps = {
     label: string;
-    value: string;
-    setValue: (value: string) => void;
-    caption: string;
+    type: 'REGISTER' | 'LOGIN';
 };
 
 const AlertIcon = (props: any): IconElement => (
@@ -17,9 +19,30 @@ const AlertIcon = (props: any): IconElement => (
     />
 );
 
-const CaptchaInput = ({ label, value, setValue, caption }: InputProps): React.ReactElement => {
+const useEmailAccountField = (type: InputProps['type']) => {
+    const store = type === 'LOGIN' ? useLoginStore : useRegisterStore;
+    const value = store(state => state.emailVerificationCode);
+    const setValue = store(state => state.setEmailVerificationCode);
+    const caption = store(state => state.emailVerificationCodeCaption);
+    return { value, setValue, caption };
+};
+
+const CaptchaInput = ({ label, type }: InputProps): React.ReactElement => {
+    const { value, setValue, caption } = useEmailAccountField(type);
+
     const [countdown, setCountdown] = useState<string>('获取验证码');
     const timerRef = useRef<NodeJS.Timeout | null>(null);
+
+    const { sliderVerificationRef } = useGlobal();
+
+    const verificationStatus = useVerificationStore(state => state.verificationStatus);
+    const verificationVisible = useVerificationStore(state => state.verificationVisible);
+
+    const handleShowVerification = () => {
+        if (countdown === '获取验证码') {
+            sliderVerificationRef.current.showVerification();
+        }
+    };
 
     // 处理倒计时逻辑
     const handleCountdown = () => {
@@ -38,8 +61,14 @@ const CaptchaInput = ({ label, value, setValue, caption }: InputProps): React.Re
         }
     };
 
+    useEffect(( ) => {
+        if (verificationStatus === 'success' && !verificationVisible) {
+            handleCountdown();
+        }
+    }, [verificationStatus, verificationVisible]);
+
     const renderIcon = (): React.ReactElement => (
-        <TouchableWithoutFeedback onPress={handleCountdown}>
+        <TouchableWithoutFeedback onPress={handleShowVerification}>
             <View style={styles.captchaButton}>
                 <Text style={styles.captchaButtonText}>
                     {countdown !== '获取验证码' ? `${countdown} 秒后过期` : countdown}
@@ -50,12 +79,14 @@ const CaptchaInput = ({ label, value, setValue, caption }: InputProps): React.Re
 
     const renderCaption = (): React.ReactElement => {
         return (
-            <View style={styles.captionContainer}>
-                {AlertIcon(styles.captionIcon)}
-                <Text style={styles.captionText}>
-                    {caption}
-                </Text>
-            </View>
+            <>
+                {caption && <View style={styles.captionContainer}>
+                    {AlertIcon(styles.captionIcon)}
+                    <Text style={styles.captionText}>
+                        {caption}
+                    </Text>
+                </View>}
+            </>
         );
     };
 
@@ -88,13 +119,15 @@ const styles = StyleSheet.create({
         width: 10,
         height: 10,
         marginRight: 5,
-        color: '#A0A0A0',
+        // color: '#A0A0A0',
+        color: 'red',
     },
     captionText: {
         fontSize: 12,
         fontWeight: '400',
         fontFamily: 'opensans-regular',
-        color: '#A0A0A0',
+        // color: '#A0A0A0',
+        color: 'red',
     },
     captchaButton: {
         width: 100,

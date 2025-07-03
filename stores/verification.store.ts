@@ -19,7 +19,7 @@ interface VerificationStore {
     resetSliderVerification: () => void;
 }
 
-export const useVerificationStore = create<VerificationStore>()((set) => ({
+export const useVerificationStore = create<VerificationStore>()((set, get) => ({
     verificationVisible: false,
     bgImage: '',
     puzzleImage: '',
@@ -77,6 +77,7 @@ export const useVerificationStore = create<VerificationStore>()((set) => ({
         });
     },
     resetSliderVerification: () => {
+        const status = get().verificationStatus;
         set(() => ({
             verificationStatus: 'default',
             verificationStatusLoading: false,
@@ -87,5 +88,16 @@ export const useVerificationStore = create<VerificationStore>()((set) => ({
             puzzleSizeRatio: 0,
             puzzlePositionYRatio: 0,
         }));
+        if (status === 'success') {
+            set(() => ({
+                verificationStatus: 'success',
+            }));
+            const timer = setTimeout(() => {
+                set(() => ({
+                    verificationStatus: 'default',
+                }));
+                clearTimeout(timer);
+            }, 50);
+        }
     },
 }));

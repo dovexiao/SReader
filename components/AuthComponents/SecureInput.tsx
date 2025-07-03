@@ -2,12 +2,11 @@ import React from 'react';
 import {StyleSheet, View, Pressable} from 'react-native';
 import { Icon, Input, Text } from '@ui-kitten/components';
 import type {IconElement} from '@ui-kitten/components';
+import { useRegisterStore } from '../../stores/register.store.ts';
 
 type InputProps = {
     label: string;
-    value: string;
-    setValue: (value: string) => void;
-    caption: string;
+    type: 'REGISTER_PASSWORD' | 'REGISTER_CONFIRM';
 };
 
 const AlertIcon = (props: any): IconElement => (
@@ -18,7 +17,21 @@ const AlertIcon = (props: any): IconElement => (
     />
 );
 
-const SecureInput = ({ label, value, setValue, caption }: InputProps): React.ReactElement => {
+// 组合使用
+const usePasswordField = (type: InputProps['type']) => {
+    return {
+        value: useRegisterStore(sate =>
+            type === 'REGISTER_PASSWORD' ? sate.password : sate.confirmPassword),
+        setValue: useRegisterStore(sate =>
+            type === 'REGISTER_PASSWORD' ? sate.setPassword : sate.setConfirmPassword),
+        caption: useRegisterStore(sate =>
+            type === 'REGISTER_PASSWORD' ? sate.passwordCaption : sate.confirmPasswordCaption),
+    };
+};
+
+const SecureInput = ({ label, type}: InputProps): React.ReactElement => {
+    const { value, setValue, caption } = usePasswordField(type);
+
     const [secureTextEntry, setSecureTextEntry] = React.useState(true);
 
     const toggleSecureEntry = (): void => {
@@ -38,12 +51,14 @@ const SecureInput = ({ label, value, setValue, caption }: InputProps): React.Rea
 
     const renderCaption = (): React.ReactElement => {
         return (
-            <View style={styles.captionContainer}>
-                {AlertIcon(styles.captionIcon)}
-                <Text style={styles.captionText}>
-                    { caption }
-                </Text>
-            </View>
+            <>
+                {caption && <View style={styles.captionContainer}>
+                    {AlertIcon(styles.captionIcon)}
+                    <Text style={styles.captionText}>
+                        {caption}
+                    </Text>
+                </View>}
+            </>
         );
     };
 
@@ -92,13 +107,15 @@ const styles = StyleSheet.create({
         width: 10,
         height: 10,
         marginRight: 5,
-        color: '#A0A0A0',
+        // color: '#A0A0A0',
+        color: 'red',
     },
     captionText: {
         fontSize: 12,
         fontWeight: '400',
         fontFamily: 'opensans-regular',
-        color: '#A0A0A0',
+        // color: '#A0A0A0',
+        color: 'red',
     },
 });
 

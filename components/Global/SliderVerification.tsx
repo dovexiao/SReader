@@ -24,7 +24,7 @@ const BACKGROUND_WIDTH = SCREEN_WIDTH - 100;
 
 // 定义 ref 暴露的接口
 export interface SliderVerificationRef {
-    showVerification: () => void;
+    showVerification: () => Promise<void>;
     closeVerification: () => void;
 }
 
@@ -65,9 +65,9 @@ const SliderVerification = forwardRef<SliderVerificationRef>((props, ref) => {
     }, [verificationImageLoading, verificationStatusLoading, verificationStatus]);
 
     // 暴露给外部的方法
-    const showVerification = () => {
+    const showVerification = async () => {
         setVerificationVisible(true);
-        fetchVerificationImage();
+        await fetchVerificationImage();
     };
 
     // 暴露给外部的方法

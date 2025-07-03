@@ -1,12 +1,12 @@
 import React from 'react';
 import { TouchableWithoutFeedback, StyleSheet, View } from 'react-native';
 import { Icon, IconElement, Input, Text } from '@ui-kitten/components';
+import { useRegisterStore } from '../../stores/register.store.ts';
+import { useLoginStore } from '../../stores/login.store.ts';
 
 type InputProps = {
     label: string;
-    value: string;
-    setValue: (value: string) => void;
-    caption: string;
+    type: 'REGISTER' | 'LOGIN';
 };
 
 const AlertIcon = (props: any): IconElement => (
@@ -17,7 +17,17 @@ const AlertIcon = (props: any): IconElement => (
     />
 );
 
-const EmailInput = ({ label, value, setValue, caption }: InputProps): React.ReactElement => {
+const useEmailAccountField = (type: InputProps['type']) => {
+    const store = type === 'LOGIN' ? useLoginStore : useRegisterStore;
+    const value = store(state => state.emailAccount);
+    const setValue = store(state => state.setEmailAccount);
+    const caption = store(state => state.emailCaption);
+    return { value, setValue, caption };
+};
+
+const EmailInput = ({ label, type }: InputProps): React.ReactElement => {
+    const { value, setValue, caption } = useEmailAccountField(type);
+
     const renderIcon = (props: any): React.ReactElement => (
         <TouchableWithoutFeedback>
             <Icon
@@ -31,12 +41,14 @@ const EmailInput = ({ label, value, setValue, caption }: InputProps): React.Reac
 
     const renderCaption = (): React.ReactElement => {
         return (
-            <View style={styles.captionContainer}>
-                {AlertIcon(styles.captionIcon)}
-                <Text style={styles.captionText}>
-                    { caption }
-                </Text>
-            </View>
+            <>
+                {caption && <View style={styles.captionContainer}>
+                    {AlertIcon(styles.captionIcon)}
+                    <Text style={styles.captionText}>
+                        {caption}
+                    </Text>
+                </View>}
+            </>
         );
     };
 
@@ -83,13 +95,15 @@ const styles = StyleSheet.create({
         width: 10,
         height: 10,
         marginRight: 5,
-        color: '#A0A0A0',
+        // color: '#A0A0A0',
+        color: 'red',
     },
     captionText: {
         fontSize: 12,
         fontWeight: '400',
         fontFamily: 'opensans-regular',
-        color: '#A0A0A0',
+        // color: '#A0A0A0',
+        color: 'red',
     },
 });
 
