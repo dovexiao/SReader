@@ -2,11 +2,10 @@ import React from 'react';
 import {StyleSheet, View, Pressable} from 'react-native';
 import { Icon, Input, Text } from '@ui-kitten/components';
 import type {IconElement} from '@ui-kitten/components';
-import { useRegisterStore } from '../../stores/register.store.ts';
+import {usePasswordLoginStore} from '../../stores/passwordLogin.store.ts';
 
 type InputProps = {
     label: string;
-    type: 'REGISTER_PASSWORD' | 'REGISTER_CONFIRM';
 };
 
 const AlertIcon = (props: any): IconElement => (
@@ -18,19 +17,16 @@ const AlertIcon = (props: any): IconElement => (
 );
 
 // 组合使用
-const usePasswordField = (type: InputProps['type']) => {
+const usePasswordField = () => {
     return {
-        value: useRegisterStore(sate =>
-            type === 'REGISTER_PASSWORD' ? sate.password : sate.confirmPassword),
-        setValue: useRegisterStore(sate =>
-            type === 'REGISTER_PASSWORD' ? sate.setPassword : sate.setConfirmPassword),
-        caption: useRegisterStore(sate =>
-            type === 'REGISTER_PASSWORD' ? sate.passwordCaption : sate.confirmPasswordCaption),
+        value: usePasswordLoginStore(sate => sate.password),
+        setValue: usePasswordLoginStore(sate => sate.setPassword),
+        caption: usePasswordLoginStore(sate => sate.passwordCaption),
     };
 };
 
-const SecureInput = ({ label, type}: InputProps): React.ReactElement => {
-    const { value, setValue, caption } = usePasswordField(type);
+const LoginSecureInput = ({ label }: InputProps): React.ReactElement => {
+    const { value, setValue, caption } = usePasswordField();
 
     const [secureTextEntry, setSecureTextEntry] = React.useState(true);
 
@@ -119,4 +115,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default SecureInput;
+export default LoginSecureInput;

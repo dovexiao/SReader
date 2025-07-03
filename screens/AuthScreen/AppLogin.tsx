@@ -10,10 +10,13 @@ import {
     StatusBar,
     ScrollView,
 } from 'react-native';
-import SecureInput from '../../components/AuthComponents/SecureInput.tsx';
 import EmailInput from '../../components/AuthComponents/EmailInput.tsx';
-import {Button, Icon} from '@ui-kitten/components';
-import {NavigationProps} from '../../types/navigationType.ts';
+import { Button, Icon } from '@ui-kitten/components';
+import { NavigationProps } from '../../types/navigationType.ts';
+import LoginSecureInput from '../../components/AuthComponents/LoginSecureInput..tsx';
+import CaptchaInput from '../../components/AuthComponents/CaptchaInput.tsx';
+import { usePasswordLoginStore } from '../../stores/passwordLogin.store.ts';
+import { useVerificationLoginStore } from '../../stores/verificationLogin.store.ts';
 
 const { width } = Dimensions.get('window');
 const PRIMARY_COLOR = '#F09050'; // 主橙色
@@ -21,13 +24,7 @@ const TEXT_COLOR_DARK = '#333333';
 const TEXT_COLOR_LIGHT = '#888888';
 
 const AppLogin: React.FC<NavigationProps> = ({ navigation }) => {
-    const [emailAccount, setEmailAccount] = useState('');
-    const [password, setPassword] = useState('');
-
-    const handleLogin = () => {
-        // 实际登录逻辑
-        Alert.alert('登录信息', `邮箱账号: ${emailAccount}\n密码: ${password}`);
-    };
+    const [loginType, setLoginType] = useState<'PASSWORD' | 'VERIFICATION'>('PASSWORD');
 
     const handleRegister = () => {
         // 跳转到注册页面
@@ -50,38 +47,17 @@ const AppLogin: React.FC<NavigationProps> = ({ navigation }) => {
                         </View>
                     </View>
 
-                    <Text style={styles.title}>用户登录</Text>
+                    <Text style={styles.title}>RTALK</Text>
                     <View style={styles.titleUnderline} />
 
                     <Text style={styles.subtitle}>
-                        登录您的RTalky账号, 开启社交学习新体验
+                        登录您的 RTalk 账号, 开启社交学习新体验
                     </Text>
 
-                    <EmailInput
-                        label={'邮箱账号'}
-                        value={emailAccount}
-                        setValue={setEmailAccount}
-                        caption={'请输入有效邮箱账号'}
-                    />
-
-                    <SecureInput
-                        label={'登录密码'}
-                        value={password}
-                        setValue={setPassword}
-                        caption={'请输入至少8位有效字符-字母/数字'}
-                    />
-
-                    <TouchableOpacity
-                        style={styles.forgotPasswordContainer}
-                        onPress={() => Alert.alert('提示', '跳转到忘记密码页面')}>
-                        <Text style={styles.forgotPasswordText}>忘记密码?</Text>
-                    </TouchableOpacity>
-
-                    <Button
-                        style={styles.loginButton}
-                        onPress={handleLogin}>
-                        <Text style={styles.loginButtonText}>登录</Text>
-                    </Button>
+                    {loginType === 'PASSWORD' ?
+                        <PasswordLoginBox setLoginType={setLoginType} /> :
+                        <VerificationLoginBox setLoginType={setLoginType} />
+                    }
 
                     <View style={styles.registerContainer}>
                         <Text style={styles.registerText}>还没有账号? </Text>
@@ -94,6 +70,84 @@ const AppLogin: React.FC<NavigationProps> = ({ navigation }) => {
                 </View>
             </ScrollView>
         </SafeAreaView>
+    );
+};
+
+type LoginBoxProps = {
+    setLoginType: (type: 'PASSWORD' | 'VERIFICATION') => void;
+};
+
+const PasswordLoginBox = ({ setLoginType }: LoginBoxProps) => {
+    const validateForm = usePasswordLoginStore((state) => state.validateForm);
+    const resetForm = usePasswordLoginStore((state) => state.resetForm);
+
+    const handleLogin = () => {
+        if (validateForm()) {
+            resetForm();
+        }
+    };
+
+    return (
+        <>
+            <EmailInput label={'邮箱账号'} type={'LOGIN_PASSWORD'} />
+
+            <LoginSecureInput label={'登录密码'} />
+
+            <View style={styles.authOptionsContainer}>
+                <TouchableOpacity
+                    onPress={() => {
+                        setLoginType('VERIFICATION');
+                        resetForm();
+                    }}>
+                    <Text style={styles.authOptionText}> 邮箱验证登录</Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                    onPress={() => Alert.alert('提示', '跳转到忘记密码页面')}>
+                    <Text style={styles.forgotPasswordText}>忘记密码?</Text>
+                </TouchableOpacity>
+            </View>
+
+            <Button
+                style={styles.loginButton}
+                onPress={handleLogin}>
+                <Text style={styles.loginButtonText}>登录</Text>
+            </Button>
+        </>
+    );
+};
+
+const VerificationLoginBox = ({ setLoginType }: LoginBoxProps) => {
+    const validateForm = useVerificationLoginStore((state) => state.validateForm);
+    const resetForm = useVerificationLoginStore((state) => state.resetForm);
+
+    const handleLogin = () => {
+        if (validateForm()) {
+            resetForm();
+        }
+    };
+
+    return (
+        <>
+            <EmailInput label={'邮箱账号'} type={'LOGIN_VERIFICATION'} />
+
+            <CaptchaInput label={'邮箱验证码'} type={'LOGIN'} />
+
+            <View style={styles.authOptionsContainer}>
+                <TouchableOpacity
+                    onPress={() => {
+                        setLoginType('PASSWORD');
+                        resetForm();
+                    }}>
+                    <Text style={styles.authOptionText}> 账号密码登录</Text>
+                </TouchableOpacity>
+            </View>
+
+            <Button
+                style={styles.loginButton}
+                onPress={handleLogin}>
+                <Text style={styles.loginButtonText}>登录</Text>
+            </Button>
+        </>
     );
 };
 
@@ -138,10 +192,15 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         marginBottom: 40,
     },
-    forgotPasswordContainer: {
+    authOptionsContainer: {
         width: '100%',
-        alignItems: 'flex-end',
+        flexDirection: 'row',
+        justifyContent: 'space-between',
         marginBottom: 20,
+    },
+    authOptionText: {
+        fontSize: 14,
+        color: PRIMARY_COLOR,
     },
     forgotPasswordText: {
         fontSize: 14,

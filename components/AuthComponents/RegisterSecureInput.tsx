@@ -1,13 +1,12 @@
 import React from 'react';
-import { TouchableWithoutFeedback, StyleSheet, View } from 'react-native';
-import { Icon, IconElement, Input, Text } from '@ui-kitten/components';
+import {StyleSheet, View, Pressable} from 'react-native';
+import { Icon, Input, Text } from '@ui-kitten/components';
+import type {IconElement} from '@ui-kitten/components';
 import { useRegisterStore } from '../../stores/register.store.ts';
-import { usePasswordLoginStore } from '../../stores/passwordLogin.store.ts';
-import { useVerificationLoginStore } from '../../stores/verificationLogin.store.ts';
 
 type InputProps = {
     label: string;
-    type: 'REGISTER' | 'LOGIN_PASSWORD' | 'LOGIN_VERIFICATION';
+    type: 'REGISTER_PASSWORD' | 'REGISTER_CONFIRM';
 };
 
 const AlertIcon = (props: any): IconElement => (
@@ -18,54 +17,36 @@ const AlertIcon = (props: any): IconElement => (
     />
 );
 
-const useEmailAccountField = (type: InputProps['type']) => {
-    const registerValue = useRegisterStore(state => state.emailAccount);
-    const registerSetValue = useRegisterStore(state => state.setEmailAccount);
-    const registerCaption = useRegisterStore(state => state.emailCaption);
-
-    const passwordValue = usePasswordLoginStore(state => state.emailAccount);
-    const passwordSetValue = usePasswordLoginStore(state => state.setEmailAccount);
-    const passwordCaption = usePasswordLoginStore(state => state.emailCaption);
-
-    const verificationValue = useVerificationLoginStore(state => state.emailAccount);
-    const verificationSetValue = useVerificationLoginStore(state => state.setEmailAccount);
-    const verificationCaption = useVerificationLoginStore(state => state.emailCaption);
-
-    if (type === 'REGISTER') {
-        return {
-            value: registerValue,
-            setValue: registerSetValue,
-            caption: registerCaption,
-        };
-    }
-
-    if (type === 'LOGIN_PASSWORD') {
-        return {
-            value: passwordValue,
-            setValue: passwordSetValue,
-            caption: passwordCaption,
-        };
-    }
-
+// 组合使用
+const usePasswordField = (type: InputProps['type']) => {
     return {
-        value: verificationValue,
-        setValue: verificationSetValue,
-        caption: verificationCaption,
+        value: useRegisterStore(sate =>
+            type === 'REGISTER_PASSWORD' ? sate.password : sate.confirmPassword),
+        setValue: useRegisterStore(sate =>
+            type === 'REGISTER_PASSWORD' ? sate.setPassword : sate.setConfirmPassword),
+        caption: useRegisterStore(sate =>
+            type === 'REGISTER_PASSWORD' ? sate.passwordCaption : sate.confirmPasswordCaption),
     };
 };
 
-const EmailInput = ({ label, type }: InputProps): React.ReactElement => {
-    const { value, setValue, caption } = useEmailAccountField(type);
+const RegisterSecureInput = ({ label, type}: InputProps): React.ReactElement => {
+    const { value, setValue, caption } = usePasswordField(type);
+
+    const [secureTextEntry, setSecureTextEntry] = React.useState(true);
+
+    const toggleSecureEntry = (): void => {
+        setSecureTextEntry(!secureTextEntry);
+    };
 
     const renderIcon = (props: any): React.ReactElement => (
-        <TouchableWithoutFeedback>
+        <Pressable onPress={toggleSecureEntry}>
             <Icon
                 {...props}
-                name="email-outline"
+                name={secureTextEntry ? 'eye-off' : 'eye'}
                 width={35}
                 height={35}
             />
-        </TouchableWithoutFeedback>
+        </Pressable>
     );
 
     const renderCaption = (): React.ReactElement => {
@@ -97,7 +78,9 @@ const EmailInput = ({ label, type }: InputProps): React.ReactElement => {
             placeholder={label}
             caption={renderCaption}
             accessoryRight={renderIcon}
+            secureTextEntry={secureTextEntry}
             onChangeText={nextValue => setValue(nextValue)}
+            maxLength={11}
         />
     );
 };
@@ -136,4 +119,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default EmailInput;
+export default RegisterSecureInput;

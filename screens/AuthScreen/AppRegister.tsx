@@ -9,7 +9,7 @@ import {
     StatusBar,
     ScrollView,
 } from 'react-native';
-import SecureInput from '../../components/AuthComponents/SecureInput.tsx';
+import RegisterSecureInput from '../../components/AuthComponents/RegisterSecureInput.tsx';
 import EmailInput from '../../components/AuthComponents/EmailInput.tsx';
 import CaptchaInput from '../../components/AuthComponents/CaptchaInput.tsx';
 import {Button, CheckBox} from '@ui-kitten/components';
@@ -51,9 +51,9 @@ const AppRegister: React.FC<NavigationProps> = ({ navigation }) => {
 
                     <EmailInput label={'邮箱账号'} type={'REGISTER'} />
 
-                    <SecureInput label={'注册密码'} type={'REGISTER_PASSWORD'} />
+                    <RegisterSecureInput label={'注册密码'} type={'REGISTER_PASSWORD'} />
 
-                    <SecureInput label={'确认密码'} type={'REGISTER_CONFIRM'} />
+                    <RegisterSecureInput label={'确认密码'} type={'REGISTER_CONFIRM'} />
 
                     <CaptchaInput label={'邮箱验证码'} type={'REGISTER'} />
 
@@ -99,12 +99,11 @@ const AgreementCheckbox = () => {
 const RegisterButton = ({ navigation }: { navigation: NavigationProps['navigation'] }) => {
     const isChecked = useRegisterStore(state => state.isChecked);
     const validateForm = useRegisterStore(state => state.validateForm);
+    const resetForm = useRegisterStore(state => state.resetForm);
 
     const handleRegister = () => {
         if (validateForm()) {
-            // 处理注册逻辑
-            // 注册成功后导航到登录页面
-            navigation.replace('AppLogin');
+            resetForm();
         }
     };
 

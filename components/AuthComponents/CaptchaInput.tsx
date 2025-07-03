@@ -3,8 +3,8 @@ import { TouchableWithoutFeedback, StyleSheet, View } from 'react-native';
 import { Icon, IconElement, Input, Text } from '@ui-kitten/components';
 import { useGlobal } from '../../hooks/GlobalContext.tsx';
 import { useVerificationStore } from '../../stores/verification.store.ts';
-import { useLoginStore } from '../../stores/login.store.ts';
 import { useRegisterStore } from '../../stores/register.store.ts';
+import { useVerificationLoginStore } from '../../stores/verificationLogin.store.ts';
 
 type InputProps = {
     label: string;
@@ -19,16 +19,24 @@ const AlertIcon = (props: any): IconElement => (
     />
 );
 
-const useEmailAccountField = (type: InputProps['type']) => {
-    const store = type === 'LOGIN' ? useLoginStore : useRegisterStore;
-    const value = store(state => state.emailVerificationCode);
-    const setValue = store(state => state.setEmailVerificationCode);
-    const caption = store(state => state.emailVerificationCodeCaption);
-    return { value, setValue, caption };
+const useVerificationCodeField = (type: InputProps['type']) => {
+    // 同时调用所有Hook确保调用顺序一致
+    const loginValue = useVerificationLoginStore(state => state.emailVerificationCode);
+    const loginSetValue = useVerificationLoginStore(state => state.setEmailVerificationCode);
+    const loginCaption = useVerificationLoginStore(state => state.emailVerificationCodeCaption);
+
+    const registerValue = useRegisterStore(state => state.emailVerificationCode);
+    const registerSetValue = useRegisterStore(state => state.setEmailVerificationCode);
+    const registerCaption = useRegisterStore(state => state.emailVerificationCodeCaption);
+
+    // 根据type选择返回值
+    return type === 'LOGIN'
+        ? { value: loginValue, setValue: loginSetValue, caption: loginCaption }
+        : { value: registerValue, setValue: registerSetValue, caption: registerCaption };
 };
 
 const CaptchaInput = ({ label, type }: InputProps): React.ReactElement => {
-    const { value, setValue, caption } = useEmailAccountField(type);
+    const { value, setValue, caption } = useVerificationCodeField(type);
 
     const [countdown, setCountdown] = useState<string>('获取验证码');
     const timerRef = useRef<NodeJS.Timeout | null>(null);
