@@ -2,12 +2,11 @@ import React from 'react';
 import { TouchableWithoutFeedback, StyleSheet, View } from 'react-native';
 import { Icon, IconElement, Input, Text } from '@ui-kitten/components';
 import { useRegisterStore } from '../../stores/register.store.ts';
-import { usePasswordLoginStore } from '../../stores/passwordLogin.store.ts';
-import { useVerificationLoginStore } from '../../stores/verificationLogin.store.ts';
+import { useLoginStore } from '../../stores/Login.store.ts';
 
 type InputProps = {
     label: string;
-    type: 'REGISTER' | 'LOGIN_PASSWORD' | 'LOGIN_VERIFICATION';
+    type: 'REGISTER' | 'LOGIN';
 };
 
 const AlertIcon = (props: any): IconElement => (
@@ -19,39 +18,11 @@ const AlertIcon = (props: any): IconElement => (
 );
 
 const useEmailAccountField = (type: InputProps['type']) => {
-    const registerValue = useRegisterStore(state => state.emailAccount);
-    const registerSetValue = useRegisterStore(state => state.setEmailAccount);
-    const registerCaption = useRegisterStore(state => state.emailCaption);
-
-    const passwordValue = usePasswordLoginStore(state => state.emailAccount);
-    const passwordSetValue = usePasswordLoginStore(state => state.setEmailAccount);
-    const passwordCaption = usePasswordLoginStore(state => state.emailCaption);
-
-    const verificationValue = useVerificationLoginStore(state => state.emailAccount);
-    const verificationSetValue = useVerificationLoginStore(state => state.setEmailAccount);
-    const verificationCaption = useVerificationLoginStore(state => state.emailCaption);
-
-    if (type === 'REGISTER') {
-        return {
-            value: registerValue,
-            setValue: registerSetValue,
-            caption: registerCaption,
-        };
-    }
-
-    if (type === 'LOGIN_PASSWORD') {
-        return {
-            value: passwordValue,
-            setValue: passwordSetValue,
-            caption: passwordCaption,
-        };
-    }
-
-    return {
-        value: verificationValue,
-        setValue: verificationSetValue,
-        caption: verificationCaption,
-    };
+    const store = type === 'LOGIN' ? useLoginStore : useRegisterStore;
+    const value = store(state => state.emailAccount);
+    const setValue = store(state => state.setEmailAccount);
+    const caption = store(state => state.emailCaption);
+    return { value, setValue, caption };
 };
 
 const EmailInput = ({ label, type }: InputProps): React.ReactElement => {

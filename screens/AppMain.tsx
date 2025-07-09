@@ -11,7 +11,7 @@ import BottomTabPageView from '../components/MainComponents/BottomTabPageView.ts
 import ChatMain from './ChatScreen';
 import LearnMain from './LearnScreen';
 import SocializeMain from './SocializeScreen';
-import {Divider} from '@ui-kitten/components';
+import { Divider } from '@ui-kitten/components';
 
 const tabs = [
     { key: 'CHAT_SPACE', icon: 'android-messages', label: '聊天', screen: ChatMain },

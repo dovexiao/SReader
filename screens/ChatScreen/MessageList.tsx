@@ -2,7 +2,7 @@ import React from 'react';
 import {FlatList, Image, Pressable, StyleSheet, View} from 'react-native';
 import RandomAvatar from '../../components/MainComponents/RandomAvatar.tsx';
 import { Text } from '@ui-kitten/components';
-import {formatTimestamp} from '../../components/MainComponents/formatTimestamp.ts';
+import {formatTime} from '../../utils/formatTime.ts';
 
 export interface ChatSpaceType {
     spaceId: string,
@@ -97,7 +97,7 @@ const MessageList: React.FC<MessageListProps> = ({ navigation }) => {
                 <View style={styles.contactInfo}>
                     <View style={styles.nameContainer}>
                         <Text style={styles.name} numberOfLines={1}>{item.name}</Text>
-                        <Text style={styles.time}>{formatTimestamp(item.timestamp, { relative: true })}</Text>
+                        <Text style={styles.time}>{formatTime(item.timestamp, { format: 'relative' })}</Text>
                     </View>
                     {/*<Text style={styles.introduction} numberOfLines={1}>{item.introduction}</Text>*/}
                     <Text style={styles.message} numberOfLines={1}>{item.latestMessage}</Text>

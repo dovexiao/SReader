@@ -10,13 +10,10 @@ import {
     StatusBar,
     ScrollView,
 } from 'react-native';
-import EmailInput from '../../components/AuthComponents/EmailInput.tsx';
 import { Button, Icon } from '@ui-kitten/components';
 import { NavigationProps } from '../../types/navigationType.ts';
+import EmailInput from '../../components/AuthComponents/EmailInput.tsx';
 import LoginSecureInput from '../../components/AuthComponents/LoginSecureInput..tsx';
-import CaptchaInput from '../../components/AuthComponents/CaptchaInput.tsx';
-import { usePasswordLoginStore } from '../../stores/passwordLogin.store.ts';
-import { useVerificationLoginStore } from '../../stores/verificationLogin.store.ts';
 
 const { width } = Dimensions.get('window');
 const PRIMARY_COLOR = '#F09050'; // 主橙色
@@ -24,7 +21,9 @@ const TEXT_COLOR_DARK = '#333333';
 const TEXT_COLOR_LIGHT = '#888888';
 
 const AppLogin: React.FC<NavigationProps> = ({ navigation }) => {
-    const [loginType, setLoginType] = useState<'PASSWORD' | 'VERIFICATION'>('PASSWORD');
+    const handleLogin = () => {
+
+    };
 
     const handleRegister = () => {
         // 跳转到注册页面
@@ -47,17 +46,34 @@ const AppLogin: React.FC<NavigationProps> = ({ navigation }) => {
                         </View>
                     </View>
 
-                    <Text style={styles.title}>RTALK</Text>
+                    <Text style={styles.title}>密码登录</Text>
                     <View style={styles.titleUnderline} />
 
                     <Text style={styles.subtitle}>
-                        登录您的 RTalk 账号, 开启社交学习新体验
+                        登录您的RTalky账号, 开启社交学习新体验
                     </Text>
 
-                    {loginType === 'PASSWORD' ?
-                        <PasswordLoginBox setLoginType={setLoginType} /> :
-                        <VerificationLoginBox setLoginType={setLoginType} />
-                    }
+                    <EmailInput label={'邮箱账号'} type={'LOGIN'} />
+
+                    <LoginSecureInput label={'登录密码'} />
+
+                    <View style={styles.forgotPasswordContainer}>
+                        <TouchableOpacity
+                            onPress={() => Alert.alert('提示', '跳转到邮箱验证码登录页面')}>
+                            <Text style={styles.forgotPasswordText}>邮箱验证码登录</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity
+                            onPress={() => Alert.alert('提示', '跳转到忘记密码页面')}>
+                            <Text style={styles.forgotPasswordText}>忘记密码?</Text>
+                        </TouchableOpacity>
+                    </View>
+
+
+                    <Button
+                        style={styles.loginButton}
+                        onPress={handleLogin}>
+                        <Text style={styles.loginButtonText}>登录</Text>
+                    </Button>
 
                     <View style={styles.registerContainer}>
                         <Text style={styles.registerText}>还没有账号? </Text>
@@ -70,84 +86,6 @@ const AppLogin: React.FC<NavigationProps> = ({ navigation }) => {
                 </View>
             </ScrollView>
         </SafeAreaView>
-    );
-};
-
-type LoginBoxProps = {
-    setLoginType: (type: 'PASSWORD' | 'VERIFICATION') => void;
-};
-
-const PasswordLoginBox = ({ setLoginType }: LoginBoxProps) => {
-    const validateForm = usePasswordLoginStore((state) => state.validateForm);
-    const resetForm = usePasswordLoginStore((state) => state.resetForm);
-
-    const handleLogin = () => {
-        if (validateForm()) {
-            resetForm();
-        }
-    };
-
-    return (
-        <>
-            <EmailInput label={'邮箱账号'} type={'LOGIN_PASSWORD'} />
-
-            <LoginSecureInput label={'登录密码'} />
-
-            <View style={styles.authOptionsContainer}>
-                <TouchableOpacity
-                    onPress={() => {
-                        setLoginType('VERIFICATION');
-                        resetForm();
-                    }}>
-                    <Text style={styles.authOptionText}> 邮箱验证登录</Text>
-                </TouchableOpacity>
-                <TouchableOpacity
-                    onPress={() => Alert.alert('提示', '跳转到忘记密码页面')}>
-                    <Text style={styles.forgotPasswordText}>忘记密码?</Text>
-                </TouchableOpacity>
-            </View>
-
-            <Button
-                style={styles.loginButton}
-                onPress={handleLogin}>
-                <Text style={styles.loginButtonText}>登录</Text>
-            </Button>
-        </>
-    );
-};
-
-const VerificationLoginBox = ({ setLoginType }: LoginBoxProps) => {
-    const validateForm = useVerificationLoginStore((state) => state.validateForm);
-    const resetForm = useVerificationLoginStore((state) => state.resetForm);
-
-    const handleLogin = () => {
-        if (validateForm()) {
-            resetForm();
-        }
-    };
-
-    return (
-        <>
-            <EmailInput label={'邮箱账号'} type={'LOGIN_VERIFICATION'} />
-
-            <CaptchaInput label={'邮箱验证码'} type={'LOGIN'} />
-
-            <View style={styles.authOptionsContainer}>
-                <TouchableOpacity
-                    onPress={() => {
-                        setLoginType('PASSWORD');
-                        resetForm();
-                    }}>
-                    <Text style={styles.authOptionText}> 账号密码登录</Text>
-                </TouchableOpacity>
-            </View>
-
-            <Button
-                style={styles.loginButton}
-                onPress={handleLogin}>
-                <Text style={styles.loginButtonText}>登录</Text>
-            </Button>
-        </>
     );
 };
 
@@ -192,15 +130,11 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         marginBottom: 40,
     },
-    authOptionsContainer: {
+    forgotPasswordContainer: {
         width: '100%',
         flexDirection: 'row',
         justifyContent: 'space-between',
         marginBottom: 20,
-    },
-    authOptionText: {
-        fontSize: 14,
-        color: PRIMARY_COLOR,
     },
     forgotPasswordText: {
         fontSize: 14,
