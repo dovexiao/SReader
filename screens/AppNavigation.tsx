@@ -7,22 +7,30 @@ import AppRegister from './AuthScreen/AppRegister.tsx';
 import AppMain from './AppMain.tsx';
 import PersonCenter from './PersonScreen';
 import TestPage from './TestPage.tsx';
+import QuestionBank from './LearnScreen/QuestionBank.tsx';
+import QuestionDetail from './LearnScreen/QuestionDetail.tsx';
+import OpeQuestion from './LearnScreen/OpeQuestion.tsx';
+import CreateQuestionTag from './LearnScreen/CreateQuestionTag.tsx';
 
 const { Navigator, Screen } = createNativeStackNavigator();
 
 const HomeNavigator = () => (
-    <Navigator initialRouteName="AppMain" screenOptions={{headerShown: false}}>
+    <Navigator initialRouteName="QuestionBank" screenOptions={{headerShown: false}}>
         <Screen name="AppStart" component={AppStart} />
         <Screen name="AppLogin" component={AppLogin} />
         <Screen name="AppRegister" component={AppRegister} />
         <Screen name="AppMain" component={AppMain} />
         <Screen name="PersonCenter" component={PersonCenter} />
         <Screen name="TestPage" component={TestPage} />
+        <Screen name="QuestionBank" component={QuestionBank} />
+        <Screen name="QuestionDetail" component={QuestionDetail} initialParams={{ id: null }}/>
+        <Screen name="OpeQuestion" component={OpeQuestion} initialParams={{ type: null }} />
+        <Screen name="CreateQuestionTag" component={CreateQuestionTag} initialParams={{ question: null }}/>
     </Navigator>
 );
 
 export const AppStackNavigator = () => (
     <NavigationContainer>
-        <HomeNavigator/>
+        <HomeNavigator />
     </NavigationContainer>
 );

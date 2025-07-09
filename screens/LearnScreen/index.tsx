@@ -50,7 +50,7 @@ const LearnMain: React.FC<ChatMainProps> = ({ navigation }) => {
             icon: 'file-text-outline',
             backgroundColor: '#E55A2B',
             countColor: '#FFF3E0',
-            countTextColor: '#E55A2B'
+            countTextColor: '#E55A2B',
         },
         {
             id: '2',
@@ -61,7 +61,7 @@ const LearnMain: React.FC<ChatMainProps> = ({ navigation }) => {
             icon: 'book-open-outline',
             backgroundColor: '#4F7CFF',
             countColor: '#E3EDFF',
-            countTextColor: '#4F7CFF'
+            countTextColor: '#4F7CFF',
         },
         {
             id: '3',
@@ -72,8 +72,8 @@ const LearnMain: React.FC<ChatMainProps> = ({ navigation }) => {
             icon: 'headphones-outline',
             backgroundColor: '#4CAF50',
             countColor: '#E8F5E8',
-            countTextColor: '#4CAF50'
-        }
+            countTextColor: '#4CAF50',
+        },
     ];
 
     const recentActivities: RecentActivity[] = [
@@ -170,7 +170,6 @@ const LearnMain: React.FC<ChatMainProps> = ({ navigation }) => {
             <StatusBar barStyle="dark-content" backgroundColor="#FFFFFF" />
 
             <ScrollView>
-                {/* 使用数组map渲染学习模块 */}
                 <View style={styles.modulesContainer}>
                     {studyModules.map((item, index) => renderStudyModule(item, index))}
                 </View>
@@ -200,7 +199,6 @@ const LearnMain: React.FC<ChatMainProps> = ({ navigation }) => {
                         </View>
                     </View>
 
-                    {/* 使用数组map渲染最近活动 */}
                     <View style={styles.activitiesList}>
                         {recentActivities.map((item, index) => renderActivity(item, index))}
                     </View>
