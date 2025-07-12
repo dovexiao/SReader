@@ -9,9 +9,9 @@ import {
 import { NavigationProps } from '../../types/navigationType.ts';
 import { Divider, Text, TopNavigationAction } from '@ui-kitten/components';
 import * as CommonIcon from '../../components/Icon';
-import QuestionCard from '../../components/LearnComponents/question/QuestionCard.tsx';
+import QuestionCard from '../../components/Learn/question/QuestionCard.tsx';
 // import { useGlobal } from '../../hooks/GlobalContext.tsx';
-import TopNavigationOpe from '../../components/MainComponents/TopNavigationOpe.tsx';
+import TopNavigationOpe from '../../components/Main/TopNavigationOpe.tsx';
 import {Question, useQuestionStore} from '../../stores/question.store.ts';
 import {useOpeQuestionStore} from '../../stores/opeQuestion.store.ts';
 
@@ -74,14 +74,14 @@ const QuestionBank: React.FC<NavigationProps> = ({ navigation }) => {
         <SafeAreaView style={styles.safeArea}>
             <StatusBar barStyle="dark-content" backgroundColor={'#ffffff'} />
             <TopNavigationOpe
-                title={'学研题库'}
+                title={'题目库'}
                 navigation={navigation}
                 renderItemAccessory={renderItemAccessory}
             />
             <Divider />
             <View style={styles.container}>
                 <View style={styles.header}>
-                    <Text>筛选机制[题目类型/题目标签/]在此后续添加</Text>
+                    <Text>筛选机制[题目类型/题目内容/题目标签]在此添加</Text>
                     {/*<View style={{ flex: 1 }}>*/}
                     {/*    <Input*/}
                     {/*        value={search}*/}

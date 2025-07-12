@@ -8,16 +8,16 @@ import {
 } from 'react-native';
 import { NavigationProps } from '../../types/navigationType.ts';
 import { Button, Divider } from '@ui-kitten/components';
-import TopNavigationOpe from '../../components/MainComponents/TopNavigationOpe.tsx';
-import QuestionTypeSelector from '../../components/LearnComponents/question/QuestionTypeSelector.tsx';
-import QuestionContentEditor from '../../components/LearnComponents/question/QuestionContentEditor.tsx';
-import MultipleChoiceEditor from '../../components/LearnComponents/question/MultipleChoiceEditor.tsx';
-import FillInBlankEditor from '../../components/LearnComponents/question/FillInBlankEditor.tsx';
-import JudgementEditor from '../../components/LearnComponents/question/JudgementEditor.tsx';
-import ShortAnswerEditor from '../../components/LearnComponents/question/ShortAnswerEditor.tsx';
-import AnalysisEditor from '../../components/LearnComponents/question/AnalysisEditor.tsx';
-import QuestionTypeDisplay from '../../components/LearnComponents/question/QuestionTypeDisplay.tsx';
-import TagsEditor from '../../components/LearnComponents/question/TagsEditor.tsx';
+import TopNavigationOpe from '../../components/Main/TopNavigationOpe.tsx';
+import QuestionTypeSelector from '../../components/Learn/question/QuestionTypeSelector.tsx';
+import QuestionContentEditor from '../../components/Learn/question/QuestionContentEditor.tsx';
+import MultipleChoiceEditor from '../../components/Learn/question/MultipleChoiceEditor.tsx';
+import FillInBlankEditor from '../../components/Learn/question/FillInBlankEditor.tsx';
+import JudgementEditor from '../../components/Learn/question/JudgementEditor.tsx';
+import ShortAnswerEditor from '../../components/Learn/question/ShortAnswerEditor.tsx';
+import AnalysisEditor from '../../components/Learn/question/AnalysisEditor.tsx';
+import QuestionTypeDisplay from '../../components/Learn/question/QuestionTypeDisplay.tsx';
+import TagsEditor from '../../components/Learn/question/TagsEditor.tsx';
 import { useOpeQuestionStore } from '../../stores/opeQuestion.store.ts';
 import { useQuestionStore } from '../../stores/question.store.ts';
 

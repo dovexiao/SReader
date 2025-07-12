@@ -8,7 +8,7 @@ import {
 } from 'react-native';
 import { NavigationProps } from '../../types/navigationType.ts';
 import { Button, Divider, Icon, Input } from '@ui-kitten/components';
-import TopNavigationOpe from '../../components/MainComponents/TopNavigationOpe.tsx';
+import TopNavigationOpe from '../../components/Main/TopNavigationOpe.tsx';
 import { useOpeQuestionStore } from '../../stores/opeQuestion.store.ts';
 import { useQuestionStore } from '../../stores/question.store.ts';
 

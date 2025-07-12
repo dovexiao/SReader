@@ -6,7 +6,7 @@ import {
     TouchableOpacity,
     StyleSheet,
     StatusBar,
-    ScrollView
+    ScrollView,
 } from'react-native';
 
 // 定义学习模块类型

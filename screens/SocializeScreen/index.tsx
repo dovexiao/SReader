@@ -6,7 +6,7 @@ import {
 } from 'react-native';
 import {NavigationProps} from '../../types/navigationType.ts';
 import {Icon} from '@ui-kitten/components';
-import RandomAvatar from '../../components/MainComponents/RandomAvatar.tsx';
+import RandomAvatar from '../../components/Main/RandomAvatar.tsx';
 import LinearGradient from 'react-native-linear-gradient';
 
 const SocializeMain: React.FC<NavigationProps> = ({ navigation }) => {

@@ -3,6 +3,7 @@ import {View, Text, StyleSheet, Pressable} from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { Question } from '../../../stores/question.store.ts';
+import { getTagColor } from "../../../utils/getTagColor.ts";
 
 type RootStackParamList = {
     QuestionDetail: { id: string };
@@ -46,23 +47,6 @@ const QuestionCard: React.FC<QuestionCardProps> = ({ question }) => {
             </View>
         </Pressable>
     );
-};
-
-// 根据标签内容或索引返回不同的颜色
-const getTagColor = () => {
-    const colors = [
-        '#E8F5E9',
-        '#E3F2FD',
-        '#E8F5E9',
-        '#FFF8E1',
-        '#FFF8E1',
-        '#F3E5F5',
-        '#E0F7FA',
-        '#E0F7FA',
-        '#FFEBEE',
-    ];
-
-    return colors[Math.floor(Math.random() * colors.length) % 9];
 };
 
 const styles = StyleSheet.create({

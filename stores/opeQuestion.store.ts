@@ -1,4 +1,5 @@
 import { create } from 'zustand';
+import { Question } from "./question.store.ts";
 
 export type QuestionType = '单选题' | '多选题' | '填空题' | '判断题' | '简答题';
 
@@ -13,7 +14,7 @@ type Blank = {
     text: string;
 };
 
-interface OpeQuestionState {
+interface OpeQuestionStore {
     questionId: string;
     questionType: QuestionType;
     questionContent: string;
@@ -26,7 +27,7 @@ interface OpeQuestionState {
     isOpeDisabled: boolean;
 
     // 初始化方法
-    initialize: (question: any) => void;
+    initialize: (question?: Question) => void;
 
     // 状态更新方法
     setQuestionType: (type: QuestionType) => void;
@@ -59,7 +60,7 @@ interface OpeQuestionState {
     reset: () => void;
 }
 
-export const useOpeQuestionStore = create<OpeQuestionState>((set, get) => ({
+export const useOpeQuestionStore = create<OpeQuestionStore>((set, get) => ({
     questionId: '',
     questionType: '单选题',
     questionContent: '',
@@ -145,7 +146,7 @@ export const useOpeQuestionStore = create<OpeQuestionState>((set, get) => ({
         }
 
         // 重置相关状态
-        const resetState: Partial<OpeQuestionState> = {
+        const resetState: Partial<OpeQuestionStore> = {
             questionContent: '',
             questionAnalysis: '',
         };

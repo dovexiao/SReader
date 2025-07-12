@@ -3,7 +3,7 @@ import {
     StyleSheet,
     View,
 } from 'react-native';
-import TopTabColumnView from '../../components/MainComponents/TopTabColumnView.tsx';
+import TopTabColumnView from '../../components/Main/TopTabColumnView.tsx';
 import MessageList from './MessageList.tsx';
 import FriendList from './FriendList.tsx';
 

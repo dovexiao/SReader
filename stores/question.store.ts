@@ -38,11 +38,11 @@ export const useQuestionStore = create<QuestionStore>((set, get) => ({
 const generateQuestionId = (questionId: string) => {
     const match = questionId.match(/^Q(\d+)$/);
     if (!match) {
-        return 'Q-1';
+        return 'Q001';
     }
 
     let numberPart = parseInt(match[1], 10) + 1;
-    const paddedNumber = numberPart.toString().padStart(4, '0');
+    const paddedNumber = numberPart.toString().padStart(3, '0');
     return `Q${paddedNumber}`;
 };
 

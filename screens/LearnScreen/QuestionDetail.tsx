@@ -8,27 +8,12 @@ import {
 } from 'react-native';
 import { NavigationProps } from '../../types/navigationType.ts';
 import { Button, CheckBox, Divider, Radio, RadioGroup, TopNavigationAction } from '@ui-kitten/components';
-import TopNavigationOpe from '../../components/MainComponents/TopNavigationOpe.tsx';
+import TopNavigationOpe from '../../components/Main/TopNavigationOpe.tsx';
 import { EditIcon } from '../../components/Icon';
 import { useQuestionStore } from '../../stores/question.store.ts';
 import { useOpeQuestionStore } from '../../stores/opeQuestion.store.ts';
 import { formatTime } from '../../utils/formatTime.ts';
-
-const getTagColor = () => {
-    const colors = [
-        '#E8F5E9',
-        '#E3F2FD',
-        '#E8F5E9',
-        '#FFF8E1',
-        '#FFF8E1',
-        '#F3E5F5',
-        '#E0F7FA',
-        '#E0F7FA',
-        '#FFEBEE',
-    ];
-
-    return colors[Math.floor(Math.random() * colors.length) % 9];
-};
+import { getTagColor } from '../../utils/getTagColor.ts';
 
 const QuestionDetail: React.FC<NavigationProps> = ({ navigation, route }) => {
     const questionId = route.params?.id;
