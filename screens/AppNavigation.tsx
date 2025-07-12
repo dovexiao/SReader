@@ -11,11 +11,14 @@ import QuestionBank from './LearnScreen/QuestionBank.tsx';
 import QuestionDetail from './LearnScreen/QuestionDetail.tsx';
 import OpeQuestion from './LearnScreen/OpeQuestion.tsx';
 import CreateQuestionTag from './LearnScreen/CreateQuestionTag.tsx';
+import NoteLibrary from './LearnScreen/NoteLibrary.tsx';
+import NoteDetail from './LearnScreen/NoteDetail.tsx';
+import OpeNote from './LearnScreen/opeNote.tsx';
 
 const { Navigator, Screen } = createNativeStackNavigator();
 
 const HomeNavigator = () => (
-    <Navigator initialRouteName="QuestionBank" screenOptions={{headerShown: false}}>
+    <Navigator initialRouteName="NoteLibrary" screenOptions={{headerShown: false}}>
         <Screen name="AppStart" component={AppStart} />
         <Screen name="AppLogin" component={AppLogin} />
         <Screen name="AppRegister" component={AppRegister} />
@@ -23,9 +26,12 @@ const HomeNavigator = () => (
         <Screen name="PersonCenter" component={PersonCenter} />
         <Screen name="TestPage" component={TestPage} />
         <Screen name="QuestionBank" component={QuestionBank} />
-        <Screen name="QuestionDetail" component={QuestionDetail} initialParams={{ id: null }}/>
+        <Screen name="QuestionDetail" component={QuestionDetail} initialParams={{ id: null }} />
         <Screen name="OpeQuestion" component={OpeQuestion} initialParams={{ type: null }} />
-        <Screen name="CreateQuestionTag" component={CreateQuestionTag} initialParams={{ question: null }}/>
+        <Screen name="CreateQuestionTag" component={CreateQuestionTag} initialParams={{ question: null }} />
+        <Screen name="NoteLibrary" component={NoteLibrary} />
+        <Screen name="NoteDetail" component={NoteDetail} initialParams={{ id: null }} />
+        <Screen name="OpeNote" component={OpeNote} />
     </Navigator>
 );
 
