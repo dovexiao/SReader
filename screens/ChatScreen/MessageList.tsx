@@ -1,6 +1,6 @@
 import React from 'react';
 import {FlatList, Image, Pressable, StyleSheet, View} from 'react-native';
-import RandomAvatar from '../../components/MainComponents/RandomAvatar.tsx';
+import RandomAvatar from '../../components/Main/RandomAvatar.tsx';
 import { Text } from '@ui-kitten/components';
 import {formatTime} from '../../utils/formatTime.ts';
 
