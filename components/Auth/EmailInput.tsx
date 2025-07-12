@@ -2,7 +2,7 @@ import React from 'react';
 import { TouchableWithoutFeedback, StyleSheet, View } from 'react-native';
 import { Icon, IconElement, Input, Text } from '@ui-kitten/components';
 import { useRegisterStore } from '../../stores/register.store.ts';
-import { useLoginStore } from '../../stores/Login.store.ts';
+import { useLoginStore } from '../../stores/login.store.ts';
 
 type InputProps = {
     label: string;
