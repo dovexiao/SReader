@@ -12,8 +12,8 @@ import {
 } from 'react-native';
 import { Button, Icon } from '@ui-kitten/components';
 import { NavigationProps } from '../../types/navigationType.ts';
-import EmailInput from '../../components/AuthComponents/EmailInput.tsx';
-import LoginSecureInput from '../../components/AuthComponents/LoginSecureInput..tsx';
+import EmailInput from '../../components/Auth/EmailInput.tsx';
+import LoginSecureInput from '../../components/Auth/LoginSecureInput..tsx';
 
 const { width } = Dimensions.get('window');
 const PRIMARY_COLOR = '#F09050'; // 主橙色

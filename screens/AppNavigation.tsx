@@ -14,11 +14,12 @@ import CreateQuestionTag from './LearnScreen/CreateQuestionTag.tsx';
 import NoteLibrary from './LearnScreen/NoteLibrary.tsx';
 import NoteDetail from './LearnScreen/NoteDetail.tsx';
 import OpeNote from './LearnScreen/opeNote.tsx';
+import CreatePost from './SocializeScreen/CreatePost.tsx';
 
 const { Navigator, Screen } = createNativeStackNavigator();
 
 const HomeNavigator = () => (
-    <Navigator initialRouteName="NoteLibrary" screenOptions={{headerShown: false}}>
+    <Navigator initialRouteName="AppMain" screenOptions={{headerShown: false}}>
         <Screen name="AppStart" component={AppStart} />
         <Screen name="AppLogin" component={AppLogin} />
         <Screen name="AppRegister" component={AppRegister} />
@@ -32,6 +33,7 @@ const HomeNavigator = () => (
         <Screen name="NoteLibrary" component={NoteLibrary} />
         <Screen name="NoteDetail" component={NoteDetail} initialParams={{ id: null }} />
         <Screen name="OpeNote" component={OpeNote} />
+        <Screen name="CreatePost" component={CreatePost} />
     </Navigator>
 );
 

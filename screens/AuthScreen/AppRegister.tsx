@@ -9,9 +9,9 @@ import {
     StatusBar,
     ScrollView,
 } from 'react-native';
-import RegisterSecureInput from '../../components/AuthComponents/RegisterSecureInput.tsx';
-import EmailInput from '../../components/AuthComponents/EmailInput.tsx';
-import CaptchaInput from '../../components/AuthComponents/CaptchaInput.tsx';
+import RegisterSecureInput from '../../components/Auth/RegisterSecureInput.tsx';
+import EmailInput from '../../components/Auth/EmailInput.tsx';
+import CaptchaInput from '../../components/Auth/CaptchaInput.tsx';
 import {Button, CheckBox} from '@ui-kitten/components';
 import {NavigationProps} from '../../types/navigationType.ts';
 import { useRegisterStore } from '../../stores/register.store.ts';
