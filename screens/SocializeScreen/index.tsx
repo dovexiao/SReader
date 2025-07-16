@@ -1,11 +1,16 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import {
     FlatList,
-    Image, Pressable, ScrollView, StyleSheet,
-    Text, TextInput, TouchableOpacity, View,
+    Image,
+    Pressable,
+    ScrollView,
+    StyleSheet,
+    Text,
+    TouchableOpacity,
+    View,
 } from 'react-native';
-import {NavigationProps} from '../../types/navigationType.ts';
-import {Icon} from '@ui-kitten/components';
+import { NavigationProps } from '../../types/navigationType.ts';
+import { Icon } from '@ui-kitten/components';
 import RandomAvatar from '../../components/Main/RandomAvatar.tsx';
 import LinearGradient from 'react-native-linear-gradient';
 
@@ -13,7 +18,7 @@ const SocializeMain: React.FC<NavigationProps> = ({ navigation }) => {
     const [isFilled, setIsFilled] = useState(false);
     const [selectedType, setSelectedType] = useState('All');
     const [selectedCategory, setSelectedCategory] = useState('Programming');
-    const [searchText, setSearchText] = useState('');
+    // const [searchText, setSearchText] = useState('');
 
     const typeFilters = ['全部', '笔记', '题目', '录音', '帖子'];
     const categoryFilters = ['全部', '编程', '科学', '艺术'];
@@ -157,18 +162,18 @@ const SocializeMain: React.FC<NavigationProps> = ({ navigation }) => {
                 style={styles.gradientBackground}
             >
                 <View style={styles.header}>
-                    <View style={styles.searchContainer}>
-                        <TextInput
-                            style={styles.searchInput}
-                            placeholder="搜索学习资源"
-                            placeholderTextColor="#999"
-                            value={searchText}
-                            onChangeText={setSearchText}
-                        />
-                        <TouchableOpacity style={styles.historyButton}>
-                            <Text style={styles.historyText}>历史记录</Text>
-                        </TouchableOpacity>
-                    </View>
+                    {/*<View style={styles.searchContainer}>*/}
+                    {/*    <TextInput*/}
+                    {/*        style={styles.searchInput}*/}
+                    {/*        placeholder="搜索学习资源"*/}
+                    {/*        placeholderTextColor="#999"*/}
+                    {/*        value={searchText}*/}
+                    {/*        onChangeText={setSearchText}*/}
+                    {/*    />*/}
+                    {/*    <TouchableOpacity style={styles.historyButton}>*/}
+                    {/*        <Text style={styles.historyText}>历史记录</Text>*/}
+                    {/*    </TouchableOpacity>*/}
+                    {/*</View>*/}
 
                     <View style={styles.statsContainer}>
                         <Pressable style={styles.statsButton} onPress={() => setIsFilled(!isFilled)}>
@@ -260,9 +265,9 @@ const SocializeMain: React.FC<NavigationProps> = ({ navigation }) => {
                             {/*<Text style={styles.heartIcon}>💖</Text>*/}
                             <Text style={styles.recommendedText}>推荐学习</Text>
                         </View>
-                        <TouchableOpacity>
-                            <Text style={styles.moreText}>更多 ›</Text>
-                        </TouchableOpacity>
+                        {/*<TouchableOpacity>*/}
+                        {/*    <Text style={styles.moreText}>更多 ›</Text>*/}
+                        {/*</TouchableOpacity>*/}
                     </View>
 
                     <FlatList
@@ -277,7 +282,7 @@ const SocializeMain: React.FC<NavigationProps> = ({ navigation }) => {
 
                     <TouchableOpacity style={styles.addButton}>
                         {/*<Plus color="#666" size={20} />*/}
-                        <Text style={styles.addButtonText}>换一批</Text>
+                        <Text style={styles.addButtonText}>发帖</Text>
                     </TouchableOpacity>
                 </View>
             </LinearGradient>
@@ -581,11 +586,17 @@ const styles = StyleSheet.create({
         // alignSelf: 'center',
         transform: [{ translateX: -30 }],
         flexDirection: 'row',
+        justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: 'rgba(255, 244, 238, 0.9)',
+        backgroundColor: 'rgba(255, 255, 255, 0.9)',
         paddingHorizontal: 20,
         paddingVertical: 12,
         borderRadius: 25,
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 1 },
+        shadowOpacity: 0.22,
+        shadowRadius: 2.22,
+        elevation: 3,
         // borderWidth: 1,
         // borderColor: '#E0E0E0',
     },
