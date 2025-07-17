@@ -25,7 +25,6 @@ const HomeNavigator = () => (
         <Screen name="AppRegister" component={AppRegister} />
         <Screen name="AppMain" component={AppMain} />
         <Screen name="PersonCenter" component={PersonCenter} />
-        <Screen name="TestPage" component={TestPage} />
         <Screen name="QuestionBank" component={QuestionBank} />
         <Screen name="QuestionDetail" component={QuestionDetail} initialParams={{ id: null }} />
         <Screen name="OpeQuestion" component={OpeQuestion} initialParams={{ type: null }} />
@@ -33,7 +32,8 @@ const HomeNavigator = () => (
         <Screen name="NoteLibrary" component={NoteLibrary} />
         <Screen name="NoteDetail" component={NoteDetail} initialParams={{ id: null }} />
         <Screen name="OpeNote" component={OpeNote} />
-        <Screen name="CreatePost" component={CreatePost} />
+        <Screen name="TestPage" component={TestPage} />
+        {/*<Screen name="CreatePost" component={CreatePost} />*/}
     </Navigator>
 );
 

@@ -24,18 +24,17 @@ const AppMain: React.FC<NavigationProps> = ({ navigation }) => {
         <SafeAreaView style={styles.safeArea}>
             <StatusBar barStyle="dark-content" backgroundColor={'#ffffff'} />
             <View style={{ flex: 1, position: 'relative' }}>
-                <TopAvatarColumn
-                    navigation={navigation}
-                />
+                <TopAvatarColumn />
                 <Divider/>
-                <BottomTabPageView tabs={tabs.map(tab => ({ icon: tab.icon, label: tab.label }))}>
-                    {tabs.map(tab => (
-                        <tab.screen
-                            key={tab.key}
-                            navigation={navigation}
-                        />
-                    ))}
-                </BottomTabPageView>
+                <LearnMain navigation={navigation} />
+                {/*<BottomTabPageView tabs={tabs.map(tab => ({ icon: tab.icon, label: tab.label }))}>*/}
+                {/*    {tabs.map(tab => (*/}
+                {/*        <tab.screen*/}
+                {/*            key={tab.key}*/}
+                {/*            navigation={navigation}*/}
+                {/*        />*/}
+                {/*    ))}*/}
+                {/*</BottomTabPageView>*/}
             </View>
         </SafeAreaView>
     );

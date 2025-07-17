@@ -1,26 +1,59 @@
 import React from 'react';
 import {View, StyleSheet, Image, TouchableOpacity} from 'react-native';
 import {
-    Icon,
+    // Icon,
     Text,
-    TopNavigation, useTheme,
+    TopNavigation,
+    // useTheme,
 } from '@ui-kitten/components';
 import RandomAvatar from './RandomAvatar.tsx';
-interface TopNavigationAvatarProps {
-    navigation: any;
-}
-const TopAvatarColumn: React.FC<TopNavigationAvatarProps> = ({ navigation }) => {
-    const themes = useTheme();
-    const avatar = null;
-    const systemNotificationsUnRead: number = 1;
 
-    const handleGoToPersonCenter = () => {
-        navigation.navigate('PersonCenter');
+const TopAvatarColumn = () => {
+    // const themes = useTheme();
+
+    // const systemNotificationsUnRead: number = 1;
+
+    // const renderNotification = () : React.ReactElement => (
+    //     <TouchableOpacity style={styles.notificationContainer} onPress={() => navigation.navigate('SystemNotification')}>
+    //         <Icon name={'bell-outline'} width={33} height={33} fill={themes['color-primary-500']} />
+    //         {systemNotificationsUnRead !== 0 && <View style={styles.notificationBadge}>
+    //             {/*<Text style={styles.notificationCount}>*/}
+    //             {/*    {systemNotificationsUnRead > 99 ? '99+' : systemNotificationsUnRead}*/}
+    //             {/*</Text>*/}
+    //         </View>}
+    //     </TouchableOpacity>
+    // )
+
+    const renderTitleAction = (): React.ReactElement => (
+        <View style={{ width: '65%', alignItems: 'center', marginVertical: 10 }}>
+            <Text
+                style={styles.titleText}
+                numberOfLines={1}
+                ellipsizeMode={'tail'}
+            >{'工作台'}</Text>
+        </View>
+    );
+
+    return (
+        <TopNavigation
+            title={renderTitleAction}
+            alignment="center"
+            accessoryLeft={renderAvatar}
+            // accessoryRight={renderNotification}
+        />
+    );
+};
+
+const renderAvatar = () : React.ReactElement => {
+    const avatar = null;
+
+    const handleToPersonCenter = () => {
+
     };
 
-    const renderAvatar = () : React.ReactElement => (
+    return (
         <View style={styles.container}>
-            <TouchableOpacity onPress={handleGoToPersonCenter}>
+            <TouchableOpacity onPress={handleToPersonCenter}>
                 {avatar ?
                     <Image
                         source={{uri: 'https://randomuser.me/api/portraits/men/47.jpg'}} // Placeholder for avatar
@@ -29,30 +62,12 @@ const TopAvatarColumn: React.FC<TopNavigationAvatarProps> = ({ navigation }) => 
                     <RandomAvatar size={45}/>
                 }
             </TouchableOpacity>
-            <View style={styles.userInfo}>
-                <Text style={styles.name}>{'xxx'}</Text>
-                <Text style={styles.title}>{'xxx-xxx-xxx'}</Text>
-            </View>
+            {/*<View style={styles.userInfo}>*/}
+            {/*    <Text style={styles.name}>{'xxx'}</Text>*/}
+            {/*    <Text style={styles.title}>{'xxx-xxx-xxx'}</Text>*/}
+            {/*</View>*/}
         </View>
-    );
-
-    const renderNotification = () : React.ReactElement => (
-        <TouchableOpacity style={styles.notificationContainer} onPress={() => navigation.navigate('SystemNotification')}>
-            <Icon name={'bell-outline'} width={33} height={33} fill={themes['color-primary-500']} />
-            {systemNotificationsUnRead !== 0 && <View style={styles.notificationBadge}>
-                {/*<Text style={styles.notificationCount}>*/}
-                {/*    {systemNotificationsUnRead > 99 ? '99+' : systemNotificationsUnRead}*/}
-                {/*</Text>*/}
-            </View>}
-        </TouchableOpacity>
     )
-
-    return (
-        <TopNavigation
-            title={renderAvatar}
-            accessoryRight={renderNotification}
-        />
-    );
 };
 
 const styles = StyleSheet.create({
@@ -62,6 +77,10 @@ const styles = StyleSheet.create({
         paddingVertical: 5,
         paddingHorizontal: 10,
         backgroundColor: '#FFFFFF',
+    },
+    titleText: {
+        fontSize: 20,
+        fontWeight: 'bold',
     },
     avatar: {
         width: 45,
