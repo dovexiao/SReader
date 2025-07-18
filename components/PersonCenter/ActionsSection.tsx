@@ -26,7 +26,7 @@ const ActionsSection = () => {
         },
         {
             icon: 'info-outline',
-            title: '关于 SR',
+            title: '关于 RT',
             color: '#4285F4',
         },
     ];

@@ -12,7 +12,7 @@ import ChatMain from './ChatScreen';
 import LearnMain from './LearnScreen';
 import SocializeMain from './SocializeScreen';
 import { Divider } from '@ui-kitten/components';
-import PanToRightResponder from "../components/Main/PanToRightResponder.tsx";
+import PanSwipeResponder from "../components/Main/PanSwipeResponder.tsx";
 import { useGlobal } from "../hooks/GlobalContext.tsx";
 
 const tabs = [
@@ -39,13 +39,13 @@ const AppMain: React.FC<NavigationProps> = ({ navigation }) => {
             <View style={{ flex: 1, position: 'relative' }}>
                 <TopAvatarColumn />
                 <Divider/>
-                <PanToRightResponder
+                <PanSwipeResponder
                     onSwipeRight={handleRightSwipe}
                     threshold={60} // 可自定义滑动阈值
                     minVelocity={0.7} // 可自定义最小速度
                 >
                     <LearnMain navigation={navigation} />
-                </PanToRightResponder>
+                </PanSwipeResponder>
                 {/*<BottomTabPageView tabs={tabs.map(tab => ({ icon: tab.icon, label: tab.label }))}>*/}
                 {/*    {tabs.map(tab => (*/}
                 {/*        <tab.screen*/}

@@ -15,6 +15,7 @@ import LinearGradient from 'react-native-linear-gradient';
 import ProfileSection from "../PersonCenter/ProfileSection.tsx";
 import ActionsSection from "../PersonCenter/ActionsSection.tsx";
 import Icon from "react-native-vector-icons/MaterialIcons";
+import PanSwipeResponder from "../Main/PanSwipeResponder.tsx";
 
 type PersonCenterHandle = {
     show: () => void;
@@ -90,23 +91,29 @@ const PersonCenter = forwardRef<PersonCenterHandle>((_, ref) => {
                     style={{ flex: 1 }}
                     colors={['#F9FAFB', '#ffffff']}
                 >
-                    <View style={styles.content}>
-                        <View style={{ height: StatusBar.currentHeight }} />
+                    <PanSwipeResponder
+                        onSwipeLeft={hidePersonCenter}
+                        threshold={60}
+                        minVelocity={0.7}
+                    >
+                        <View style={styles.content}>
+                            <View style={{ height: StatusBar.currentHeight }} />
 
 
-                        <View style={{ flex: 1 }}>
-                            {/* Profile Section */}
-                            <ProfileSection />
-                            {/* Quick Actions Section */}
-                            <ActionsSection />
+                            <View style={{ flex: 1 }}>
+                                {/* Profile Section */}
+                                <ProfileSection />
+                                {/* Quick Actions Section */}
+                                <ActionsSection />
+                            </View>
+
+                            {/* Logout Button */}
+                            <TouchableOpacity style={styles.logoutButton}>
+                                <Icon name="logout" size={20} color="#EF4444" />
+                                <Text style={styles.logoutText}>退出登录</Text>
+                            </TouchableOpacity>
                         </View>
-
-                        {/* Logout Button */}
-                        <TouchableOpacity style={styles.logoutButton}>
-                            <Icon name="logout" size={20} color="#EF4444" />
-                            <Text style={styles.logoutText}>退出登录</Text>
-                        </TouchableOpacity>
-                    </View>
+                    </PanSwipeResponder>
                 </LinearGradient>
             </Animated.View>
         </>

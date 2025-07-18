@@ -1,23 +1,36 @@
 import React, { useRef } from "react";
 import { PanResponder, View } from "react-native";
 
-interface PanToRightResponderProps {
+interface PanSwipeResponderProps  {
     children: React.ReactNode;
+    onSwipeLeft?: () => void;
     onSwipeRight?: () => void;
     threshold?: number;
     minVelocity?: number;
+    edgeThreshold?: number;
 }
 
-const PanToRightResponder = ({
+const PanSwipeResponder = ({
     children,
+    onSwipeLeft = () => {},
     onSwipeRight = () => {},
     threshold = 50,
     minVelocity = 0.5,
-}: PanToRightResponderProps) => {
+    edgeThreshold = 20,
+}: PanSwipeResponderProps ) => {
     const panResponder = useRef(
         PanResponder.create({
             // 是否成为手势响应者
             onStartShouldSetPanResponderCapture: () => false,
+            // // 从屏幕边缘开始捕获手势
+            // onStartShouldSetPanResponderCapture: (evt) => {
+            //     if (direction === "right") {
+            //         return evt.nativeEvent.locationX <= edgeThreshold;
+            //     } else {
+            //         const { width } = evt.nativeEvent.layout;
+            //         return evt.nativeEvent.locationX >= width - edgeThreshold;
+            //     }
+            // },
             onMoveShouldSetPanResponder: (_, gestureState) => {
                 // 只响应水平滑动
                 const isHorizontal = Math.abs(gestureState.dx) > Math.abs(gestureState.dy);
@@ -32,12 +45,18 @@ const PanToRightResponder = ({
             onPanResponderRelease: (_, gestureState) => {
                 const { dx, vx } = gestureState;
 
-                // 判断是否为有效的向右滑动手势
+                // 判断是否为有效的滑动手势
+                const isLeftSwipe = dx < -threshold;
                 const isRightSwipe = dx > threshold;
                 const hasMinVelocity = Math.abs(vx) > minVelocity;
-                const isValidSwipe = isRightSwipe || (dx > 0 && hasMinVelocity);
+                const isValidLeftSwipe = isLeftSwipe || (dx < 0 && hasMinVelocity);
+                const isValidRightSwipe = isRightSwipe || (dx > 0 && hasMinVelocity);
 
-                if (isValidSwipe) {
+                if (isValidLeftSwipe) {
+                    onSwipeLeft();
+                }
+
+                if (isValidRightSwipe) {
                     onSwipeRight();
                 }
             },
@@ -60,4 +79,4 @@ const PanToRightResponder = ({
     );
 };
 
-export default PanToRightResponder;
+export default PanSwipeResponder;
