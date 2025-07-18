@@ -1,11 +1,10 @@
 import React from'react';
 import { useTheme } from '@ui-kitten/components';
 import {
-    SafeAreaView,
     StyleSheet,
-    StatusBar,
     ScrollView,
-} from'react-native';
+    View,
+} from 'react-native';
 import LearnBoxes from "../../components/Learn/LearnMain/LearnBoxes.tsx";
 import { NavigationProps } from "../../types/navigationType.ts";
 
@@ -82,9 +81,7 @@ const LearnMain: React.FC<NavigationProps> = ({ navigation }) => {
     // );
 
     return (
-        <SafeAreaView style={styles.container}>
-            <StatusBar barStyle="dark-content" backgroundColor="#FFFFFF" />
-
+        <View style={styles.container}>
             <ScrollView>
                 <LearnBoxes navigation={navigation} />
 
@@ -118,7 +115,7 @@ const LearnMain: React.FC<NavigationProps> = ({ navigation }) => {
                 {/*    </View>*/}
                 {/*</View>*/}
             </ScrollView>
-        </SafeAreaView>
+        </View>
     );
 };
 

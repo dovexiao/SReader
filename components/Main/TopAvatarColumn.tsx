@@ -7,6 +7,7 @@ import {
     // useTheme,
 } from '@ui-kitten/components';
 import RandomAvatar from './RandomAvatar.tsx';
+import { useGlobal } from "../../hooks/GlobalContext.tsx";
 
 const TopAvatarColumn = () => {
     // const themes = useTheme();
@@ -46,9 +47,10 @@ const TopAvatarColumn = () => {
 
 const renderAvatar = () : React.ReactElement => {
     const avatar = null;
+    const { PersonCenterRef } = useGlobal();
 
     const handleToPersonCenter = () => {
-
+        PersonCenterRef.current.show();
     };
 
     return (

@@ -36,7 +36,8 @@ const NoteLibrary: React.FC<NavigationProps> = ({ navigation }) => {
 
     return (
         <SafeAreaView style={styles.safeArea}>
-            <StatusBar barStyle="dark-content" backgroundColor={'#ffffff'} />
+            {/*<StatusBar barStyle="dark-content" backgroundColor={'#ffffff'} translucent={false} />*/}
+            <View style={{ height: StatusBar.currentHeight, backgroundColor: '#ffffff'}} />
             <TopNavigationOpe
                 title={'笔记库'}
                 navigation={navigation}
