@@ -1,5 +1,5 @@
 import React, { forwardRef, useImperativeHandle, useRef, useState } from 'react';
-import {Alert, Dimensions, Pressable, StatusBar, StyleSheet, Text, View} from 'react-native';
+import {Alert, Dimensions, Pressable, StatusBar, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import { useTheme } from '@ui-kitten/components';
 import Animated, {
     interpolate,
@@ -12,13 +12,16 @@ import Animated, {
     withSpring,
 } from 'react-native-reanimated';
 import LinearGradient from 'react-native-linear-gradient';
+import ProfileSection from "../PersonCenter/ProfileSection.tsx";
+import ActionsSection from "../PersonCenter/ActionsSection.tsx";
+import Icon from "react-native-vector-icons/MaterialIcons";
 
 type PersonCenterHandle = {
     show: () => void;
     hide: () => void;
 };
 
-const modelWidth = Dimensions.get('window').width * 0.8;
+const modelWidth = Dimensions.get('window').width * 0.9;
 
 const PersonCenter = forwardRef<PersonCenterHandle>((_, ref) => {
     const positionX = useSharedValue<number>(-modelWidth);
@@ -85,14 +88,24 @@ const PersonCenter = forwardRef<PersonCenterHandle>((_, ref) => {
             <Animated.View style={[styles.container, containerStyle]}>
                 <LinearGradient
                     style={{ flex: 1 }}
-                    colors={['#dbeefd', '#ffffff']}
+                    colors={['#F9FAFB', '#ffffff']}
                 >
                     <View style={styles.content}>
                         <View style={{ height: StatusBar.currentHeight }} />
-                        <Text style={styles.title}>个人中心</Text>
-                        <Pressable onPress={hidePersonCenter}>
-                            <Text style={styles.closeButton}>关闭</Text>
-                        </Pressable>
+
+
+                        <View style={{ flex: 1 }}>
+                            {/* Profile Section */}
+                            <ProfileSection />
+                            {/* Quick Actions Section */}
+                            <ActionsSection />
+                        </View>
+
+                        {/* Logout Button */}
+                        <TouchableOpacity style={styles.logoutButton}>
+                            <Icon name="logout" size={20} color="#EF4444" />
+                            <Text style={styles.logoutText}>退出登录</Text>
+                        </TouchableOpacity>
                     </View>
                 </LinearGradient>
             </Animated.View>
@@ -108,28 +121,46 @@ const styles = StyleSheet.create({
         left: 0,
         width: modelWidth,
         height: '100%',
-        backgroundColor: '#ffffff',
+        backgroundColor: '#F9FAFB',
         zIndex: 100,
         borderRightWidth: 1,
         borderColor: '#ddd'
     },
     content: {
-        padding: 20,
-    },
-    title: {
-        fontSize: 18,
-        fontWeight: 'bold',
-        marginBottom: 20
-    },
-    closeButton: {
-        color: 'blue',
-        padding: 10
+        flex: 1,
+        paddingHorizontal: 20,
+        paddingTop: 40,
     },
     backdrop: {
         ...StyleSheet.absoluteFillObject,
         backgroundColor: 'rgba(0,0,0,0.5)',
         zIndex: 99
-    }
+    },
+    logoutButton: {
+        backgroundColor: '#FFFFFF',
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'center',
+        paddingVertical: 16,
+        marginBottom: 40,
+        borderRadius: 12,
+        shadowColor: '#000',
+        shadowOffset: {
+            width: 0,
+            height: 2,
+        },
+        shadowOpacity: 0.05,
+        shadowRadius: 8,
+        elevation: 2,
+        borderWidth: 1,
+        borderColor: '#F3F4F6',
+    },
+    logoutText: {
+        color: '#EF4444',
+        fontSize: 16,
+        fontWeight: '600',
+        marginLeft: 8,
+    },
 });
 
 export default PersonCenter;
