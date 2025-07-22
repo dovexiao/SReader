@@ -29,8 +29,10 @@ const PersonCenter = forwardRef<PersonCenterHandle>((_, ref) => {
     const visible = useSharedValue(false);
     const display = useDerivedValue(() => {
         if (visible.value) {
+            // console.log('show');
             return 'flex';
-        // } else if (positionX.value < -modelWidth / 4) {
+        // } else if (positionX.value < -modelWidth / 4 * 3) {
+        //     console.log('hide', positionX.value);
         //     return 'none';
         }
         return 'none';
@@ -98,7 +100,6 @@ const PersonCenter = forwardRef<PersonCenterHandle>((_, ref) => {
                     >
                         <View style={styles.content}>
                             <View style={{ height: StatusBar.currentHeight }} />
-
 
                             <View style={{ flex: 1 }}>
                                 {/* Profile Section */}

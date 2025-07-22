@@ -4,18 +4,32 @@ import {
     View,
     Text,
     Image,
+    TouchableOpacity,
 } from 'react-native';
+import { useAuthStore } from "../../stores/auth.store.ts";
+import RandomAvatar from "../Main/RandomAvatar.tsx";
+import {useGlobal} from "../../hooks/GlobalContext.tsx";
 
 const ProfileSection = () => {
+    const avatar = useAuthStore(state => state.avatar);
+    const { AvatarActionsModalRef } = useGlobal();
+
     return (
         <View style={styles.profileSection}>
             <View style={styles.avatarContainer}>
-                <Image
-                    source={{
-                        uri: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=200&h=200&fit=crop&crop=face',
-                    }}
-                    style={styles.avatar}
-                />
+                <TouchableOpacity onPress={() => {
+                    AvatarActionsModalRef.current.show();
+                }}>
+                    {avatar ?
+                        <Image
+                            source={{
+                                uri: avatar,
+                            }}
+                            style={styles.avatar}
+                        /> :
+                        <RandomAvatar size={100} />
+                    }
+                </TouchableOpacity>
             </View>
             <Text style={styles.name}>Dove xiao</Text>
             <Text style={styles.username}>Javascript 开发新人</Text>
@@ -31,7 +45,7 @@ const styles = StyleSheet.create({
     avatarContainer: {
         width: 100,
         height: 100,
-        borderRadius: 60,
+        borderRadius: 50,
         backgroundColor: '#E5E7EB',
         justifyContent: 'center',
         alignItems: 'center',
@@ -48,7 +62,7 @@ const styles = StyleSheet.create({
     avatar: {
         width: 100,
         height: 100,
-        borderRadius: 60,
+        borderRadius: 50,
     },
     name: {
         fontSize: 24,

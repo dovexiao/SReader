@@ -1,6 +1,6 @@
-import React, {useRef} from 'react';
+import React, { useRef } from 'react';
 import { Text } from '@ui-kitten/components';
-import {StyleSheet, View} from 'react-native';
+import { StyleSheet, View } from 'react-native';
 
 /**
  * 生成随机亮色（RGB）
@@ -46,7 +46,7 @@ const RandomAvatar: React.FC<RandomAvatarProps> = ({ size }) => {
     const colors = useRef(getRandomColor()).current;
 
     return (
-        <View style={[styles.teamAvatar, { backgroundColor: colors, width: size, height: size, borderRadius: size / 2 }]}>
+        <View style={[styles.teamAvatar, { backgroundColor: colors, width: size, height: size, borderRadius: Math.floor(size / 2) }]}>
             <Text style={[styles.teamNumber, { fontSize: Math.floor(size / 2) }]}>用户</Text>
         </View>
     );

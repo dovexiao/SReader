@@ -62,7 +62,7 @@ const styles = StyleSheet.create({
         marginBottom: 16,
     },
     menuContainer: {
-        backgroundColor: '#FFFFFF',
+        backgroundColor: '#F3F4F6',
         borderRadius: 12,
         shadowColor: '#000',
         shadowOffset: {
@@ -72,6 +72,7 @@ const styles = StyleSheet.create({
         shadowOpacity: 0.05,
         shadowRadius: 8,
         elevation: 2,
+        overflow: 'hidden',
     },
     menuItem: {
         flexDirection: 'row',
@@ -79,8 +80,7 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between',
         paddingVertical: 16,
         paddingHorizontal: 20,
-        borderBottomWidth: 1,
-        borderBottomColor: '#F3F4F6',
+        backgroundColor: '#FFFFFF',
     },
     menuItemLeft: {
         flexDirection: 'row',
