@@ -45,7 +45,7 @@ const getPermissionConstant = (type: PermissionType): Permission => {
     } else {
         switch (type) {
             case 'camera': return PERMISSIONS.ANDROID.CAMERA;
-            case 'photos': return PERMISSIONS.ANDROID.READ_EXTERNAL_STORAGE;
+            case 'photos': return PERMISSIONS.ANDROID.READ_MEDIA_IMAGES;
             case 'microphone': return PERMISSIONS.ANDROID.RECORD_AUDIO;
             case 'location': return PERMISSIONS.ANDROID.ACCESS_FINE_LOCATION;
             default: return PERMISSIONS.ANDROID.CAMERA;
@@ -145,7 +145,7 @@ export const usePermission = (config: PermissionConfig) => {
     }, [checkPermission]);
 
     // 请求权限
-    const requestPermission = useCallback(async (): Promise<PermissionStatus> => {
+    const requestPermission = useCallback(async (): Promise<boolean> => {
         setPermissionState( prev =>({
             ...prev,
             isLoading: true
@@ -155,17 +155,19 @@ export const usePermission = (config: PermissionConfig) => {
 
         // 已授权直接返回
         if (currentStatus === RESULTS.GRANTED) {
-            return RESULTS.GRANTED;
+            return true;
+            // return RESULTS.GRANTED;
         }
 
         // 被永久拒绝时直接引导去设置
         if (currentStatus === RESULTS.BLOCKED) {
             showSettingsAlert();
-            return RESULTS.BLOCKED;
+            return false;
+            // return RESULTS.BLOCKED;
         }
 
         // 显示权限请求弹窗
-        return new Promise<PermissionStatus>((resolve) => {
+        return new Promise<boolean>((resolve) => {
             Alert.alert(
                 config.rationale.title,
                 config.rationale.message,
@@ -173,7 +175,8 @@ export const usePermission = (config: PermissionConfig) => {
                     {
                         text: '取消',
                         style: 'cancel',
-                        onPress: () => resolve(RESULTS.DENIED)
+                        // onPress: () => resolve(RESULTS.DENIED)
+                        onPress: () => resolve(false)
                     },
                     {
                         text: config.rationale.positiveButton,
@@ -190,7 +193,7 @@ export const usePermission = (config: PermissionConfig) => {
                                 showSettingsAlert();
                             }
 
-                            resolve(requestResult);
+                            resolve(requestResult === RESULTS.GRANTED);
                         }
                     }
                 ]
