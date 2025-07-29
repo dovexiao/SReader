@@ -13,7 +13,11 @@ import OpeQuestion from './LearnScreen/OpeQuestion.tsx';
 import CreateQuestionTag from './LearnScreen/CreateQuestionTag.tsx';
 import NoteLibrary from './LearnScreen/NoteLibrary.tsx';
 import NoteDetail from './LearnScreen/NoteDetail.tsx';
-import OpeNote from './LearnScreen/opeNote.tsx';
+import EditNote from './LearnScreen/EditNote.tsx';
+import SocializeMain from "./SocializeScreen";
+import CreateNoteTag from "./LearnScreen/CreateNoteTag.tsx";
+import AddNoteCover from "./LearnScreen/AddNoteCover.tsx";
+import AddNoteContent from "./LearnScreen/AddNoteContent.tsx";
 // import CreatePost from './SocializeScreen/CreatePost.tsx';
 
 const { Navigator, Screen } = createNativeStackNavigator();
@@ -31,8 +35,12 @@ const HomeNavigator = () => (
         <Screen name="CreateQuestionTag" component={CreateQuestionTag} initialParams={{ question: null }} />
         <Screen name="NoteLibrary" component={NoteLibrary} />
         <Screen name="NoteDetail" component={NoteDetail} initialParams={{ id: null }} />
-        <Screen name="OpeNote" component={OpeNote} />
+        <Screen name="AddNoteCover" component={AddNoteCover} />
+        <Screen name="AddNoteContent" component={AddNoteContent} />
+        <Screen name="CreateNoteTag" component={CreateNoteTag} />
+        <Screen name="EditNote" component={EditNote} />
         <Screen name="TestPage" component={TestPage} />
+        {/*<Screen name="SocializeMain" component={SocializeMain} />*/}
         {/*<Screen name="CreatePost" component={CreatePost} />*/}
     </Navigator>
 );
