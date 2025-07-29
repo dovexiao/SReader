@@ -135,7 +135,7 @@ const AvatarActionsModal = forwardRef<AvatarActionsModalHandle>((_, ref) => {
                                 style={styles.menuItem}
                                 onPress={async () => {
                                     if (item.permission === 'photos') {
-                                        console.log('photosPermission')
+                                        // console.log('photosPermission')
                                         // await photosPermission.requestPermission();
                                         if (await photosPermission.requestPermission()) {
                                             // console.log('已打开相册');
@@ -151,9 +151,9 @@ const AvatarActionsModal = forwardRef<AvatarActionsModalHandle>((_, ref) => {
                                                 setAvatar(image.path);
                                             });
                                         }
-                                        console.log('photosPermission', photosPermission.isGranted);
+                                        // console.log('photosPermission', photosPermission.isGranted);
                                     } else if (item.permission === 'camera') {
-                                        console.log('cameraPermission')
+                                        // console.log('cameraPermission')
                                         // await cameraPermission.requestPermission();
                                         if (await cameraPermission.requestPermission()) {
                                             // Alert.alert('已打开相机');
@@ -164,12 +164,12 @@ const AvatarActionsModal = forwardRef<AvatarActionsModalHandle>((_, ref) => {
                                                 cropperCircleOverlay: true,
                                                 includeBase64: true,
                                             }).then((image) => {
-                                                console.log(image);
+                                                // console.log(image);
                                                 hideActionsModal();
                                                 setAvatar(image.path);
                                             });
                                         }
-                                        console.log('cameraPermission', cameraPermission.isGranted);
+                                        // console.log('cameraPermission', cameraPermission.isGranted);
                                     } else {
                                         console.log('保存图片');
                                         // Alert.alert('已保存图片');
