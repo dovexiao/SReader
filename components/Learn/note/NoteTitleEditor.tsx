@@ -11,7 +11,7 @@ const NoteTitleEditor = () => {
         <View style={styles.section}>
             <Text style={styles.sectionTitle}>笔记标题</Text>
             <Input
-                value={title}
+                value={title.trim()}
                 onChangeText={setTitle}
                 textStyle={styles.contentInput}
                 multiline={true}
@@ -38,7 +38,7 @@ const styles = StyleSheet.create({
         // padding: 12,
         minHeight: 50,
         fontSize: 16,
-        lineHeight: 30,
+        // lineHeight: 20,
         // color: '#333',
         textAlignVertical: 'top',
     },

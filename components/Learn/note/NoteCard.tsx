@@ -47,7 +47,7 @@ const NoteCard: React.FC<NoteCardProps> = ({ note }) => {
 
 const styles = StyleSheet.create({
     card: {
-        backgroundColor: '#FFFFFF',
+        backgroundColor: '#ffffff',
         borderRadius: 8,
         padding: 16,
         marginBottom: 16,

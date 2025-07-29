@@ -5,7 +5,7 @@ import {
     StyleSheet,
     SafeAreaView,
     ScrollView,
-    Image,
+    Image, StatusBar,
 } from 'react-native';
 import { NavigationProps } from '../../types/navigationType.ts';
 import { Button, Divider, TopNavigationAction } from '@ui-kitten/components';
@@ -29,7 +29,7 @@ const NoteDetail: React.FC<NavigationProps> = ({ navigation, route }) => {
                 icon={EditIcon}
                 onPress={() => {
                     initialize(note);
-                    navigation.navigate('OpeNote');
+                    navigation.navigate('EditNote');
                 }}
             />
         );
@@ -37,6 +37,7 @@ const NoteDetail: React.FC<NavigationProps> = ({ navigation, route }) => {
 
     return (
         <SafeAreaView style={styles.safeArea}>
+            <View style={{ height: StatusBar.currentHeight, backgroundColor: '#ffffff'}} />
             <TopNavigationOpe
                 title={note.noteId + ' 笔记详情'}
                 navigation={navigation}
@@ -48,13 +49,14 @@ const NoteDetail: React.FC<NavigationProps> = ({ navigation, route }) => {
                 <View style={styles.header}>
                     {/*<Text style={styles.cardId}>{note.noteId}</Text>*/}
                     <Text style={styles.title} ellipsizeMode={'tail'} numberOfLines={1}>{note.title}</Text>
+                    <Text style={styles.introduction} ellipsizeMode={'tail'} numberOfLines={3}>{note.introduce}</Text>
                 </View>
 
                 <Text style={styles.creationInfo}>
                     {formatTime(note.createdAt, { format: 'datetime' })}
                 </Text>
 
-                <Divider style={{ marginBottom: 14 }} />
+                <Divider style={{ marginBottom: 10 }} />
 
                 {/*<View style={styles.contentContainer}>*/}
                 {/*    <Text style={styles.contentText}>{note.content}</Text>*/}
@@ -64,10 +66,10 @@ const NoteDetail: React.FC<NavigationProps> = ({ navigation, route }) => {
                     style={markdownStyles}
                     rules={renderRules}
                 >
-                    {note.content}
+                    {note.content.trim() || '暂无内容'}
                 </Markdown>
 
-                <Divider style={{ marginBottom: 16 }} />
+                <Divider style={{ marginVertical: 10 }} />
 
                 {note.tags.length > 0 && <View style={styles.tagsContainer}>
                     <Text style={styles.sectionTitle}>标签</Text>
@@ -95,10 +97,10 @@ const NoteDetail: React.FC<NavigationProps> = ({ navigation, route }) => {
                 <View style={{ height: 40 }} />
             </ScrollView>
             <Divider />
-            <View style={styles.buttonContainer}>
-                <Button appearance="ghost" style={styles.button}>上一篇</Button>
-                <Button appearance="ghost" style={styles.button}>下一篇</Button>
-            </View>
+            {/*<View style={styles.buttonContainer}>*/}
+            {/*    <Button appearance="ghost" style={styles.button}>上一篇</Button>*/}
+            {/*    <Button appearance="ghost" style={styles.button}>下一篇</Button>*/}
+            {/*</View>*/}
         </SafeAreaView>
     );
 };
@@ -245,13 +247,14 @@ const styles = StyleSheet.create({
     },
     container: {
         flex: 1,
-        padding: 16,
+        paddingVertical: 10,
+        paddingHorizontal: 20,
         backgroundColor: '#FFFFFF',
     },
     header: {
-        flexDirection: 'row',
+        flexDirection: 'column',
         // justifyContent: 'center',
-        marginBottom: 8,
+        // marginBottom: 8,
     },
     cardId: {
         fontSize: 18,
@@ -265,6 +268,12 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         // color: '#555555',
         color: '#000000',
+        marginBottom: 8,
+    },
+    introduction: {
+        fontSize: 16,
+        color: '#555555',
+        marginBottom: 8,
     },
     creationInfo: {
         fontSize: 12,

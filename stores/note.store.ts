@@ -19,15 +19,15 @@ interface NoteStore {
 
 export const useNoteStore = create<NoteStore>((set, get) => ({
     notes: notes as Note[],
-    createNote: (question: Note) => {
+    createNote: (note: Note) => {
         const newQuestionId = generateNoteId(get().notes[get().notes.length - 1].noteId);
         set((state) => ({
-            notes: [...state.notes, { ...question, questionId: newQuestionId }],
+            notes: [...state.notes, { ...note, noteId: newQuestionId }],
         }));
     },
-    updateNote: (question: any) => {
+    updateNote: (note: any) => {
         set((state) => ({
-            notes: state.notes.map((q) => (q.noteId === question.questionId ? {...q, ...question} : q)),
+            notes: state.notes.map((n) => (n.noteId === note.noteId ? {...n, ...note} : n)),
         }));
     },
 }));

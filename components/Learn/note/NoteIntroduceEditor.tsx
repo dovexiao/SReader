@@ -1,27 +1,25 @@
 import React from 'react';
-import { Text, Input } from '@ui-kitten/components';
-import { StyleSheet, View } from 'react-native';
 import { useOpeNoteStore } from '../../../stores/opeNote.store.ts';
+import { StyleSheet, Text, View } from 'react-native';
+import { Input } from '@ui-kitten/components';
 
-const NoteContentEditor = () => {
-    const content = useOpeNoteStore(state => state.noteContent);
-    const setContent = useOpeNoteStore(state => state.setNoteContent);
-
-    const placeholder = '请输入笔记内容...';
+const NoteIntroduceEditor = () => {
+    const introduce = useOpeNoteStore(state => state.noteIntroduce);
+    const setIntroduce = useOpeNoteStore(state => state.setNoteIntroduce);
 
     return (
         <View style={styles.section}>
-            <Text style={styles.sectionTitle}>笔记内容</Text>
+            <Text style={styles.sectionTitle}>笔记介绍</Text>
             <Input
-                value={content.trim()}
-                onChangeText={setContent}
+                value={introduce.trim()}
+                onChangeText={setIntroduce}
                 textStyle={styles.contentInput}
                 multiline={true}
-                placeholder={placeholder}
+                placeholder="请输入笔记介绍"
             />
         </View>
     );
-};
+}
 
 const styles = StyleSheet.create({
     section: {
@@ -38,12 +36,12 @@ const styles = StyleSheet.create({
         // borderColor: '#E0E0E0',
         // borderRadius: 4,
         // padding: 12,
-        minHeight: 150,
+        minHeight: 100,
         fontSize: 16,
-        // lineHeight: 30,
+        // lineHeight: 22,
         // color: '#333',
         textAlignVertical: 'top',
     },
 });
 
-export default NoteContentEditor;
+export default NoteIntroduceEditor;

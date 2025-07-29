@@ -5,21 +5,24 @@ import {
     StyleSheet,
     SafeAreaView,
     ScrollView,
+    StatusBar,
 } from 'react-native';
 import { NavigationProps } from '../../types/navigationType.ts';
 import { Button, Divider } from '@ui-kitten/components';
 import TopNavigationOpe from '../../components/Main/TopNavigationOpe.tsx';
 import NoteContentEditor from '../../components/Learn/note/NoteContentEditor.tsx';
 import NoteTitleEditor from '../../components/Learn/note/NoteTitleEditor.tsx';
-import TagsEditor from '../../components/Learn/note/TagsEditor.tsx';
+import NoteTagsEditor from '../../components/Learn/note/NoteTagsEditor.tsx';
 import { useOpeNoteStore } from '../../stores/opeNote.store.ts';
 import { useNoteStore } from '../../stores/note.store.ts';
+import NoteIntroduceEditor from "../../components/Learn/note/NoteIntroduceEditor.tsx";
 
-const OpeNote: React.FC<NavigationProps> = ({ navigation }) => {
+const EditNote: React.FC<NavigationProps> = ({ navigation }) => {
     const noteId = useOpeNoteStore(state => state.noteId);
 
     return (
         <SafeAreaView style={styles.safeArea}>
+            <View style={{ height: StatusBar.currentHeight, backgroundColor: '#ffffff'}} />
             <TopNavigationOpe
                 title={'编辑 ' + noteId + ' 笔记'}
                 navigation={navigation}
@@ -30,9 +33,11 @@ const OpeNote: React.FC<NavigationProps> = ({ navigation }) => {
             <ScrollView style={styles.container}>
                 <NoteTitleEditor />
 
+                <NoteIntroduceEditor />
+
                 <NoteContentEditor />
 
-                <TagsEditor />
+                <NoteTagsEditor />
 
                 <SaveStepButton navigation={navigation} />
 
@@ -44,7 +49,7 @@ const OpeNote: React.FC<NavigationProps> = ({ navigation }) => {
 
 const SaveStepButton = ({ navigation }: { navigation: any }) => {
     const isSaveDisabled = useOpeNoteStore(state => state.isOpeDisabled);
-    const updateQuestion = useNoteStore(state => state.updateNote);
+    const updateNote = useNoteStore(state => state.updateNote);
 
     // 处理保存
     const handleSave = () => {
@@ -56,7 +61,7 @@ const SaveStepButton = ({ navigation }: { navigation: any }) => {
             lastModified: new Date().toISOString(),
         };
 
-        updateQuestion(newQuestion);
+        updateNote(newQuestion);
 
         navigation.goBack();
     };
@@ -92,4 +97,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default OpeNote;
+export default EditNote;
