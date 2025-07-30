@@ -1,6 +1,6 @@
-import React, {ReactNode, useState} from 'react';
+import React from 'react';
 import {
-    FlatList, Pressable,
+    FlatList,
     SafeAreaView, ScrollView,
     StatusBar,
     StyleSheet,
@@ -9,12 +9,12 @@ import {
 } from 'react-native';
 import { NavigationProps } from '../../types/navigationType.ts';
 import TopNavigationOpe from '../../components/Main/TopNavigationOpe.tsx';
-import {Divider, Icon, TopNavigationAction} from '@ui-kitten/components';
+import {Divider, TopNavigationAction} from '@ui-kitten/components';
 import * as CommonIcon from '../../components/Icon';
 import { Note, useNoteStore } from '../../stores/note.store.ts';
 import NoteCard from '../../components/Learn/note/NoteCard.tsx';
-import {useOpeNoteStore} from "../../stores/opeNote.store.ts";
-import FilterDisplayController from "../../components/Learn/LearnMain/FilterDisplayController.tsx";
+import {useOpeNoteStore} from '../../stores/opeNote.store.ts';
+import FilterDisplayController from '../../components/Learn/LearnMain/FilterDisplayController.tsx';
 
 const NoteLibrary: React.FC<NavigationProps> = ({ navigation }) => {
     const reset = useOpeNoteStore(state => state.reset);
@@ -44,8 +44,8 @@ const NoteLibrary: React.FC<NavigationProps> = ({ navigation }) => {
 
             {/* 使用封装的筛选控制器组件 */}
             <FilterDisplayController
-                filterContent={filterContent}
-                mainContent={mainContent}
+                FilterContent={FilterContent}
+                MainContent={MainContent}
                 containerStyle={styles.container}
             />
         </SafeAreaView>
@@ -53,7 +53,7 @@ const NoteLibrary: React.FC<NavigationProps> = ({ navigation }) => {
 };
 
 // 主内容
-const mainContent = () => {
+const MainContent: React.FC = () => {
     const notes = useNoteStore(state => state.notes);
 
     const renderItem = ({ item }: { item: Note }) => (
@@ -68,11 +68,11 @@ const mainContent = () => {
             contentContainerStyle={styles.listContentContainer}
             showsVerticalScrollIndicator={false}
         />
-    )
+    );
 };
 
 // 筛选内容
-const filterContent = (): ReactNode => {
+const FilterContent: React.FC = () => {
     return (
         <ScrollView style={{ flex: 1 }} showsVerticalScrollIndicator={false}>
             <Text>题目名称搜索</Text>
@@ -82,8 +82,8 @@ const filterContent = (): ReactNode => {
             <Text>标签名称搜索</Text>
             <Text>最近标签名称搜索</Text>
         </ScrollView>
-    )
-}
+    );
+};
 
 const styles = StyleSheet.create({
     safeArea: {

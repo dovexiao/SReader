@@ -48,7 +48,7 @@ const styles = StyleSheet.create({
         // padding: 12,
         minHeight: 100,
         fontSize: 16,
-        lineHeight: 30,
+        // lineHeight: 30,
         // color: '#333',
         textAlignVertical: 'top',
     },

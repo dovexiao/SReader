@@ -292,13 +292,13 @@ const styles = StyleSheet.create({
         lineHeight: 30,
     },
     sectionTitle: {
-        fontSize: 16,
+        fontSize: 20,
         fontWeight: 'bold',
         color: '#333333',
         marginBottom: 12,
     },
     tagsContainer: {
-        marginBottom: 16,
+        marginVertical: 10,
     },
     tagsList: {
         flexDirection: 'row',
@@ -313,7 +313,7 @@ const styles = StyleSheet.create({
         marginBottom: 8,
     },
     tagText: {
-        fontSize: 15,
+        fontSize: 16,
         color: '#555555',
     },
     footer: {

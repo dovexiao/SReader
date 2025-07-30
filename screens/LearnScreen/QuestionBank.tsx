@@ -4,7 +4,7 @@ import {
     FlatList,
     StyleSheet,
     SafeAreaView,
-    StatusBar,
+    StatusBar, ScrollView,
 } from 'react-native';
 import { NavigationProps } from '../../types/navigationType.ts';
 import { Divider, Text, TopNavigationAction } from '@ui-kitten/components';
@@ -14,21 +14,13 @@ import QuestionCard from '../../components/Learn/question/QuestionCard.tsx';
 import TopNavigationOpe from '../../components/Main/TopNavigationOpe.tsx';
 import {Question, useQuestionStore} from '../../stores/question.store.ts';
 import {useOpeQuestionStore} from '../../stores/opeQuestion.store.ts';
+import FilterDisplayController from '../../components/Learn/LearnMain/FilterDisplayController.tsx';
 
 // const ICON_COLOR = '#555555';
 const ADD_BUTTON_COLOR = '#4CAF50';
 
 const QuestionBank: React.FC<NavigationProps> = ({ navigation }) => {
-    // const questionBank = route.params.item;
-
-    // const { OverflowMenuRef } = useGlobal();
-
-    const questions = useQuestionStore(state => state.questions);
     const initialize = useOpeQuestionStore(state => state.initialize);
-
-    const renderItem = ({ item }: { item: Question }) => (
-        <QuestionCard question={item} />
-    );
 
     const renderItemAccessory = () => {
         return (
@@ -39,34 +31,6 @@ const QuestionBank: React.FC<NavigationProps> = ({ navigation }) => {
                     navigation.navigate('OpeQuestion', {type: 'create'});
                 }}
             />
-            // <TopNavigationAction
-            //     icon={CommonIcon.SettingsIcon}
-            //     onPress={() => OverflowMenuRef.current?.show([{
-            //         icon: CommonIcon.MoreSelectIcon,
-            //         title: '题库管理',
-            //         onPress: () => {
-            //             console.log('修改库名');
-            //         },
-            //     }, {
-            //         icon: CommonIcon.PeopleIcon,
-            //         title: '共建管理',
-            //         onPress: () => {
-            //             console.log('管理共建');
-            //         },
-            //     }, {
-            //         icon: CommonIcon.FileAddIcon,
-            //         title: '创建题目',
-            //         onPress: () => {
-            //             navigation.navigate('CreateQuestion');
-            //         },
-            //     }, {
-            //         icon: CommonIcon.ATIcon,
-            //         title: 'aigc题目',
-            //         onPress: () => {
-            //             navigation.navigate('AigcQuestion');
-            //         },
-            //     }], { x: 5, y: -45 })}
-            // />
         );
     };
 
@@ -80,28 +44,47 @@ const QuestionBank: React.FC<NavigationProps> = ({ navigation }) => {
                 renderItemAccessory={renderItemAccessory}
             />
             <Divider />
-            <View style={styles.container}>
-                <View style={styles.header}>
-                    <Text>筛选机制[题目类型/题目内容/题目标签]在此添加</Text>
-                    {/*<View style={{ flex: 1 }}>*/}
-                    {/*    <Input*/}
-                    {/*        value={search}*/}
-                    {/*        onChangeText={(text) => setSearch(text)}*/}
-                    {/*        accessoryLeft={CommonIcon.SearchIcon}*/}
-                    {/*        style={styles.searchInput}*/}
-                    {/*        placeholder="搜索题面/题型/创建者/标签..."*/}
-                    {/*    />*/}
-                    {/*</View>*/}
-                </View>
-                <FlatList
-                    data={questions}
-                    renderItem={renderItem}
-                    keyExtractor={(item) => item.questionId}
-                    contentContainerStyle={styles.listContentContainer}
-                    showsVerticalScrollIndicator={false}
-                />
-            </View>
+
+            {/* 使用封装的筛选控制器组件 */}
+            <FilterDisplayController
+                FilterContent={FilterContent}
+                MainContent={MainContent}
+                containerStyle={styles.container}
+            />
         </SafeAreaView>
+    );
+};
+
+// 主内容
+const MainContent: React.FC = () => {
+    const questions = useQuestionStore(state => state.questions);
+
+    const renderItem = ({ item }: { item: Question }) => (
+        <QuestionCard question={item} />
+    );
+
+    return (
+        <FlatList
+            data={questions}
+            renderItem={renderItem}
+            keyExtractor={(item) => item.questionId}
+            contentContainerStyle={styles.listContentContainer}
+            showsVerticalScrollIndicator={false}
+        />
+    )
+};
+
+// 筛选内容
+const FilterContent: React.FC = () => {
+    return (
+        <ScrollView style={{ flex: 1 }} showsVerticalScrollIndicator={false}>
+            <Text>题目名称搜索</Text>
+            <Text>最近题目名称搜索</Text>
+            <Text>题目介绍搜索</Text>
+            <Text>最近题目介绍搜索</Text>
+            <Text>标签名称搜索</Text>
+            <Text>最近标签名称搜索</Text>
+        </ScrollView>
     );
 };
 
@@ -113,7 +96,7 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         paddingTop: 16,
-        paddingHorizontal: 16,
+        // paddingHorizontal: 16,
     },
     header: {
         flexDirection: 'row',

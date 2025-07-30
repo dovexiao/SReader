@@ -4,7 +4,7 @@ import {
     Text,
     StyleSheet,
     SafeAreaView,
-    ScrollView,
+    ScrollView, StatusBar,
 } from 'react-native';
 import { NavigationProps } from '../../types/navigationType.ts';
 import { Button, Divider } from '@ui-kitten/components';
@@ -17,7 +17,7 @@ import JudgementEditor from '../../components/Learn/question/JudgementEditor.tsx
 import ShortAnswerEditor from '../../components/Learn/question/ShortAnswerEditor.tsx';
 import AnalysisEditor from '../../components/Learn/question/AnalysisEditor.tsx';
 import QuestionTypeDisplay from '../../components/Learn/question/QuestionTypeDisplay.tsx';
-import TagsEditor from '../../components/Learn/question/TagsEditor.tsx';
+import QuestionTagsEditor from '../../components/Learn/question/QuestionTagsEditor.tsx';
 import { useOpeQuestionStore } from '../../stores/opeQuestion.store.ts';
 import { useQuestionStore } from '../../stores/question.store.ts';
 
@@ -26,6 +26,7 @@ const OpeQuestion: React.FC<NavigationProps> = ({ navigation, route }) => {
 
     return (
         <SafeAreaView style={styles.safeArea}>
+            <View style={{ height: StatusBar.currentHeight, backgroundColor: '#ffffff'}} />
             <TopNavigationOpe
                 title={'创建新题目'}
                 navigation={navigation}
@@ -44,7 +45,7 @@ const OpeQuestion: React.FC<NavigationProps> = ({ navigation, route }) => {
                 <AnalysisEditor />
 
                 {opeType === 'create' ? <></> :
-                    opeType === 'update' ? <TagsEditor /> :
+                    opeType === 'update' ? <QuestionTagsEditor /> :
                         <Text>显示出错</Text>}
 
                 {opeType === 'create' ? <NextStepButton navigation={navigation} /> :

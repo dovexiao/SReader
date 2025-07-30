@@ -5,6 +5,7 @@ import {
     StyleSheet,
     SafeAreaView,
     ScrollView,
+    StatusBar,
 } from 'react-native';
 import { NavigationProps } from '../../types/navigationType.ts';
 import { Button, CheckBox, Divider, Radio, RadioGroup, TopNavigationAction } from '@ui-kitten/components';
@@ -121,6 +122,7 @@ const QuestionDetail: React.FC<NavigationProps> = ({ navigation, route }) => {
 
     return (
         <SafeAreaView style={styles.safeArea}>
+            <View style={{ height: StatusBar.currentHeight, backgroundColor: '#ffffff'}} />
             <TopNavigationOpe
                 title={'题目详情'}
                 navigation={navigation}
@@ -174,10 +176,10 @@ const QuestionDetail: React.FC<NavigationProps> = ({ navigation, route }) => {
                 <View style={{ height: 40 }} />
             </ScrollView>
             <Divider />
-            <View style={styles.buttonContainer}>
-                <Button appearance="ghost" style={styles.button}>上一题</Button>
-                <Button appearance="ghost" style={styles.button}>下一题</Button>
-            </View>
+            {/*<View style={styles.buttonContainer}>*/}
+            {/*    <Button appearance="ghost" style={styles.button}>上一题</Button>*/}
+            {/*    <Button appearance="ghost" style={styles.button}>下一题</Button>*/}
+            {/*</View>*/}
         </SafeAreaView>
     );
 };

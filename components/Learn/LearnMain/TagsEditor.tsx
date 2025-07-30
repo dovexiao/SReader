@@ -3,7 +3,7 @@ import {
     View,
     Text,
     TouchableOpacity,
-    StyleSheet
+    StyleSheet,
 } from 'react-native';
 import { Input, Button, Icon } from '@ui-kitten/components';
 
@@ -64,7 +64,7 @@ const TagsEditor: React.FC<TagsEditorProps> = ({
                     <Icon
                         style={{ width: 20, height: 20 }}
                         name="plus-outline"
-                        fill='#8F9BB3'
+                        fill="#8F9BB3"
                     />
                 </TouchableOpacity>
             </View>
@@ -79,11 +79,11 @@ const TagsEditor: React.FC<TagsEditorProps> = ({
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        padding: 16,
+        // padding: 16,
         backgroundColor: '#FFFFFF',
     },
     title: {
-        fontSize: 18,
+        fontSize: 16,
         fontWeight: 'bold',
         marginBottom: 16,
         color: '#333',
@@ -126,7 +126,7 @@ const styles = StyleSheet.create({
         // marginBottom: 8,
     },
     tagText: {
-        fontSize: 16,
+        fontSize: 14,
         color: '#333',
     },
     removeTagButton: {

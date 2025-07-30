@@ -2,19 +2,19 @@
 import React, { useState } from 'react';
 import {Pressable, StyleSheet, Text, View} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
-import {Icon} from "@ui-kitten/components";
+import {Icon} from '@ui-kitten/components';
 
 interface FilterDisplayControllerProps {
-    filterContent: () => React.ReactNode;
-    mainContent: () => React.ReactNode;
+    FilterContent: React.ComponentType;
+    MainContent: React.ComponentType;
     renderHeader?: (toggleFilter: () => void, isFilterVisible: boolean) => React.ReactNode;
     gradientColors?: string[];
     containerStyle?: any;
 }
 
 const FilterDisplayController: React.FC<FilterDisplayControllerProps> = ({
-    filterContent,
-    mainContent,
+    FilterContent,
+    MainContent,
     renderHeader,
     gradientColors = ['#6BCF7F', '#42A5F5'],
     containerStyle,
@@ -58,13 +58,13 @@ const FilterDisplayController: React.FC<FilterDisplayControllerProps> = ({
             {/* 筛选区域 */}
             {isFilterVisible && (
                 <View style={styles.filterContentContainer}>
-                    {filterContent()}
+                    <FilterContent />
                 </View>
             )}
 
             {/* 主内容区域 */}
             <View style={[styles.mainContentContainer, { display: !isFilterVisible ? 'flex' : 'none' }]}>
-                {mainContent()}
+                <MainContent />
             </View>
 
         </LinearGradient>

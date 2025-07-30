@@ -1,16 +1,15 @@
 import React, { useState } from 'react';
 import {
     View,
-    Text,
-    TouchableOpacity,
     StyleSheet,
-    SafeAreaView,
+    SafeAreaView, StatusBar,
 } from 'react-native';
 import { NavigationProps } from '../../types/navigationType.ts';
-import { Button, Divider, Icon, Input } from '@ui-kitten/components';
+import { Divider } from '@ui-kitten/components';
 import TopNavigationOpe from '../../components/Main/TopNavigationOpe.tsx';
 import { useOpeQuestionStore } from '../../stores/opeQuestion.store.ts';
 import { useQuestionStore } from '../../stores/question.store.ts';
+import TagsEditor from '../../components/Learn/LearnMain/TagsEditor.tsx';
 
 const CreateQuestionTag: React.FC<NavigationProps> = ({ navigation, route }) => {
     const question = route.params?.question;
@@ -41,54 +40,22 @@ const CreateQuestionTag: React.FC<NavigationProps> = ({ navigation, route }) => 
 
     return (
         <SafeAreaView style={styles.safeArea}>
+            <View style={{ height: StatusBar.currentHeight, backgroundColor: '#FFFFFF'}} />
             <TopNavigationOpe
                 title={'创建新题目'}
                 navigation={navigation}
                 renderItemAccessory={() => <></>}
             />
             <Divider />
-            <View style={styles.container}>
-                <Text style={styles.title}>添加标签</Text>
-
-                {tags.length > 0 && (
-                    <View style={styles.tagsContainer}>
-                        {tags.map((tag, index) => (
-                            <View key={index} style={styles.tag}>
-                                <Text style={styles.tagText}>{tag}</Text>
-                                <TouchableOpacity
-                                    style={styles.removeTagButton}
-                                    onPress={() => removeTag(index)}
-                                >
-                                    <Text style={styles.removeTagButtonText}>×</Text>
-                                </TouchableOpacity>
-                            </View>
-                        ))}
-                    </View>
-                )}
-
-                <View style={styles.inputContainer}>
-                    <View style={{ flex: 1 }}>
-                        <Input
-                            value={tagInput}
-                            onChangeText={setTagInput}
-                            multiline={true}
-                            textStyle={styles.input}
-                            placeholder="输入标签"
-                        />
-                    </View>
-                    <TouchableOpacity style={styles.addButton} onPress={handleAddTag}>
-                        <Icon
-                            style={{ width: 20, height: 20 }}
-                            name="plus-outline"
-                            fill='#8F9BB3'
-                        />
-                    </TouchableOpacity>
-                </View>
-
-                <Button style={styles.submitButton} onPress={handleSubmit}>
-                    <Text style={styles.submitButtonText}>提交</Text>
-                </Button>
-            </View>
+            <TagsEditor
+                title="添加标签"
+                tags={tags}
+                tagInput={tagInput}
+                setTagInput={setTagInput}
+                onAddTag={handleAddTag}
+                onRemoveTag={removeTag}
+                onSubmit={handleSubmit}
+            />
         </SafeAreaView>
     );
 };
