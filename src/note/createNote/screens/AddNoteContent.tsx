@@ -6,16 +6,13 @@ import {
     ScrollView,
     StatusBar, Text,
 } from 'react-native';
-import { NavigationProps } from '../../types/navigationType.ts';
-import {Button, Divider, Input} from '@ui-kitten/components';
-import TopNavigationOpe from '../../components/Main/TopNavigationOpe.tsx';
-import {useOpeNoteStore} from "../../stores/opeNote.store.ts";
-import NoteContentEditor from "../../components/Learn/note/NoteContentEditor.tsx";
+import { Button, Divider } from '@ui-kitten/components';
+import TopNavigationOpe from '../../../../components/Main/TopNavigationOpe.tsx';
+import { useOpeNoteStore } from '../stores';
+import { NoteContentEditor } from '../components';
+import {AddNoteContentProps} from '../types';
 
-const AddNoteContent: React.FC<NavigationProps> = ({ navigation }) => {
-    const noteContent = useOpeNoteStore(state => state.noteContent);
-    const setNoteContent = useOpeNoteStore(state => state.setNoteContent);
-
+const AddNoteContent: React.FC<AddNoteContentProps> = ({ navigation }) => {
     return (
         <SafeAreaView style={styles.safeArea}>
             <View style={{ height: StatusBar.currentHeight, backgroundColor: '#ffffff'}} />
@@ -53,8 +50,8 @@ const NextStepButton = ({ navigation }: { navigation: any }) => {
     };
 
     return (
-        <Button style={styles.endButton} onPress={handleNext} disabled={isOpeContentDisabled}>
-            <Text style={styles.endButtonText}>下一步</Text>
+        <Button style={styles.nextButton} onPress={handleNext} disabled={isOpeContentDisabled}>
+            <Text style={styles.nextButtonText}>下一步</Text>
         </Button>
     );
 };
@@ -70,7 +67,7 @@ const styles = StyleSheet.create({
         paddingVertical: 20,
         backgroundColor: '#FFFFFF',
     },
-    endButton: {
+    nextButton: {
         borderRadius: 4,
         padding: 12,
         alignItems: 'center',
@@ -78,7 +75,7 @@ const styles = StyleSheet.create({
         marginBottom: 10,
         // backgroundColor: '#3366FF',
     },
-    endButtonText: {
+    nextButtonText: {
         color: '#FFFFFF',
         fontSize: 16,
         fontWeight: '500',

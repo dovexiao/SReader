@@ -18,7 +18,7 @@ interface TagsEditorProps {
     submitButtonText?: string;
 }
 
-const TagsEditor: React.FC<TagsEditorProps> = ({
+export const TagsEditor: React.FC<TagsEditorProps> = ({
     title,
     tags,
     tagInput,
@@ -26,7 +26,7 @@ const TagsEditor: React.FC<TagsEditorProps> = ({
     onAddTag,
     onRemoveTag,
     onSubmit,
-    submitButtonText = '提交'
+    submitButtonText = '提交',
 }) => {
     return (
         <View style={styles.container}>
@@ -158,5 +158,3 @@ const styles = StyleSheet.create({
         fontWeight: '500',
     },
 });
-
-export default TagsEditor;

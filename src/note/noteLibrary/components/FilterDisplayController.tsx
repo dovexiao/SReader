@@ -12,7 +12,7 @@ interface FilterDisplayControllerProps {
     containerStyle?: any;
 }
 
-const FilterDisplayController: React.FC<FilterDisplayControllerProps> = ({
+export const FilterDisplayController: React.FC<FilterDisplayControllerProps> = ({
     FilterContent,
     MainContent,
     renderHeader,
@@ -117,5 +117,3 @@ const styles = StyleSheet.create({
         borderTopRightRadius: 15,
     },
 });
-
-export default FilterDisplayController;

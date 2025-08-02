@@ -9,7 +9,7 @@ import { Divider } from '@ui-kitten/components';
 import TopNavigationOpe from '../../components/Main/TopNavigationOpe.tsx';
 import { useOpeQuestionStore } from '../../stores/opeQuestion.store.ts';
 import { useQuestionStore } from '../../stores/question.store.ts';
-import TagsEditor from '../../components/Learn/LearnMain/TagsEditor.tsx';
+import TagsEditor from '../../src/note/createNote/components/TagsEditor.tsx';
 
 const CreateQuestionTag: React.FC<NavigationProps> = ({ navigation, route }) => {
     const question = route.params?.question;

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {
     View,
     Text,
@@ -7,24 +7,34 @@ import {
     ScrollView,
     StatusBar,
 } from 'react-native';
-import { NavigationProps } from '../../types/navigationType.ts';
 import { Button, Divider } from '@ui-kitten/components';
-import TopNavigationOpe from '../../components/Main/TopNavigationOpe.tsx';
-import NoteContentEditor from '../../components/Learn/note/NoteContentEditor.tsx';
-import NoteTitleEditor from '../../components/Learn/note/NoteTitleEditor.tsx';
-import NoteTagsEditor from '../../components/Learn/note/NoteTagsEditor.tsx';
-import { useOpeNoteStore } from '../../stores/opeNote.store.ts';
-import { useNoteStore } from '../../stores/note.store.ts';
-import NoteIntroduceEditor from "../../components/Learn/note/NoteIntroduceEditor.tsx";
+import TopNavigationOpe from '../../../../components/Main/TopNavigationOpe.tsx';
+import { useOpeNoteStore } from '../../createNote/stores';
+import { useNoteStore } from '../../noteLibrary/stores';
+import { NoteContentEditor, NoteIntroduceEditor, NoteTagsEditor, NoteTitleEditor } from '../../createNote/components';
+import { EditNoteProps } from '../types';
 
-const EditNote: React.FC<NavigationProps> = ({ navigation }) => {
-    const noteId = useOpeNoteStore(state => state.noteId);
+const EditNote: React.FC<EditNoteProps> = ({ navigation, route }) => {
+    const { noteId } = route.params;
+
+    const note = useNoteStore(state => state.notes.filter(q => q.noteId === noteId)[0]);
+    const initialize = useOpeNoteStore(state => state.initialize);
+    const reset = useOpeNoteStore(state => state.reset);
+
+    useEffect(() => {
+        console.log('initialize');
+        initialize(note);
+
+        return () => {
+            reset();
+        };
+    }, [initialize, note, reset]);
 
     return (
         <SafeAreaView style={styles.safeArea}>
             <View style={{ height: StatusBar.currentHeight, backgroundColor: '#ffffff'}} />
             <TopNavigationOpe
-                title={'编辑 ' + noteId + ' 笔记'}
+                title={'编辑 ' + note?.noteId + ' 笔记'}
                 navigation={navigation}
                 renderItemAccessory={() => <></>}
             />

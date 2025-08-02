@@ -7,24 +7,20 @@ import {
     Text,
     View,
 } from 'react-native';
-import { NavigationProps } from '../../types/navigationType.ts';
-import TopNavigationOpe from '../../components/Main/TopNavigationOpe.tsx';
+import TopNavigationOpe from '../../../../components/Main/TopNavigationOpe.tsx';
 import {Divider, TopNavigationAction} from '@ui-kitten/components';
-import * as CommonIcon from '../../components/Icon';
-import { Note, useNoteStore } from '../../stores/note.store.ts';
-import NoteCard from '../../components/Learn/note/NoteCard.tsx';
-import {useOpeNoteStore} from '../../stores/opeNote.store.ts';
-import FilterDisplayController from '../../components/Learn/LearnMain/FilterDisplayController.tsx';
+import * as CommonIcon from '../../../../components/Icon';
+import { useNoteStore } from '../stores';
+import { FilterDisplayController, NoteCard } from '../components';
+import { Note, NoteLibraryProps } from '../types';
 
-const NoteLibrary: React.FC<NavigationProps> = ({ navigation }) => {
-    const reset = useOpeNoteStore(state => state.reset);
+const NoteLibrary: React.FC<NoteLibraryProps> = ({ navigation }) => {
 
     const renderItemAccessory = () => {
         return (
             <TopNavigationAction
                 icon={CommonIcon.FileAddIcon}
                 onPress={() => {
-                    reset();
                     navigation.navigate('AddNoteCover');
                 }}
             />

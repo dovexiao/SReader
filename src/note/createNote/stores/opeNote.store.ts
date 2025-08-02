@@ -1,5 +1,5 @@
 import { create } from 'zustand';
-import { Note } from "./note.store.ts";
+import { Note } from '../../noteLibrary/types';
 
 interface OpeNoteStore {
   noteId: string;

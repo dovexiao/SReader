@@ -2,16 +2,17 @@ import React, { useState } from 'react';
 import {
     View,
     StyleSheet,
-    SafeAreaView, StatusBar,
+    SafeAreaView,
+    StatusBar,
 } from 'react-native';
-import { NavigationProps } from '../../types/navigationType.ts';
-import { Button, Divider, Icon, Input } from '@ui-kitten/components';
-import TopNavigationOpe from '../../components/Main/TopNavigationOpe.tsx';
-import {useOpeNoteStore} from "../../stores/opeNote.store.ts";
-import {useNoteStore} from "../../stores/note.store.ts";
-import TagsEditor from "../../components/Learn/LearnMain/TagsEditor.tsx";
+import { Divider } from '@ui-kitten/components';
+import TopNavigationOpe from '../../../../components/Main/TopNavigationOpe.tsx';
+import { useOpeNoteStore } from '../stores';
+import { useNoteStore } from '../../noteLibrary/stores';
+import { TagsEditor } from '../components';
+import { CreateNoteTagProps } from '../types';
 
-const CreateNoteTag: React.FC<NavigationProps> = ({ navigation, route }) => {
+const CreateNoteTag: React.FC<CreateNoteTagProps> = ({ navigation, route }) => {
     const note = route.params?.note;
 
     const [tagInput, setTagInput] = useState('');

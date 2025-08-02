@@ -2,23 +2,19 @@ import React from 'react';
 import {View, Text, StyleSheet, Pressable} from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { Note } from '../../../stores/note.store.ts';
-import { getTagColor } from '../../../utils/getTagColor.ts';
-
-type RootStackParamList = {
-    NoteDetail: { id: string };
-    // 其他页面也可以在这里添加
-}
+import { getTagColor } from '@utils/getTagColor.ts';
+import { RootStackParamList } from '../../../types';
+import { Note } from '../types';
 
 interface NoteCardProps {
     note: Note;
 }
 
-const NoteCard: React.FC<NoteCardProps> = ({ note }) => {
+export const NoteCard: React.FC<NoteCardProps> = ({ note }) => {
     const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
 
     return (
-        <Pressable onPress={() => navigation.navigate('NoteDetail', { id: note.noteId })}>
+        <Pressable onPress={() => navigation.navigate('NoteReader', { noteId: note.noteId })}>
             <View style={styles.card}>
                 <View style={styles.header}>
                     <Text style={styles.cardId}>{note.noteId}</Text>
@@ -113,5 +109,3 @@ const styles = StyleSheet.create({
         color: '#555555',
     },
 });
-
-export default NoteCard;

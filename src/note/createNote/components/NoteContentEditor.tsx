@@ -1,9 +1,9 @@
 import React from 'react';
 import { Text, Input } from '@ui-kitten/components';
 import { StyleSheet, View } from 'react-native';
-import { useOpeNoteStore } from '../../../stores/opeNote.store.ts';
+import { useOpeNoteStore } from '../stores';
 
-const NoteContentEditor = () => {
+export const NoteContentEditor = () => {
     const content = useOpeNoteStore(state => state.noteContent);
     const setContent = useOpeNoteStore(state => state.setNoteContent);
 
@@ -45,5 +45,3 @@ const styles = StyleSheet.create({
         textAlignVertical: 'top',
     },
 });
-
-export default NoteContentEditor;

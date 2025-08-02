@@ -1,15 +1,6 @@
 import { create } from 'zustand';
-import { notes } from "../assets/notes.ts";
-
-export type Note = {
-    noteId: string,
-    createdAt: string,
-    lastModified: string,
-    title: string,
-    content: string,
-    introduce: string,
-    tags: string[];
-};
+import { Note } from '../types';
+import { notes } from '../assets';
 
 interface NoteStore {
     notes: Note[],

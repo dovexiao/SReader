@@ -1,19 +1,29 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {
     View,
     StyleSheet,
     SafeAreaView,
     ScrollView,
-    StatusBar, Text, TextInput,
+    StatusBar,
+    Text,
 } from 'react-native';
-import { NavigationProps } from '../../types/navigationType.ts';
-import {Button, Divider, Input} from '@ui-kitten/components';
-import TopNavigationOpe from '../../components/Main/TopNavigationOpe.tsx';
-import {useOpeNoteStore} from "../../stores/opeNote.store.ts";
-import NoteTitleEditor from "../../components/Learn/note/NoteTitleEditor.tsx";
-import NoteIntroduceEditor from "../../components/Learn/note/NoteIntroduceEditor.tsx";
+import { Button, Divider } from '@ui-kitten/components';
+import TopNavigationOpe from '../../../../components/Main/TopNavigationOpe.tsx';
+import { useOpeNoteStore } from '../stores';
+import { NoteIntroduceEditor, NoteTitleEditor } from '../components';
+import { AddNoteCoverProps } from '../types';
 
-const AddNoteCover: React.FC<NavigationProps> = ({ navigation }) => {
+const AddNoteCover: React.FC<AddNoteCoverProps> = ({ navigation }) => {
+    const reset = useOpeNoteStore(state => state.reset);
+
+    useEffect(() => {
+        reset();
+
+        return () => {
+            reset();
+        };
+    }, [reset]);
+
     return (
         <SafeAreaView style={styles.safeArea}>
             <View style={{ height: StatusBar.currentHeight, backgroundColor: '#ffffff'}} />
@@ -51,8 +61,8 @@ const NextStepButton = ({ navigation }: { navigation: any }) => {
     };
 
     return (
-        <Button style={styles.endButton} onPress={handleNext} disabled={isOpeHeaderDisabled}>
-            <Text style={styles.endButtonText}>下一步</Text>
+        <Button style={styles.nextButton} onPress={handleNext} disabled={isOpeHeaderDisabled}>
+            <Text style={styles.nextButtonText}>下一步</Text>
         </Button>
     );
 };
@@ -68,7 +78,7 @@ const styles = StyleSheet.create({
         paddingVertical: 20,
         backgroundColor: '#FFFFFF',
     },
-    endButton: {
+    nextButton: {
         borderRadius: 4,
         padding: 12,
         alignItems: 'center',
@@ -76,7 +86,7 @@ const styles = StyleSheet.create({
         marginBottom: 10,
         // backgroundColor: '#3366FF',
     },
-    endButtonText: {
+    nextButtonText: {
         color: '#FFFFFF',
         fontSize: 16,
         fontWeight: '500',

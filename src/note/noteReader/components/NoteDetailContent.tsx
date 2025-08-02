@@ -1,107 +1,63 @@
 import React from 'react';
-import {
-    View,
-    Text,
-    StyleSheet,
-    SafeAreaView,
-    ScrollView,
-    Image, StatusBar,
-} from 'react-native';
-import { NavigationProps } from '../../types/navigationType.ts';
-import { Button, Divider, TopNavigationAction } from '@ui-kitten/components';
-import TopNavigationOpe from '../../components/Main/TopNavigationOpe.tsx';
-import { EditIcon } from '../../components/Icon';
-import { formatTime } from '../../utils/formatTime.ts';
-import { getTagColor } from '../../utils/getTagColor.ts';
-import { useNoteStore } from '../../stores/note.store.ts';
-import { useOpeNoteStore } from '../../stores/opeNote.store.ts';
+import {View, Text, StyleSheet, Image} from 'react-native';
 import Markdown from 'react-native-markdown-display';
+import {Divider} from '@ui-kitten/components';
+import { formatTime } from '@utils/formatTime.ts';
+import { getTagColor } from '@utils/getTagColor.ts';
+import { Note } from '../../noteLibrary/types';
 
-const NoteDetail: React.FC<NavigationProps> = ({ navigation, route }) => {
-    const noteId = route.params?.id;
+// 定义props类型
+interface NoteDetailContentProps {
+    note: Note;
+}
 
-    const note = useNoteStore(state => state.notes.filter(q => q.noteId === noteId)[0]);
-    const initialize = useOpeNoteStore(state => state.initialize);
-
-    const renderItemAccessory = () => {
-        return (
-            <TopNavigationAction
-                icon={EditIcon}
-                onPress={() => {
-                    initialize(note);
-                    navigation.navigate('EditNote');
-                }}
-            />
-        );
-    };
-
+const NoteDetailContent: React.FC<NoteDetailContentProps> = ({ note }) => {
     return (
-        <SafeAreaView style={styles.safeArea}>
-            <View style={{ height: StatusBar.currentHeight, backgroundColor: '#ffffff'}} />
-            <TopNavigationOpe
-                title={note.noteId + ' 笔记详情'}
-                navigation={navigation}
-                renderItemAccessory={renderItemAccessory}
-            />
-            <Divider />
-
-            <ScrollView style={styles.container}>
-                <View style={styles.header}>
-                    {/*<Text style={styles.cardId}>{note.noteId}</Text>*/}
-                    <Text style={styles.title} ellipsizeMode={'tail'} numberOfLines={1}>{note.title}</Text>
-                    <Text style={styles.introduction} ellipsizeMode={'tail'} numberOfLines={3}>{note.introduce}</Text>
-                </View>
-
-                <Text style={styles.creationInfo}>
-                    {formatTime(note.createdAt, { format: 'datetime' })}
+        <View style={styles.container}>
+            <View style={styles.header}>
+                <Text style={styles.title} ellipsizeMode={'tail'} numberOfLines={1}>
+                    {note.title}
                 </Text>
+                <Text style={styles.introduction} ellipsizeMode={'tail'} numberOfLines={3}>
+                    {note.introduce}
+                </Text>
+            </View>
 
-                <Divider style={{ marginBottom: 10 }} />
+            <Text style={styles.creationInfo}>
+                {formatTime(note.createdAt, { format: 'datetime' })}
+            </Text>
 
-                {/*<View style={styles.contentContainer}>*/}
-                {/*    <Text style={styles.contentText}>{note.content}</Text>*/}
-                {/*</View>*/}
+            <Divider style={{ marginBottom: 10 }} />
 
-                <Markdown
-                    style={markdownStyles}
-                    rules={renderRules}
-                >
-                    {note.content.trim() || '暂无内容'}
-                </Markdown>
+            <Markdown style={markdownStyles} rules={renderRules}>
+                {note.content.trim() || '暂无内容'}
+            </Markdown>
 
-                <Divider style={{ marginVertical: 10 }} />
+            <Divider style={{ marginVertical: 10 }} />
 
-                {note.tags.length > 0 && <View style={styles.tagsContainer}>
+            {note.tags.length > 0 && (
+                <View style={styles.tagsContainer}>
                     <Text style={styles.sectionTitle}>标签</Text>
                     <View style={styles.tagsList}>
                         {note.tags.map((tag: string, index: number) => (
                             <View
                                 key={index}
-                                style={[
-                                    styles.tag,
-                                    {backgroundColor: getTagColor()},
-                                ]}
+                                style={[styles.tag, { backgroundColor: getTagColor() }]}
                             >
                                 <Text style={styles.tagText}>{tag}</Text>
                             </View>
                         ))}
                     </View>
-                </View>}
-
-                <View style={styles.footer}>
-                    {/*<Text style={styles.footerText}>创建者: {question.creator}</Text>*/}
-                    <Text style={styles.footerText}>
-                        最近修改: {formatTime(note.lastModified, { format: 'datetime' })}
-                    </Text>
                 </View>
-                <View style={{ height: 40 }} />
-            </ScrollView>
-            <Divider />
-            {/*<View style={styles.buttonContainer}>*/}
-            {/*    <Button appearance="ghost" style={styles.button}>上一篇</Button>*/}
-            {/*    <Button appearance="ghost" style={styles.button}>下一篇</Button>*/}
-            {/*</View>*/}
-        </SafeAreaView>
+            )}
+
+            <View style={styles.footer}>
+                <Text style={styles.footerText}>
+                    最近修改: {formatTime(note.lastModified, { format: 'datetime' })}
+                </Text>
+            </View>
+            <View style={{ height: 40 }} />
+        </View>
     );
 };
 
@@ -237,14 +193,10 @@ const renderRules = {
             style={styles.image}
             source={{ uri: node.attributes.src }}
         />
-    )
+    ),
 };
 
 const styles = StyleSheet.create({
-    safeArea: {
-        flex: 1,
-        backgroundColor: '#FFFFFF',
-    },
     container: {
         flex: 1,
         paddingVertical: 10,
@@ -313,7 +265,7 @@ const styles = StyleSheet.create({
         marginBottom: 8,
     },
     tagText: {
-        fontSize: 16,
+        fontSize: 14,
         color: '#555555',
     },
     footer: {
@@ -341,4 +293,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default NoteDetail;
+export default NoteDetailContent;

@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import {useOpeNoteStore} from '../../../stores/opeNote.store.ts';
-import TagsEditor from "../LearnMain/TagsEditor.tsx";
+import { useOpeNoteStore } from '../stores';
+import { TagsEditor } from './TagsEditor.tsx';
 
-const NoteTagsEditor = () => {
+export const NoteTagsEditor = () => {
     const tags = useOpeNoteStore(state => state.noteTags);
     const addTag = useOpeNoteStore(state => state.addTag);
     const removeTag = useOpeNoteStore(state => state.removeTag);
@@ -26,5 +26,3 @@ const NoteTagsEditor = () => {
         />
     );
 };
-
-export default NoteTagsEditor;
