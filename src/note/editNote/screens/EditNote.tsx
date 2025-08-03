@@ -22,9 +22,7 @@ const EditNote: React.FC<EditNoteProps> = ({ navigation, route }) => {
     const reset = useOpeNoteStore(state => state.reset);
 
     useEffect(() => {
-        console.log('initialize');
         initialize(note);
-
         return () => {
             reset();
         };

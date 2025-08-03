@@ -18,7 +18,7 @@ const ButtonControls: React.FC = () => {
                 onPress={goPrev}
                 disabled={currentPage === 0}
             >
-                上一页
+                上一篇
                 {/*<Text style={styles.controlText}>上一页</Text>*/}
             </Button>
 
@@ -29,7 +29,7 @@ const ButtonControls: React.FC = () => {
                 onPress={goNext}
                 disabled={currentPage === pageCount - 1}
             >
-                下一页
+                下一篇
                 {/*<Text style={styles.controlText}>下一页</Text>*/}
             </Button>
         </View>

@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Text, StyleSheet, Pressable} from 'react-native';
+import {View, Text, StyleSheet, Pressable, TouchableOpacity} from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { getTagColor } from '@utils/getTagColor.ts';
@@ -14,30 +14,28 @@ export const NoteCard: React.FC<NoteCardProps> = ({ note }) => {
     const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
 
     return (
-        <Pressable onPress={() => navigation.navigate('NoteReader', { noteId: note.noteId })}>
-            <View style={styles.card}>
-                <View style={styles.header}>
-                    <Text style={styles.cardId}>{note.noteId}</Text>
-                    <Text style={styles.title} numberOfLines={1} ellipsizeMode={'tail'}>{note.title}</Text>
-                </View>
-
-                <Text style={styles.introduce} numberOfLines={2} ellipsizeMode={'tail'}>{note.introduce}</Text>
-
-                <View style={styles.tagsContainer}>
-                    {note.tags.map((tag, index) => (
-                        <View
-                            key={index}
-                            style={[
-                                styles.tag,
-                                { backgroundColor: getTagColor() },
-                            ]}
-                        >
-                            <Text style={styles.tagText}>{tag}</Text>
-                        </View>
-                    ))}
-                </View>
+        <TouchableOpacity style={styles.card} onPress={() => navigation.navigate('NoteReader', { noteId: note.noteId })}>
+            <View style={styles.header}>
+                <Text style={styles.cardId}>{note.noteId}</Text>
+                <Text style={styles.title} numberOfLines={1} ellipsizeMode={'tail'}>{note.title}</Text>
             </View>
-        </Pressable>
+
+            <Text style={styles.introduce} numberOfLines={2} ellipsizeMode={'tail'}>{note.introduce}</Text>
+
+            <View style={styles.tagsContainer}>
+                {note.tags.map((tag, index) => (
+                    <View
+                        key={index}
+                        style={[
+                            styles.tag,
+                            { backgroundColor: getTagColor() },
+                        ]}
+                    >
+                        <Text style={styles.tagText}>{tag}</Text>
+                    </View>
+                ))}
+            </View>
+        </TouchableOpacity>
     );
 };
 
@@ -48,9 +46,12 @@ const styles = StyleSheet.create({
         padding: 16,
         marginBottom: 16,
         shadowColor: '#000',
-        shadowOffset: { width: 0, height: 1 },
-        shadowOpacity: 0.22,
-        shadowRadius: 2.22,
+        shadowOffset: {
+            width: 0,
+            height: 2,
+        },
+        shadowOpacity: 0.1,
+        shadowRadius: 8,
         elevation: 3,
     },
     header: {

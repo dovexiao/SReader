@@ -11,7 +11,7 @@ interface NoteDetailContentProps {
     note: Note;
 }
 
-const NoteDetailContent: React.FC<NoteDetailContentProps> = ({ note }) => {
+const NoteDetailContent = ({ note }: NoteDetailContentProps) => {
     return (
         <View style={styles.container}>
             <View style={styles.header}>
