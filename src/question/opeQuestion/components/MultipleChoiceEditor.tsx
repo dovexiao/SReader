@@ -1,9 +1,9 @@
 import React from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import { CheckBox, Icon, Input } from '@ui-kitten/components';
-import { useOpeQuestionStore } from '../../../stores/opeQuestion.store.ts';
+import { useOpeQuestionStore } from '../stores/opeQuestion.store.ts';
 
-const MultipleChoiceEditor = () => {
+export const MultipleChoiceEditor = () => {
     const selectedType = useOpeQuestionStore(state => state.questionType);
     const options = useOpeQuestionStore(state => state.options);
     const addOption = useOpeQuestionStore(state => state.addOption);
@@ -116,5 +116,3 @@ const styles = StyleSheet.create({
         fontSize: 14,
     },
 });
-
-export default MultipleChoiceEditor;

@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import { useOpeQuestionStore } from '../../../stores/opeQuestion.store.ts';
-import TagsEditor from '../LearnMain/TagsEditor.tsx';
+import { useOpeQuestionStore } from '../stores/opeQuestion.store.ts';
+import { TagsEditor } from '../../../note/createNote/components';
 
-const QuestionTagsEditor = () => {
+export const QuestionTagsEditor = () => {
     const tags = useOpeQuestionStore(state => state.questionTags);
     const addTag = useOpeQuestionStore(state => state.addTag);
     const removeTag = useOpeQuestionStore(state => state.removeTag);
@@ -26,5 +26,3 @@ const QuestionTagsEditor = () => {
         />
     );
 };
-
-export default QuestionTagsEditor;

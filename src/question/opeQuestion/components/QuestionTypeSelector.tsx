@@ -1,10 +1,10 @@
 import React from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
-import {QuestionType, useOpeQuestionStore} from '../../../stores/opeQuestion.store.ts';
+import {QuestionType, useOpeQuestionStore} from '../stores/opeQuestion.store.ts';
 
 const QUESTION_TYPES = ['单选题', '多选题', '填空题', '判断题', '简答题'];
 
-const QuestionTypeSelector = () => {
+export const QuestionTypeSelector = () => {
     const selectedType = useOpeQuestionStore(state => state.questionType);
     const setSelectedType = useOpeQuestionStore(state => state.setQuestionType);
 
@@ -74,5 +74,3 @@ const styles = StyleSheet.create({
         fontWeight: '500',
     },
 });
-
-export default QuestionTypeSelector;

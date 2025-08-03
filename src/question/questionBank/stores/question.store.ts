@@ -1,18 +1,6 @@
 import { create } from 'zustand';
-import {questions} from '../assets/questions.ts';
-
-export type QuestionType = '单选题' | '多选题' | '判断题' | '填空题' | '简答题';
-
-export type Question = {
-    questionId: string;
-    type: QuestionType;
-    createdAt: string;
-    lastModified: string;
-    content: string;
-    body: any;
-    analysis: string;
-    tags: string[];
-};
+import { questions } from '../../../../assets/questions.ts';
+import { Question } from '../types';
 
 interface QuestionStore {
     questions: Question[],

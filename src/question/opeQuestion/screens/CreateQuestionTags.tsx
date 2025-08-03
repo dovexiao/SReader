@@ -4,14 +4,14 @@ import {
     StyleSheet,
     SafeAreaView, StatusBar,
 } from 'react-native';
-import { NavigationProps } from '../../types/navigationType.ts';
+import { NavigationProps } from '../../../../types/navigationType.ts';
 import { Divider } from '@ui-kitten/components';
-import TopNavigationOpe from '../../components/Main/TopNavigationOpe.tsx';
-import { useOpeQuestionStore } from '../../stores/opeQuestion.store.ts';
-import { useQuestionStore } from '../../stores/question.store.ts';
-import TagsEditor from '../../src/note/createNote/components/TagsEditor.tsx';
+import TopNavigationOpe from '../../../../components/Main/TopNavigationOpe.tsx';
+import { useOpeQuestionStore } from '../stores/opeQuestion.store.ts';
+import { useQuestionStore } from '../../questionBank/stores/question.store.ts';
+import { TagsEditor } from '../../../note/createNote/components';
 
-const CreateQuestionTag: React.FC<NavigationProps> = ({ navigation, route }) => {
+const CreateQuestionTags: React.FC<NavigationProps> = ({ navigation, route }) => {
     const question = route.params?.question;
 
     const [tagInput, setTagInput] = useState('');
@@ -144,4 +144,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default CreateQuestionTag;
+export default CreateQuestionTags;

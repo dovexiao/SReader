@@ -1,9 +1,9 @@
 import React from 'react';
 import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {Icon, Input} from '@ui-kitten/components';
-import {useOpeQuestionStore} from '../../../stores/opeQuestion.store.ts';
+import {useOpeQuestionStore} from '../stores/opeQuestion.store.ts';
 
-const FillInBlankEditor = () => {
+export const FillInBlankEditor = () => {
     const blanks = useOpeQuestionStore(state => state.blanks);
     const addBlank = useOpeQuestionStore(state => state.addBlank);
     const updateBlankText = useOpeQuestionStore(state => state.updateBlankText);
@@ -97,5 +97,3 @@ const styles = StyleSheet.create({
         fontSize: 14,
     },
 });
-
-export default FillInBlankEditor;

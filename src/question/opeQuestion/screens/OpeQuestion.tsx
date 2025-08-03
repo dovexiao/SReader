@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {
     View,
     Text,
@@ -6,29 +6,42 @@ import {
     SafeAreaView,
     ScrollView, StatusBar,
 } from 'react-native';
-import { NavigationProps } from '../../types/navigationType.ts';
 import { Button, Divider } from '@ui-kitten/components';
-import TopNavigationOpe from '../../components/Main/TopNavigationOpe.tsx';
-import QuestionTypeSelector from '../../components/Learn/question/QuestionTypeSelector.tsx';
-import QuestionContentEditor from '../../components/Learn/question/QuestionContentEditor.tsx';
-import MultipleChoiceEditor from '../../components/Learn/question/MultipleChoiceEditor.tsx';
-import FillInBlankEditor from '../../components/Learn/question/FillInBlankEditor.tsx';
-import JudgementEditor from '../../components/Learn/question/JudgementEditor.tsx';
-import ShortAnswerEditor from '../../components/Learn/question/ShortAnswerEditor.tsx';
-import AnalysisEditor from '../../components/Learn/question/AnalysisEditor.tsx';
-import QuestionTypeDisplay from '../../components/Learn/question/QuestionTypeDisplay.tsx';
-import QuestionTagsEditor from '../../components/Learn/question/QuestionTagsEditor.tsx';
-import { useOpeQuestionStore } from '../../stores/opeQuestion.store.ts';
-import { useQuestionStore } from '../../stores/question.store.ts';
+import TopNavigationOpe from '../../../../components/Main/TopNavigationOpe.tsx';
+import {
+    AnalysisEditor,
+    FillInBlankEditor,
+    JudgementEditor,
+    MultipleChoiceEditor,
+    QuestionContentEditor,
+    QuestionTypeDisplay,
+    QuestionTypeSelector,
+    ShortAnswerEditor,
+    QuestionTagsEditor,
+} from '../components';
+import { useOpeQuestionStore } from '../stores/opeQuestion.store.ts';
+import { useQuestionStore } from '../../questionBank/stores/question.store.ts';
+import { OpeQuestionProps } from '../types';
 
-const OpeQuestion: React.FC<NavigationProps> = ({ navigation, route }) => {
-    const opeType = route.params.type;
+const OpeQuestion: React.FC<OpeQuestionProps> = ({ navigation, route }) => {
+    const { type: opeType, questionId } = route.params;
+
+    const question = useQuestionStore(state => state.questions.filter(q => q.questionId === questionId)[0]);
+    const initialize = useOpeQuestionStore(state => state.initialize);
+    const reset = useOpeQuestionStore(state => state.reset);
+
+    useEffect(() => {
+        initialize(question);
+        return () => {
+            reset();
+        };
+    }, [initialize, question, reset]);
 
     return (
         <SafeAreaView style={styles.safeArea}>
             <View style={{ height: StatusBar.currentHeight, backgroundColor: '#ffffff'}} />
             <TopNavigationOpe
-                title={'创建新题目'}
+                title={opeType === 'create' ? '创建新题目' : '编辑题目'}
                 navigation={navigation}
                 renderItemAccessory={() => <></>}
             />

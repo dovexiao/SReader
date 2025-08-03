@@ -3,25 +3,17 @@ import {
     View,
     Text,
     StyleSheet,
-    SafeAreaView,
-    ScrollView,
-    StatusBar,
 } from 'react-native';
-import { NavigationProps } from '../../types/navigationType.ts';
-import { Button, CheckBox, Divider, Radio, RadioGroup, TopNavigationAction } from '@ui-kitten/components';
-import TopNavigationOpe from '../../components/Main/TopNavigationOpe.tsx';
-import { EditIcon } from '../../components/Icon';
-import { useQuestionStore } from '../../stores/question.store.ts';
-import { useOpeQuestionStore } from '../../stores/opeQuestion.store.ts';
-import { formatTime } from '../../utils/formatTime.ts';
-import { getTagColor } from '../../utils/getTagColor.ts';
+import { CheckBox, Radio, RadioGroup } from '@ui-kitten/components';
+import { formatTime } from '@utils/formatTime.ts';
+import { getTagColor } from '@utils/getTagColor.ts';
+import { Question } from '../../questionBank/types';
 
-const QuestionDetail: React.FC<NavigationProps> = ({ navigation, route }) => {
-    const questionId = route.params?.id;
+interface QuestionDetailContentContentProps {
+    question: Question;
+}
 
-    const question = useQuestionStore(state => state.questions.filter(q => q.questionId === questionId)[0]);
-    const initialize = useOpeQuestionStore(state => state.initialize);
-
+const QuestionDetailContent = ({ question }: QuestionDetailContentContentProps) => {
     // 根据题目类型渲染不同的选项UI
     const renderOptions = () => {
         switch (question.type) {
@@ -108,79 +100,53 @@ const QuestionDetail: React.FC<NavigationProps> = ({ navigation, route }) => {
         }
     };
 
-    const renderItemAccessory = () => {
-        return (
-            <TopNavigationAction
-                icon={EditIcon}
-                onPress={() => {
-                    initialize(question);
-                    navigation.navigate('OpeQuestion', { type: 'update' });
-                }}
-            />
-        );
-    };
-
     return (
-        <SafeAreaView style={styles.safeArea}>
-            <View style={{ height: StatusBar.currentHeight, backgroundColor: '#ffffff'}} />
-            <TopNavigationOpe
-                title={'题目详情'}
-                navigation={navigation}
-                renderItemAccessory={renderItemAccessory}
-            />
-            <Divider />
-            <ScrollView style={styles.container}>
-                <View style={styles.header}>
-                    <Text style={styles.questionId}>{question.questionId}</Text>
-                    <Text style={styles.questionType}>{question.type}</Text>
-                </View>
+        <View style={styles.container}>
+            <View style={styles.header}>
+                <Text style={styles.questionId}>{question.questionId}</Text>
+                <Text style={styles.questionType}>{question.type}</Text>
+            </View>
 
-                <Text style={styles.creationInfo}>
-                    {formatTime(question.createdAt, { format: 'datetime' })}
+            <Text style={styles.creationInfo}>
+                {formatTime(question.createdAt, { format: 'datetime' })}
+            </Text>
+
+            <View style={styles.contentContainer}>
+                <Text style={styles.contentText}>{question.content}</Text>
+            </View>
+
+            {renderOptions()}
+
+            <View style={styles.analysisContainer}>
+                <Text style={styles.sectionTitle}>解析</Text>
+                <Text style={styles.analysisText}>{question.analysis}</Text>
+            </View>
+
+            {question.tags.length > 0 && <View style={styles.tagsContainer}>
+                <Text style={styles.sectionTitle}>标签</Text>
+                <View style={styles.tagsList}>
+                    {question.tags.map((tag: string, index: number) => (
+                        <View
+                            key={index}
+                            style={[
+                                styles.tag,
+                                {backgroundColor: getTagColor()},
+                            ]}
+                        >
+                            <Text style={styles.tagText}>{tag}</Text>
+                        </View>
+                    ))}
+                </View>
+            </View>}
+
+            <View style={styles.footer}>
+                {/*<Text style={styles.footerText}>创建者: {question.creator}</Text>*/}
+                <Text style={styles.footerText}>
+                    最近修改: {formatTime(question.lastModified, { format: 'datetime' })}
                 </Text>
-
-                <View style={styles.contentContainer}>
-                    <Text style={styles.contentText}>{question.content}</Text>
-                </View>
-
-                {renderOptions()}
-
-                <View style={styles.analysisContainer}>
-                    <Text style={styles.sectionTitle}>解析</Text>
-                    <Text style={styles.analysisText}>{question.analysis}</Text>
-                </View>
-
-                {question.tags.length > 0 && <View style={styles.tagsContainer}>
-                    <Text style={styles.sectionTitle}>标签</Text>
-                    <View style={styles.tagsList}>
-                        {question.tags.map((tag: string, index: number) => (
-                            <View
-                                key={index}
-                                style={[
-                                    styles.tag,
-                                    {backgroundColor: getTagColor()},
-                                ]}
-                            >
-                                <Text style={styles.tagText}>{tag}</Text>
-                            </View>
-                        ))}
-                    </View>
-                </View>}
-
-                <View style={styles.footer}>
-                    {/*<Text style={styles.footerText}>创建者: {question.creator}</Text>*/}
-                    <Text style={styles.footerText}>
-                        最近修改: {formatTime(question.lastModified, { format: 'datetime' })}
-                    </Text>
-                </View>
-                <View style={{ height: 40 }} />
-            </ScrollView>
-            <Divider />
-            {/*<View style={styles.buttonContainer}>*/}
-            {/*    <Button appearance="ghost" style={styles.button}>上一题</Button>*/}
-            {/*    <Button appearance="ghost" style={styles.button}>下一题</Button>*/}
-            {/*</View>*/}
-        </SafeAreaView>
+            </View>
+            <View style={{ height: 40 }} />
+        </View>
     );
 };
 
@@ -369,4 +335,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default QuestionDetail;
+export default QuestionDetailContent;

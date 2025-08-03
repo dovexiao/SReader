@@ -4,30 +4,25 @@ import {
     FlatList,
     StyleSheet,
     SafeAreaView,
-    StatusBar, ScrollView,
+    StatusBar,
+    ScrollView,
 } from 'react-native';
-import { NavigationProps } from '../../types/navigationType.ts';
 import { Divider, Text, TopNavigationAction } from '@ui-kitten/components';
-import * as CommonIcon from '../../components/Icon';
-import QuestionCard from '../../components/Learn/question/QuestionCard.tsx';
-// import { useGlobal } from '../../hooks/GlobalContext.tsx';
-import TopNavigationOpe from '../../components/Main/TopNavigationOpe.tsx';
-import {Question, useQuestionStore} from '../../stores/question.store.ts';
-import {useOpeQuestionStore} from '../../stores/opeQuestion.store.ts';
-import FilterDisplayController from '../../components/Learn/LearnMain/FilterDisplayController.tsx';
+import * as CommonIcon from '../../../../components/Icon';
+import TopNavigationOpe from '../../../../components/Main/TopNavigationOpe.tsx';
+import { useQuestionStore } from '../stores/question.store.ts';
+import { FilterDisplayController } from '../../../note/noteLibrary/components';
+import { Question, QuestionBankProps } from '../types';
+import { QuestionCard } from '../components';
 
-// const ICON_COLOR = '#555555';
 const ADD_BUTTON_COLOR = '#4CAF50';
 
-const QuestionBank: React.FC<NavigationProps> = ({ navigation }) => {
-    const initialize = useOpeQuestionStore(state => state.initialize);
-
+const QuestionBank: React.FC<QuestionBankProps> = ({ navigation }) => {
     const renderItemAccessory = () => {
         return (
             <TopNavigationAction
                 icon={CommonIcon.FileAddIcon}
                 onPress={() => {
-                    initialize(undefined);
                     navigation.navigate('OpeQuestion', {type: 'create'});
                 }}
             />
@@ -36,7 +31,6 @@ const QuestionBank: React.FC<NavigationProps> = ({ navigation }) => {
 
     return (
         <SafeAreaView style={styles.safeArea}>
-            {/*<StatusBar barStyle="dark-content" backgroundColor={'#ffffff'} translucent={false} />*/}
             <View style={{ height: StatusBar.currentHeight, backgroundColor: '#ffffff'}} />
             <TopNavigationOpe
                 title={'题目库'}

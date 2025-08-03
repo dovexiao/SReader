@@ -1,9 +1,9 @@
 import React from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 import {Input} from '@ui-kitten/components';
-import {useOpeQuestionStore} from '../../../stores/opeQuestion.store.ts';
+import { useOpeQuestionStore } from '../stores/opeQuestion.store.ts';
 
-const ShortAnswerEditor = () => {
+export const ShortAnswerEditor = () => {
     const shortAnswer = useOpeQuestionStore(state => state.shortAnswer);
     const setShortAnswer = useOpeQuestionStore(state => state.setShortAnswer);
 
@@ -38,5 +38,3 @@ const styles = StyleSheet.create({
         textAlignVertical: 'top',
     },
 });
-
-export default ShortAnswerEditor;

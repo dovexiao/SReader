@@ -1,9 +1,9 @@
 import React from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 import {Radio, RadioGroup} from '@ui-kitten/components';
-import {useOpeQuestionStore} from '../../../stores/opeQuestion.store.ts';
+import {useOpeQuestionStore} from '../stores/opeQuestion.store.ts';
 
-const JudgementEditor = () => {
+export const JudgementEditor = () => {
     const correctAnswer = useOpeQuestionStore(state => state.correctAnswer);
     const setCorrectAnswer = useOpeQuestionStore(state => state.setCorrectAnswer);
 
@@ -42,5 +42,3 @@ const styles = StyleSheet.create({
         marginTop: 8,
     },
 });
-
-export default JudgementEditor;

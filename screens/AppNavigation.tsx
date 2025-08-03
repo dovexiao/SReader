@@ -7,10 +7,10 @@ import AppRegister from './AuthScreen/AppRegister.tsx';
 import AppMain from './AppMain.tsx';
 // import PersonCenter from './PersonScreen';
 import TestPage from './TestPage.tsx';
-import QuestionBank from './LearnScreen/QuestionBank.tsx';
-import QuestionDetail from './LearnScreen/QuestionDetail.tsx';
-import OpeQuestion from './LearnScreen/OpeQuestion.tsx';
-import CreateQuestionTag from './LearnScreen/CreateQuestionTag.tsx';
+import QuestionBank from '../src/question/questionBank/screens/QuestionBank.tsx';
+import QuestionPaginator from '../src/question/questionPaginator/screens/QuestionPaginator.tsx';
+import OpeQuestion from '../src/question/opeQuestion/screens/OpeQuestion.tsx';
+import CreateQuestionTags from '../src/question/opeQuestion/screens/CreateQuestionTags.tsx';
 import NoteLibrary from '../src/note/noteLibrary/screens/NoteLibrary.tsx';
 import NoteReader from '../src/note/noteReader/screens/NoteReader.tsx';
 import EditNote from '../src/note/editNote/screens/EditNote.tsx';
@@ -30,10 +30,11 @@ const HomeNavigator = () => (
         {/*<Screen name="AppRegister" component={AppRegister} />*/}
         <Screen name="AppMain" component={AppMain} />
         {/*<Screen name="PersonCenter" component={PersonCenter} />*/}
-        {/*<Screen name="QuestionBank" component={QuestionBank} />*/}
-        {/*<Screen name="QuestionDetail" component={QuestionDetail} initialParams={{ id: null }} />*/}
-        {/*<Screen name="OpeQuestion" component={OpeQuestion} initialParams={{ type: null }} />*/}
-        {/*<Screen name="CreateQuestionTag" component={CreateQuestionTag} initialParams={{ question: null }} />*/}
+        {/*题目模块*/}
+        <Screen name="QuestionBank" component={QuestionBank} />
+        <Screen name="QuestionPaginator" component={QuestionPaginator} initialParams={{ questionId: '' }} />
+        <Screen name="OpeQuestion" component={OpeQuestion} initialParams={{ type: '', questionId: '' }} />
+        <Screen name="CreateQuestionTags" component={CreateQuestionTags} initialParams={{ question: null }} />
         {/* 笔记模块*/}
         <Screen name="NoteLibrary" component={NoteLibrary} />
         <Screen name="NoteReader" component={NoteReader} initialParams={{ noteId: '' }} />

@@ -1,5 +1,5 @@
 import { create } from 'zustand';
-import { Question } from "./question.store.ts";
+import { Question } from '../../questionBank/types';
 
 export type QuestionType = '单选题' | '多选题' | '填空题' | '判断题' | '简答题';
 

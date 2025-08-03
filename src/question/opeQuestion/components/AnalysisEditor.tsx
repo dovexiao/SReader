@@ -1,9 +1,9 @@
 import React from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 import {Input} from '@ui-kitten/components';
-import {useOpeQuestionStore} from '../../../stores/opeQuestion.store.ts';
+import {useOpeQuestionStore} from '../stores/opeQuestion.store.ts';
 
-const AnalysisEditor = () => {
+export const AnalysisEditor = () => {
     const analysis = useOpeQuestionStore(state => state.questionAnalysis);
     const setAnalysis = useOpeQuestionStore(state => state.setQuestionAnalysis);
 
@@ -38,5 +38,3 @@ const styles = StyleSheet.create({
         textAlignVertical: 'top',
     },
 });
-
-export default AnalysisEditor;

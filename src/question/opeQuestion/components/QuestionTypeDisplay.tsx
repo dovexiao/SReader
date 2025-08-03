@@ -1,8 +1,8 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
-import {useOpeQuestionStore} from '../../../stores/opeQuestion.store.ts';
+import {useOpeQuestionStore} from '../stores/opeQuestion.store.ts';
 
-const QuestionTypeDisplay = () => {
+export const QuestionTypeDisplay = () => {
     const questionId = useOpeQuestionStore.getState().questionId;
     const questionType = useOpeQuestionStore.getState().questionType;
 
@@ -31,5 +31,3 @@ const styles = StyleSheet.create({
         color: '#555555',
     },
 });
-
-export default QuestionTypeDisplay;

@@ -1,9 +1,9 @@
 import React from 'react';
 import { Text, Input } from '@ui-kitten/components';
-import {useOpeQuestionStore} from '../../../stores/opeQuestion.store.ts';
+import {useOpeQuestionStore} from '../stores/opeQuestion.store.ts';
 import {StyleSheet, View} from 'react-native';
 
-const QuestionContentEditor = () => {
+export const QuestionContentEditor = () => {
     const selectedType = useOpeQuestionStore(state => state.questionType);
     const questionContent = useOpeQuestionStore(state => state.questionContent);
     const setQuestionContent = useOpeQuestionStore(state => state.setQuestionContent);
@@ -59,5 +59,3 @@ const styles = StyleSheet.create({
         marginTop: 8,
     },
 });
-
-export default QuestionContentEditor;
