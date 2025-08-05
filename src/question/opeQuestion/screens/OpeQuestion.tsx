@@ -7,7 +7,7 @@ import {
     ScrollView, StatusBar,
 } from 'react-native';
 import { Button, Divider } from '@ui-kitten/components';
-import TopNavigationOpe from '../../../../components/Main/TopNavigationOpe.tsx';
+import TopNavigationOpe from '@/main/components/TopNavigationOpe.tsx';
 import {
     AnalysisEditor,
     FillInBlankEditor,

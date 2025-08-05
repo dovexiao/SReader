@@ -4,7 +4,7 @@ import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { getTagColor } from '@utils/getTagColor.ts';
 import { Question } from '../types';
-import { RootStackParamList } from '../../../types';
+import { RootStackParamList } from '@/types';
 
 interface QuestionCardProps {
     question: Question;

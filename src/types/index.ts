@@ -1,4 +1,7 @@
 // 定义整个应用的路由参数类型
+import { Note } from '@/note/noteLibrary/types';
+import { Question } from '@/question/questionBank/types';
+
 export type RootStackParamList = {
     AppMain: undefined;
     // 笔记模块
@@ -9,7 +12,7 @@ export type RootStackParamList = {
     AddNoteCover: undefined;
     AddNoteContent: undefined;
     CreateNoteTag: {
-        note: any;
+        note: Note | null;
     };
     EditNote: {
         noteId: string;
@@ -21,10 +24,10 @@ export type RootStackParamList = {
     },
     OpeQuestion: {
         type: 'create' | 'update' | '';
-        questionId: string;
+        questionId?: string;
     };
     CreateQuestionTags: {
-        question: any;
+        question: Question | null;
     },
     // 测试模块
     TestPage: undefined;

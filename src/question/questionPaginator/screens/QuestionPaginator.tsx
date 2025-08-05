@@ -7,7 +7,7 @@ import {
 } from 'react-native';
 import { NavigationProps } from '../../../../types/navigationType.ts';
 import { Divider, TopNavigationAction } from '@ui-kitten/components';
-import TopNavigationOpe from '../../../../components/Main/TopNavigationOpe.tsx';
+import TopNavigationOpe from '@/main/components/TopNavigationOpe.tsx';
 import { EditIcon } from '../../../../components/Icon';
 import { useQuestionStore } from '../../questionBank/stores/question.store.ts';
 import { useQuestionPaginatorStore } from '../stores';

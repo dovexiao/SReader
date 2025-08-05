@@ -8,7 +8,7 @@ import {
     StatusBar,
 } from 'react-native';
 import { Button, Divider } from '@ui-kitten/components';
-import TopNavigationOpe from '../../../../components/Main/TopNavigationOpe.tsx';
+import TopNavigationOpe from '@/main/components/TopNavigationOpe.tsx';
 import { useOpeNoteStore } from '../../createNote/stores';
 import { useNoteStore } from '../../noteLibrary/stores';
 import { NoteContentEditor, NoteIntroduceEditor, NoteTagsEditor, NoteTitleEditor } from '../../createNote/components';

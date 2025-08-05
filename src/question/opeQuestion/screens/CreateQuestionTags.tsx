@@ -6,7 +6,7 @@ import {
 } from 'react-native';
 import { NavigationProps } from '../../../../types/navigationType.ts';
 import { Divider } from '@ui-kitten/components';
-import TopNavigationOpe from '../../../../components/Main/TopNavigationOpe.tsx';
+import TopNavigationOpe from '@/main/components/TopNavigationOpe.tsx';
 import { useOpeQuestionStore } from '../stores/opeQuestion.store.ts';
 import { useQuestionStore } from '../../questionBank/stores/question.store.ts';
 import { TagsEditor } from '../../../note/createNote/components';

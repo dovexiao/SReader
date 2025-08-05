@@ -1,5 +1,5 @@
 import { create } from 'zustand';
-import { questions } from '../../../../assets/questions.ts';
+import { questions } from '../assets/questions.ts';
 import { Question } from '../types';
 
 interface QuestionStore {

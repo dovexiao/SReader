@@ -9,9 +9,9 @@ import {
 } from 'react-native';
 import { Divider, Text, TopNavigationAction } from '@ui-kitten/components';
 import * as CommonIcon from '../../../../components/Icon';
-import TopNavigationOpe from '../../../../components/Main/TopNavigationOpe.tsx';
+import TopNavigationOpe from '@/main/components/TopNavigationOpe.tsx';
 import { useQuestionStore } from '../stores/question.store.ts';
-import { FilterDisplayController } from '../../../note/noteLibrary/components';
+import { FilterDisplayController } from '@/note/noteLibrary/components';
 import { Question, QuestionBankProps } from '../types';
 import { QuestionCard } from '../components';
 
@@ -23,7 +23,7 @@ const QuestionBank: React.FC<QuestionBankProps> = ({ navigation }) => {
             <TopNavigationAction
                 icon={CommonIcon.FileAddIcon}
                 onPress={() => {
-                    navigation.navigate('OpeQuestion', {type: 'create'});
+                    navigation.navigate('OpeQuestion', { type: 'create' });
                 }}
             />
         );

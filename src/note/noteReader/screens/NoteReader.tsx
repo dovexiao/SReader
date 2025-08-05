@@ -6,7 +6,7 @@ import {
     StatusBar,
 } from 'react-native';
 import { Divider, TopNavigationAction } from '@ui-kitten/components';
-import TopNavigationOpe from '../../../../components/Main/TopNavigationOpe.tsx';
+import TopNavigationOpe from '@/main/components/TopNavigationOpe.tsx';
 import { EditIcon } from '../../../../components/Icon';
 import { useNoteStore } from '../../noteLibrary/stores';
 import { PagerController } from '../components';
