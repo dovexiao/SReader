@@ -21,7 +21,7 @@ import { RootStackParamList } from '@/types';
 const { Navigator, Screen } = createNativeStackNavigator<RootStackParamList>();
 
 const HomeNavigator = () => (
-    <Navigator initialRouteName="AppMain" screenOptions={{headerShown: false}}>
+    <Navigator initialRouteName="TestPage" screenOptions={{headerShown: false}}>
         {/*<Screen name="AppStart" component={AppStart} />*/}
         {/*<Screen name="AppLogin" component={AppLogin} />*/}
         {/*<Screen name="AppRegister" component={AppRegister} />*/}

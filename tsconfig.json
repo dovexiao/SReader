@@ -14,7 +14,9 @@
       "@types/*": ["src/types/*"],
       "@screens/*": ["src/screens/*"],
       "@hooks/*": ["src/hooks/*"],
-      "@navigation/*": ["src/navigator/*"],
+      "@navigation/*": ["src/navigation/*"],
+      "@contexts/*": ["src/contexts/*"],
+      "@global/*": ["src/global/*"],
       "@/*": ["src/*"],
     }
   }

@@ -13,10 +13,10 @@ import { useGlobal } from '@/contexts/GlobalContext.tsx';
 import { AppMainProps } from '@/main/types';
 
 const AppMain: React.FC<AppMainProps> = ({ navigation }) => {
-    const { PersonCenterRef } = useGlobal();
+    const { personCenterRef } = useGlobal();
 
     const handleRightSwipe = () => {
-        PersonCenterRef.current?.show();
+        personCenterRef.current?.show();
     };
 
     return (

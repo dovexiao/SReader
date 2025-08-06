@@ -47,10 +47,10 @@ const TopAvatarColumn = () => {
 
 const renderAvatar = () : React.ReactElement => {
     const avatar = null;
-    const { PersonCenterRef } = useGlobal();
+    const { personCenterRef } = useGlobal();
 
     const handleToPersonCenter = () => {
-        PersonCenterRef.current.show();
+        personCenterRef.current?.show();
     };
 
     return (
