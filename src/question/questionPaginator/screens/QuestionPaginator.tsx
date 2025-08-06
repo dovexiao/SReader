@@ -5,15 +5,15 @@ import {
     SafeAreaView,
     StatusBar,
 } from 'react-native';
-import { NavigationProps } from '../../../../types/navigationType.ts';
 import { Divider, TopNavigationAction } from '@ui-kitten/components';
 import TopNavigationOpe from '@/main/components/TopNavigationOpe.tsx';
-import { EditIcon } from '../../../../components/Icon';
+import { EditIcon } from '@/icon';
 import { useQuestionStore } from '../../questionBank/stores/question.store.ts';
 import { useQuestionPaginatorStore } from '../stores';
 import { PagerController } from '../components';
+import { QuestionPaginatorProps } from '@/question/questionPaginator/types';
 
-const QuestionPaginator: React.FC<NavigationProps> = ({ navigation, route }) => {
+const QuestionPaginator: React.FC<QuestionPaginatorProps> = ({ navigation, route }) => {
     const { questionId } = route.params;
     const questions = useQuestionStore(state => state.questions);
     const currentPage = useQuestionPaginatorStore(state => state.currentPage);

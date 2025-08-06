@@ -1,22 +1,16 @@
 import React, { forwardRef, useImperativeHandle } from 'react';
-import {Alert, Pressable, StyleSheet, Text, TouchableOpacity, View} from "react-native";
+import { Pressable, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import Animated, {
-    interpolate,
-    runOnJS,
-    SensorType,
-    useAnimatedSensor,
     useAnimatedStyle,
     useDerivedValue,
     useSharedValue,
-    withSpring,
     Easing,
     withTiming,
 } from 'react-native-reanimated';
-import Icon from "react-native-vector-icons/MaterialIcons";
-import ImagePicker from "react-native-image-crop-picker";
-import { CameraRoll } from "@react-native-camera-roll/camera-roll";
-import { useAuthStore } from "../../auth/login/stores/auth.store.ts";
-import { usePermission } from "@hooks/usePermission.ts";
+import ImagePicker from 'react-native-image-crop-picker';
+import { CameraRoll } from '@react-native-camera-roll/camera-roll';
+import { useAuthStore } from '@/auth/login/stores/auth.store.ts';
+import { usePermission } from '@hooks/usePermission.ts';
 
 type AvatarActionsModalAPI = {
     show: () => void;
@@ -51,13 +45,13 @@ const AvatarActionsModal = forwardRef<AvatarActionsModalAPI>((_, ref) => {
         rationale: {
             title: '开启相机权限',
             message: 'RTalky 需要相机权限用于拍摄照片更新头像',
-            positiveButton: '去开启'
+            positiveButton: '去开启',
         },
         settings: {
             title: '权限被拒绝',
             message: '请在设置中允许相机权限，并重启应用以维持最佳',
-            positiveButton: '去设置'
-        }
+            positiveButton: '去设置',
+        },
     });
 
     // 相册权限hook
@@ -66,13 +60,13 @@ const AvatarActionsModal = forwardRef<AvatarActionsModalAPI>((_, ref) => {
         rationale: {
             title: '开启图片和视频权限',
             message: 'RTalky 需要图片和视频权限用于选择本地图片更新头像',
-            positiveButton: '去开启'
+            positiveButton: '去开启',
         },
         settings: {
             title: '权限被拒绝',
             message: '请在设置中允许图片和视频权限，并重启应用以维持最佳',
-            positiveButton: '去设置'
-        }
+            positiveButton: '去设置',
+        },
     });
 
     const avatar = useAuthStore(state => state.avatar);
@@ -85,7 +79,7 @@ const AvatarActionsModal = forwardRef<AvatarActionsModalAPI>((_, ref) => {
 
     const backdropStyle = useAnimatedStyle(() => ({
         display: display.value,
-        opacity: interpolate(transitionValue.value, [0, 1], [0, 1]),
+        opacity: transitionValue.value,
     }));
 
     const modalStyle = useAnimatedStyle(() => ({
@@ -95,7 +89,7 @@ const AvatarActionsModal = forwardRef<AvatarActionsModalAPI>((_, ref) => {
 
     const menuStyle = useAnimatedStyle(() => ({
         display: display.value,
-        opacity: interpolate(transitionValue.value, [0, 1], [0, 1]),
+        opacity: transitionValue.value,
     }));
 
     const showActionsModal = () => {
@@ -210,7 +204,7 @@ const styles = StyleSheet.create({
     backdrop: {
         ...StyleSheet.absoluteFillObject,
         backgroundColor: 'rgba(0,0,0,0.5)',
-        zIndex: 199
+        zIndex: 199,
     },
     menuContainer: {
         backgroundColor: '#F3F4F6',

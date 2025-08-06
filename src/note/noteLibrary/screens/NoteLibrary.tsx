@@ -9,7 +9,7 @@ import {
 } from 'react-native';
 import TopNavigationOpe from '@/main/components/TopNavigationOpe.tsx';
 import {Divider, TopNavigationAction} from '@ui-kitten/components';
-import * as CommonIcon from '../../../../components/Icon';
+import * as CommonIcon from '@/icon';
 import { useNoteStore } from '../stores';
 import { FilterDisplayController, NoteCard } from '../components';
 import { Note, NoteLibraryProps } from '../types';

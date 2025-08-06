@@ -8,7 +8,7 @@ import {
     ScrollView,
 } from 'react-native';
 import { Divider, Text, TopNavigationAction } from '@ui-kitten/components';
-import * as CommonIcon from '../../../../components/Icon';
+import * as CommonIcon from '@/icon';
 import TopNavigationOpe from '@/main/components/TopNavigationOpe.tsx';
 import { useQuestionStore } from '../stores/question.store.ts';
 import { FilterDisplayController } from '@/note/noteLibrary/components';

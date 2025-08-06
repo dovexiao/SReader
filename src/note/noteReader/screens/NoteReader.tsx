@@ -7,7 +7,7 @@ import {
 } from 'react-native';
 import { Divider, TopNavigationAction } from '@ui-kitten/components';
 import TopNavigationOpe from '@/main/components/TopNavigationOpe.tsx';
-import { EditIcon } from '../../../../components/Icon';
+import { EditIcon } from '@/icon';
 import { useNoteStore } from '../../noteLibrary/stores';
 import { PagerController } from '../components';
 import { NoteReaderProps } from '../types';
