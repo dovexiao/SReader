@@ -7,7 +7,7 @@ import {
     // useTheme,
 } from '@ui-kitten/components';
 import RandomAvatar from './RandomAvatar.tsx';
-import { useGlobal } from "@/contexts/GlobalContext.tsx";
+import { useGlobal } from '@contexts/GlobalContext.tsx';
 
 const TopAvatarColumn = () => {
     // const themes = useTheme();
@@ -39,13 +39,13 @@ const TopAvatarColumn = () => {
         <TopNavigation
             title={renderTitleAction}
             alignment="center"
-            accessoryLeft={renderAvatar}
+            accessoryLeft={RenderAvatar}
             // accessoryRight={renderNotification}
         />
     );
 };
 
-const renderAvatar = () : React.ReactElement => {
+const RenderAvatar = () : React.ReactElement => {
     const avatar = null;
     const { personCenterRef } = useGlobal();
 
@@ -69,7 +69,7 @@ const renderAvatar = () : React.ReactElement => {
             {/*    <Text style={styles.title}>{'xxx-xxx-xxx'}</Text>*/}
             {/*</View>*/}
         </View>
-    )
+    );
 };
 
 const styles = StyleSheet.create({

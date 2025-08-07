@@ -3,13 +3,15 @@ import {
     AvatarActionsModal,
     PersonCenter,
     SliderVerification,
-    BottomActionSheet
+    BottomActionSheet,
+    ActionDialog,
 } from '@/global';
 import type {
     AvatarActionsModalAPI,
     PersonCenterAPI,
     SliderVerificationAPI,
-    BottomActionSheetAPI
+    BottomActionSheetAPI,
+    ActionDialogAPI,
 } from '@/global';
 
 interface GlobalContextType {
@@ -17,6 +19,7 @@ interface GlobalContextType {
     personCenterRef: React.RefObject<PersonCenterAPI>,
     avatarActionsModalRef: React.RefObject<AvatarActionsModalAPI>,
     bottomActionSheetRef: React.RefObject<BottomActionSheetAPI>
+    actionDialogRef: React.RefObject<ActionDialogAPI>
 }
 
 const GlobalContext = React.createContext<GlobalContextType | null>(null);
@@ -26,12 +29,14 @@ export const GlobalProvider: React.FC<React.PropsWithChildren> = ({ children }) 
     const personCenterRef = useRef<PersonCenterAPI>(null);
     const avatarActionsModalRef = useRef<AvatarActionsModalAPI>(null);
     const bottomActionSheetRef = useRef<BottomActionSheetAPI>(null);
+    const actionDialogRef = useRef<ActionDialogAPI>(null);
 
     const globalValue: GlobalContextType = {
         sliderVerificationRef,
         personCenterRef,
         avatarActionsModalRef,
-        bottomActionSheetRef
+        bottomActionSheetRef,
+        actionDialogRef,
     };
 
     return (
@@ -41,6 +46,7 @@ export const GlobalProvider: React.FC<React.PropsWithChildren> = ({ children }) 
             <PersonCenter ref={personCenterRef} />
             <AvatarActionsModal ref={avatarActionsModalRef} />
             <BottomActionSheet ref={bottomActionSheetRef} />
+            <ActionDialog ref={actionDialogRef} />
         </GlobalContext.Provider>
     );
 };

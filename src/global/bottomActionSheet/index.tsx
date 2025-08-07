@@ -19,6 +19,7 @@ import Animated, {
     withTiming,
     Easing,
     runOnJS,
+    useDerivedValue,
 } from 'react-native-reanimated';
 
 const { height: SCREEN_HEIGHT } = Dimensions.get('window');
@@ -42,18 +43,24 @@ const BottomActionSheet = forwardRef<
     const {
         contentContainerStyle,
         backdropOpacity = 0.5,
-        animationDuration = 250,
+        animationDuration = 400,
         onDismiss,
     } = props;
 
     // 状态管理弹窗内容
-    const [content, setContent] = useState<ReactNode>(<></>);
+    const [content, setContent] = useState<ReactNode | null>(null);
 
     // 动画值 (0: 隐藏, 1: 显示)
     const transitionValue = useSharedValue(0);
 
+    const display = useDerivedValue(() => {
+        // console.log('display', transitionValue.value);
+        return transitionValue.value > 0 ? 'flex' : 'none';
+    });
+
     // 遮罩层动画样式
     const backdropStyle = useAnimatedStyle(() => ({
+        display: display.value,
         opacity: transitionValue.value * backdropOpacity,
     }));
 
@@ -61,21 +68,18 @@ const BottomActionSheet = forwardRef<
     const containerStyle = useAnimatedStyle(() => ({
         transform: [
             {
-                translateY: (1 - transitionValue.value) * SCREEN_HEIGHT
-            }
+                translateY: (1 - transitionValue.value) * SCREEN_HEIGHT,
+            },
         ],
     }));
 
     // 显示操作栏
     const show = useCallback((newContent: ReactNode) => {
-        console.log('show1');
         setContent(newContent);
-        console.log('show2');
         transitionValue.value = withTiming(1, {
             duration: animationDuration,
             easing: Easing.out(Easing.cubic),
         });
-        console.log('show3');
     }, [animationDuration]);
 
     // 隐藏操作栏
@@ -89,10 +93,10 @@ const BottomActionSheet = forwardRef<
             (finished) => {
                 if (finished) {
                     // 动画完成后清空内容
-                    runOnJS(() => {
-                        setContent(<></>);
-                        onDismiss?.();
-                    })();
+                    runOnJS(setContent)(null);
+                    if (onDismiss) {
+                        runOnJS(onDismiss)();
+                    }
                 }
             }
         );
@@ -104,20 +108,15 @@ const BottomActionSheet = forwardRef<
         hide,
     }));
 
-    // 如果没有内容，则不渲染
-    // if (!content) {
-    //     return null;
-    // }
-
     return (
         <>
-            {/* 半透明遮罩层 */}
+             {/*半透明遮罩层*/}
             <AnimatedPressable
                 style={[styles.backdrop, backdropStyle]}
                 onPress={hide}
             />
 
-            {/* 内容容器 */}
+            {/*/!* 内容容器 *!/*/}
             <Animated.View
                 style={[
                     styles.container,
@@ -127,7 +126,7 @@ const BottomActionSheet = forwardRef<
             >
                 {/* 顶部圆角容器 */}
                 <View style={styles.content}>
-                    {content}
+                    {content ? content : <></>}
                 </View>
             </Animated.View>
         </>
@@ -141,15 +140,15 @@ const styles = StyleSheet.create({
     backdrop: {
         ...StyleSheet.absoluteFillObject,
         backgroundColor: '#000',
-        zIndex: 99,
+        zIndex: 101,
     },
     container: {
         position: 'absolute',
         bottom: 0,
         width: '100%',
-        zIndex: 100,
-        paddingHorizontal: 12,
-        paddingBottom: 24,
+        zIndex: 102,
+        // paddingHorizontal: 12,
+        // paddingBottom: 24,
     },
     content: {
         backgroundColor: '#FFF',

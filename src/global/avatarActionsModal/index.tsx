@@ -37,7 +37,7 @@ const AvatarActionsModal = forwardRef<AvatarActionsModalAPI>((_, ref) => {
     // 渐变动画值
     const transitionValue = useSharedValue(0);
     // 动画持续时间
-    const transitionTime: number = 250;
+    const transitionTime: number = 300;
 
     // 相机权限hook
     const cameraPermission = usePermission({
@@ -84,12 +84,12 @@ const AvatarActionsModal = forwardRef<AvatarActionsModalAPI>((_, ref) => {
 
     const modalStyle = useAnimatedStyle(() => ({
         display: display.value,
-        // opacity: interpolate(transitionValue.value, [0, 1], [0, 1]),
+        opacity: transitionValue.value,
     }));
 
     const menuStyle = useAnimatedStyle(() => ({
         display: display.value,
-        opacity: transitionValue.value,
+        // opacity: transitionValue.value,
     }));
 
     const showActionsModal = () => {
