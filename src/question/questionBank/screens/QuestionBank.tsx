@@ -1,11 +1,11 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {
     View,
     FlatList,
     StyleSheet,
     SafeAreaView,
     StatusBar,
-    ScrollView,
+    ScrollView, BackHandler,
 } from 'react-native';
 import { Divider, Text, TopNavigationAction } from '@ui-kitten/components';
 import * as CommonIcon from '@/icon';
@@ -14,10 +14,24 @@ import { useQuestionStore } from '../stores/question.store.ts';
 import { FilterDisplayController } from '@/note/noteLibrary/components';
 import { Question, QuestionBankProps } from '../types';
 import { QuestionCard } from '../components';
+import { useGlobal } from '@contexts/GlobalContext.tsx';
 
 const ADD_BUTTON_COLOR = '#4CAF50';
 
 const QuestionBank: React.FC<QuestionBankProps> = ({ navigation }) => {
+    const { bottomActionSheetRef, actionDialogRef } = useGlobal();
+
+    useEffect(() => {
+        const backHandler = BackHandler.addEventListener('hardwareBackPress', () => {
+            bottomActionSheetRef.current?.hide();
+            actionDialogRef.current?.hide();
+            navigation.goBack();
+            return true;
+        });
+
+        return () => backHandler.remove();
+    }, [actionDialogRef, bottomActionSheetRef, navigation]);
+
     const renderItemAccessory = () => {
         return (
             <TopNavigationAction

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {
     FlatList,
     SafeAreaView, ScrollView,
@@ -6,6 +6,7 @@ import {
     StyleSheet,
     Text,
     View,
+    BackHandler,
 } from 'react-native';
 import TopNavigationOpe from '@/main/components/TopNavigationOpe.tsx';
 import {Divider, TopNavigationAction} from '@ui-kitten/components';
@@ -13,8 +14,21 @@ import * as CommonIcon from '@/icon';
 import { useNoteStore } from '../stores';
 import { FilterDisplayController, NoteCard } from '../components';
 import { Note, NoteLibraryProps } from '../types';
+import { useGlobal } from '@contexts/GlobalContext.tsx';
 
 const NoteLibrary: React.FC<NoteLibraryProps> = ({ navigation }) => {
+    const { bottomActionSheetRef, actionDialogRef } = useGlobal();
+
+    useEffect(() => {
+        const backHandler = BackHandler.addEventListener('hardwareBackPress', () => {
+            bottomActionSheetRef.current?.hide();
+            actionDialogRef.current?.hide();
+            navigation.goBack();
+            return true;
+        });
+
+        return () => backHandler.remove();
+    }, [actionDialogRef, bottomActionSheetRef, navigation]);
 
     const renderItemAccessory = () => {
         return (

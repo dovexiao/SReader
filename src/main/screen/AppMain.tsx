@@ -1,9 +1,10 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {
     SafeAreaView,
     StatusBar,
     StyleSheet,
     View,
+    BackHandler,
 } from 'react-native';
 import TopAvatarColumn from '@/main/components/TopAvatarColumn.tsx';
 import LearnMain from '@/main/components/LearnMain.tsx';
@@ -11,9 +12,26 @@ import { Divider } from '@ui-kitten/components';
 import PanSwipeResponder from '@/main/components/PanSwipeResponder.tsx';
 import { useGlobal } from '@/contexts/GlobalContext.tsx';
 import { AppMainProps } from '@/main/types';
+import ConfirmExit from '@/main/components/ConfirmExit.tsx';
 
 const AppMain: React.FC<AppMainProps> = ({ navigation }) => {
-    const { personCenterRef } = useGlobal();
+    const { personCenterRef, actionDialogRef } = useGlobal();
+
+    useEffect(() => {
+        const backHandler = BackHandler.addEventListener('hardwareBackPress', () => {
+            if (personCenterRef.current?.getVisible()) {
+                personCenterRef.current?.hide();
+                return true;
+            } else {
+                actionDialogRef.current?.show({
+                    content: <ConfirmExit />,
+                });
+                return true;
+            }
+        });
+
+        return () => backHandler.remove();
+    }, [actionDialogRef, personCenterRef]);
 
     const handleRightSwipe = () => {
         personCenterRef.current?.show();

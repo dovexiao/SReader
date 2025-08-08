@@ -24,6 +24,7 @@ import PanSwipeResponder from '@/main/components/PanSwipeResponder.tsx';
 type PersonCenterAPI = {
     show: () => void;
     hide: () => void;
+    getVisible: () => boolean;
 };
 
 const modelWidth = Dimensions.get('window').width * 0.9;
@@ -66,9 +67,14 @@ const PersonCenter = forwardRef<PersonCenterAPI>((_, ref) => {
         }, 500);
     };
 
+    const getVisible = () => {
+        return visible.value;
+    };
+
     useImperativeHandle(ref, () => ({
         show: showPersonCenter,
         hide: hidePersonCenter,
+        getVisible,
     }));
 
     const containerStyle = useAnimatedStyle(() => ({
