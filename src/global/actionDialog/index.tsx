@@ -35,6 +35,7 @@ export type ActionDialogConfig = {
 export type ActionDialogAPI = {
     show: (config: ActionDialogConfig) => void;
     hide: () => void;
+    getVisible: () => boolean;
 };
 
 const ActionDialog = forwardRef<ActionDialogAPI>((_, ref) => {
@@ -95,7 +96,11 @@ const ActionDialog = forwardRef<ActionDialogAPI>((_, ref) => {
     };
 
     // 暴露API
-    useImperativeHandle(ref, () => ({ show, hide }), [show, hide]);
+    useImperativeHandle(ref, () => ({
+        show,
+        hide,
+        getVisible: () => transitionValue.value > 0,
+    }));
 
     const display = useDerivedValue(() => {
         // console.log('display', transitionValue.value);

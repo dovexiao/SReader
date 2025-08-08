@@ -27,6 +27,7 @@ const { height: SCREEN_HEIGHT } = Dimensions.get('window');
 export type BottomActionSheetAPI = {
     show: (content: ReactNode) => void;
     hide: () => void;
+    getVisible: () => boolean;
 };
 
 type BottomActionSheetProps = {
@@ -75,6 +76,9 @@ const BottomActionSheet = forwardRef<
 
     // 显示操作栏
     const show = useCallback((newContent: ReactNode) => {
+        if (transitionValue.value > 0) {
+            return;
+        }
         setContent(newContent);
         transitionValue.value = withTiming(1, {
             duration: animationDuration,
@@ -84,6 +88,9 @@ const BottomActionSheet = forwardRef<
 
     // 隐藏操作栏
     const hide = useCallback(() => {
+        if (transitionValue.value < 1) {
+            return;
+        }
         transitionValue.value = withTiming(
             0,
             {
@@ -106,6 +113,9 @@ const BottomActionSheet = forwardRef<
     useImperativeHandle(ref, () => ({
         show,
         hide,
+        getVisible() {
+            return transitionValue.value > 0;
+        },
     }));
 
     return (

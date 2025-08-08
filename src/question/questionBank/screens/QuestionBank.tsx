@@ -23,10 +23,15 @@ const QuestionBank: React.FC<QuestionBankProps> = ({ navigation }) => {
 
     useEffect(() => {
         const backHandler = BackHandler.addEventListener('hardwareBackPress', () => {
-            bottomActionSheetRef.current?.hide();
-            actionDialogRef.current?.hide();
-            navigation.goBack();
-            return true;
+            if (actionDialogRef.current?.getVisible() || bottomActionSheetRef.current?.getVisible()) {
+                bottomActionSheetRef.current?.hide();
+                actionDialogRef.current?.hide();
+                const timer = setTimeout(() => {
+                    navigation.goBack();
+                    clearTimeout(timer);
+                }, 400);
+                return true;
+            }
         });
 
         return () => backHandler.remove();
