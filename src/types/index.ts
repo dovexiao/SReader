@@ -29,6 +29,9 @@ export type RootStackParamList = {
     CreateQuestionTags: {
         question: Question | null;
     },
+    // 个人中心
+    PersonCenter: undefined,
+    RecycleBin: undefined;
     // 测试模块
     TestPage: undefined;
 };

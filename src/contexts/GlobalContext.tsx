@@ -1,22 +1,23 @@
 import React, { useRef } from 'react';
 import {
     AvatarActionsModal,
-    PersonCenter,
+    SwipeSidebar,
     SliderVerification,
     BottomActionSheet,
     ActionDialog,
 } from '@/global';
 import type {
     AvatarActionsModalAPI,
-    PersonCenterAPI,
+    SwipeSidebarAPI,
     SliderVerificationAPI,
     BottomActionSheetAPI,
     ActionDialogAPI,
 } from '@/global';
+import PersonCenter from '@/center/personCenter/screens/PersonCenter.tsx';
 
 interface GlobalContextType {
     sliderVerificationRef: React.RefObject<SliderVerificationAPI>,
-    personCenterRef: React.RefObject<PersonCenterAPI>,
+    swipeSidebarRef: React.RefObject<SwipeSidebarAPI>,
     avatarActionsModalRef: React.RefObject<AvatarActionsModalAPI>,
     bottomActionSheetRef: React.RefObject<BottomActionSheetAPI>
     actionDialogRef: React.RefObject<ActionDialogAPI>
@@ -26,14 +27,14 @@ const GlobalContext = React.createContext<GlobalContextType | null>(null);
 
 export const GlobalProvider: React.FC<React.PropsWithChildren> = ({ children }) => {
     const sliderVerificationRef = useRef<SliderVerificationAPI>(null);
-    const personCenterRef = useRef<PersonCenterAPI>(null);
+    const swipeSidebarRef = useRef<SwipeSidebarAPI>(null);
     const avatarActionsModalRef = useRef<AvatarActionsModalAPI>(null);
     const bottomActionSheetRef = useRef<BottomActionSheetAPI>(null);
     const actionDialogRef = useRef<ActionDialogAPI>(null);
 
     const globalValue: GlobalContextType = {
         sliderVerificationRef,
-        personCenterRef,
+        swipeSidebarRef,
         avatarActionsModalRef,
         bottomActionSheetRef,
         actionDialogRef,
@@ -43,7 +44,9 @@ export const GlobalProvider: React.FC<React.PropsWithChildren> = ({ children }) 
         <GlobalContext.Provider value={globalValue}>
             {children}
             <SliderVerification ref={sliderVerificationRef} />
-            <PersonCenter ref={personCenterRef} />
+            <SwipeSidebar ref={swipeSidebarRef}>
+                <PersonCenter />
+            </SwipeSidebar>
             <AvatarActionsModal ref={avatarActionsModalRef} />
             <BottomActionSheet ref={bottomActionSheetRef} />
             <ActionDialog ref={actionDialogRef} />

@@ -6,13 +6,17 @@ import {
     TouchableOpacity,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import { useMainStore } from '@/main/stores/main.store.ts';
 
-const ActionsSection = () => {
+export const ActionsSection = () => {
+    const navigateRecycleBin = useMainStore(state => state.navigateRecycleBin);
+
     const menuItems = [
         {
             icon: 'delete',
             title: '回收站',
             color: '#4285F4',
+            onPress: navigateRecycleBin,
         },
         {
             icon: 'settings',
@@ -36,7 +40,9 @@ const ActionsSection = () => {
             {/*<Text style={styles.sectionTitle}>Quick Actions</Text>*/}
             <View style={styles.menuContainer}>
                 {menuItems.map((item, index) => (
-                    <TouchableOpacity key={index} style={styles.menuItem}>
+                    <TouchableOpacity key={index} style={styles.menuItem} onPress={() => {
+                        item?.onPress?.();
+                    }}>
                         <View style={styles.menuItemLeft}>
                             <View style={[styles.iconContainer, {backgroundColor: item.color + '15'}]}>
                                 <Icon name={item.icon} size={20} color={item.color} />
@@ -100,5 +106,3 @@ const styles = StyleSheet.create({
         // fontWeight: '500',
     },
 });
-
-export default ActionsSection;

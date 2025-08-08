@@ -1,6 +1,7 @@
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { RootStackParamList } from '@/types';
 // import AppStart from '@/start/screens/AppStart.tsx';
 // import AppLogin from '@/auth/login/screens/AppLogin.tsx';
 // import AppRegister from '@/auth/register/screens/AppRegister.tsx';
@@ -16,7 +17,8 @@ import EditNote from '@/note/editNote/screens/EditNote.tsx';
 import CreateNoteTag from '@/note/createNote/screens/CreateNoteTag.tsx';
 import AddNoteCover from '@/note/createNote/screens/AddNoteCover.tsx';
 import AddNoteContent from '@/note/createNote/screens/AddNoteContent.tsx';
-import { RootStackParamList } from '@/types';
+import RecycleBin from '@/center/recycleBin/screens/RecycleBin.tsx';
+import PersonCenter from '@/center/personCenter/screens/PersonCenter.tsx';
 
 const { Navigator, Screen } = createNativeStackNavigator<RootStackParamList>();
 
@@ -38,6 +40,9 @@ const HomeNavigator = () => (
         <Screen name="AddNoteContent" component={AddNoteContent} />
         <Screen name="CreateNoteTag" component={CreateNoteTag} initialParams={{ note: null }} />
         <Screen name="EditNote" component={EditNote} />
+        {/*个人中心*/}
+        <Screen name="PersonCenter" component={PersonCenter} />
+        <Screen name="RecycleBin" component={RecycleBin} />
         {/*/!* 测试页面 *!/*/}
         <Screen name="TestPage" component={TestPage} />
     </Navigator>

@@ -10,7 +10,7 @@ import { useAuthStore } from '@/auth/login/stores/auth.store.ts';
 import RandomAvatar from '@/main/components/RandomAvatar.tsx';
 import { useGlobal } from '@contexts/GlobalContext.tsx';
 
-const ProfileSection = () => {
+export const ProfileSection = () => {
     const avatar = useAuthStore(state => state.avatar);
     const { avatarActionsModalRef } = useGlobal();
 
@@ -76,5 +76,3 @@ const styles = StyleSheet.create({
         color: '#6B7280',
     },
 });
-
-export default ProfileSection;
