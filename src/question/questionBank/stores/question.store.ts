@@ -6,6 +6,7 @@ interface QuestionStore {
     questions: Question[],
     createQuestion: (question: Question) => void;
     updateQuestion: (question: any) => void;
+    deleteQuestion: (questionId: string) => void;
 }
 
 export const useQuestionStore = create<QuestionStore>((set, get) => ({
@@ -19,6 +20,11 @@ export const useQuestionStore = create<QuestionStore>((set, get) => ({
     updateQuestion: (question: any) => {
         set((state) => ({
             questions: state.questions.map((q) => (q.questionId === question.questionId ? {...q, ...question} : q)),
+        }));
+    },
+    deleteQuestion: (questionId: string) => {
+        set((state) => ({
+            questions: state.questions.filter((q) => q.questionId !== questionId),
         }));
     },
 }));

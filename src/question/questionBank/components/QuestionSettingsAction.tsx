@@ -2,26 +2,20 @@ import { Text } from '@ui-kitten/components';
 import React, { useRef } from 'react';
 import { StyleSheet, TouchableOpacity, View } from 'react-native';
 import { useGlobal } from '@contexts/GlobalContext.tsx';
-import DeleteNoteAction from './DeleteNoteAction.tsx';
-import EditIntroduceAction, { EditIntroduceActionAPI } from './EditIntroduceAction.tsx';
-import RenameNoteAction, { RenameNoteActionAPI } from './RenameNoteAction.tsx';
-import { useNoteStore } from '@/note/noteLibrary/stores';
+import { useQuestionStore } from '@/question/questionBank/stores';
+import DeleteQuestionAction from '@/question/questionBank/components/DeleteQuestionAction.tsx';
 
 type ColumnCount = 1 | 2 | 3 | 4;
 
-export const NoteSettingsAction = ({
+export const QuestionSettingsAction = ({
     cardId,
-    // columnCount = 3 as ColumnCount
+    // columnCount = 3 as ColumnCount,
 }: {
     cardId: string,
-    // columnCount?: ColumnCount
+    // columnCount?: ColumnCount,
 }) => {
     const { actionDialogRef, bottomActionSheetRef } = useGlobal();
-    const note = useNoteStore(state => state.notes.filter(n => n.noteId === cardId)[0]);
-    const updateNote = useNoteStore(state => state.updateNote);
-    const deleteNote = useNoteStore(state => state.deleteNote);
-    const renameNoteActionRef = useRef<RenameNoteActionAPI>(null);
-    const editIntroduceActionRef = useRef<EditIntroduceActionAPI>(null);
+    const deleteQuestion = useQuestionStore(state => state.deleteQuestion);
 
     const columnCount: ColumnCount = 3;
 
@@ -55,78 +49,25 @@ export const NoteSettingsAction = ({
         return placeholders;
     };
 
-    const renameNote = () => {
-        const title = renameNoteActionRef.current?.getTitle();
-        console.log(title);
-        updateNote({
-            ...note,
-            title: title?.trim() || note.title,
-        });
-    };
-
-    const editIntroduce = () => {
-        const introduce = editIntroduceActionRef.current?.getIntroduce();
-        updateNote({
-            ...note,
-            introduce: introduce?.trim() || note.introduce,
-        });
-    };
-
     return (
         <View style={styles.container}>
             <View style={styles.titleContainer}>
                 <Text style={styles.titleText}>设置</Text>
             </View>
             <View style={styles.actionContent}>
-                {/* 操作项列表 */}
                 <TouchableOpacity
                     style={[styles.actionObject, { width: `${getWidthByColumn(columnCount)}%` }]}
                     onPress={() => {
                         actionDialogRef.current?.show({
-                            content: <RenameNoteAction ref={renameNoteActionRef} cardId={cardId} />,
-                            onConfirm: renameNote,
-                        });
-                    }}
-                >
-                    <Text style={styles.actionText}>重命名</Text>
-                </TouchableOpacity>
-
-                <TouchableOpacity
-                    style={[styles.actionObject, { width: `${getWidthByColumn(columnCount)}%` }]}
-                    onPress={() => {
-                        actionDialogRef.current?.show({
-                            content: <EditIntroduceAction ref={editIntroduceActionRef} cardId={cardId} />,
-                            onConfirm: editIntroduce,
-                        });
-                    }}
-                >
-                    <Text style={styles.actionText}>修改简介</Text>
-                </TouchableOpacity>
-
-                <TouchableOpacity
-                    style={[styles.actionObject, { width: `${getWidthByColumn(columnCount)}%` }]}
-                    onPress={() => {
-                        actionDialogRef.current?.show({
-                            content: <DeleteNoteAction />,
+                            content: <DeleteQuestionAction />,
                             onConfirm: () => {
-                                deleteNote(cardId);
+                                deleteQuestion(cardId);
                                 bottomActionSheetRef.current?.hide();
                             },
                         });
                     }}
                 >
                     <Text style={styles.actionText}>删除</Text>
-                </TouchableOpacity>
-
-                {/* 新增的第四个操作项示例 */}
-                <TouchableOpacity
-                    style={[styles.actionObject, { width: `${getWidthByColumn(columnCount)}%` }]}
-                    onPress={() => {
-                        // 新增操作逻辑
-                        console.log("新增操作触发");
-                    }}
-                >
-                    <Text style={styles.actionText}>新增操作</Text>
                 </TouchableOpacity>
 
                 {/* 渲染空白占位元素 */}
@@ -179,8 +120,9 @@ const styles = StyleSheet.create({
     },
     actionText: {
         fontSize: 14,
+        // fontWeight: 'bold',
         textAlign: 'center',
     },
 });
 
-export default NoteSettingsAction;
+export default QuestionSettingsAction;

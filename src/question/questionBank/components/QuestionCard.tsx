@@ -5,6 +5,9 @@ import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { getTagColor } from '@utils/getTagColor.ts';
 import { Question } from '../types';
 import { RootStackParamList } from '@/types';
+import { MoreOpeIcon } from '@/icon';
+import { useGlobal } from '@contexts/GlobalContext.tsx';
+import QuestionSettingsAction from '@/question/questionBank/components/QuestionSettingsAction.tsx';
 
 interface QuestionCardProps {
     question: Question;
@@ -12,12 +15,18 @@ interface QuestionCardProps {
 
 export const QuestionCard: React.FC<QuestionCardProps> = ({ question }) => {
     const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
+    const { bottomActionSheetRef } = useGlobal();
 
     return (
         <TouchableOpacity style={styles.card} onPress={() => navigation.navigate('QuestionPaginator', { questionId: question.questionId })}>
             <View style={styles.header}>
                 <Text style={styles.questionId}>{question.questionId}</Text>
                 <Text style={styles.questionType}>{question.type}</Text>
+                <TouchableOpacity onPress={() => {
+                    bottomActionSheetRef.current?.show(<QuestionSettingsAction cardId={question.questionId}/>);
+                }}>
+                    <MoreOpeIcon width={25} height={25} color={'#000'} />
+                </TouchableOpacity>
             </View>
 
             {/*<Text style={styles.meta}>*/}
@@ -67,10 +76,12 @@ const styles = StyleSheet.create({
         fontSize: 16,
         fontWeight: 'bold',
         color: '#333333',
+        flex: 1,
     },
     questionType: {
         fontSize: 16,
         color: '#555555',
+        marginRight: 10,
     },
     meta: {
         fontSize: 12,
