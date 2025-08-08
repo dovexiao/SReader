@@ -5,7 +5,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 // import AppLogin from '@/auth/login/screens/AppLogin.tsx';
 // import AppRegister from '@/auth/register/screens/AppRegister.tsx';
 import AppMain from '@/main/screen/AppMain.tsx';
-import TestPage from '@/test/screens/TestPage.tsx';
+import TestPage from '@/test/TestPage.tsx';
 import QuestionBank from '@/question/questionBank/screens/QuestionBank.tsx';
 import QuestionPaginator from '@/question/questionPaginator/screens/QuestionPaginator.tsx';
 import OpeQuestion from '@/question/opeQuestion/screens/OpeQuestion.tsx';
@@ -21,7 +21,7 @@ import { RootStackParamList } from '@/types';
 const { Navigator, Screen } = createNativeStackNavigator<RootStackParamList>();
 
 const HomeNavigator = () => (
-    <Navigator initialRouteName="TestPage" screenOptions={{headerShown: false}}>
+    <Navigator initialRouteName="AppMain" screenOptions={{headerShown: false}}>
         {/*<Screen name="AppStart" component={AppStart} />*/}
         {/*<Screen name="AppLogin" component={AppLogin} />*/}
         {/*<Screen name="AppRegister" component={AppRegister} />*/}

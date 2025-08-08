@@ -16,7 +16,8 @@ import Animated, {
     useAnimatedStyle,
     withTiming,
     Easing,
-    runOnJS, useDerivedValue,
+    useDerivedValue,
+    runOnJS,
 } from 'react-native-reanimated';
 
 const { height: SCREEN_HEIGHT, width: SCREEN_WIDTH } = Dimensions.get('window');
@@ -39,11 +40,26 @@ export type ActionDialogAPI = {
 const ActionDialog = forwardRef<ActionDialogAPI>((_, ref) => {
     const [config, setConfig] = useState<ActionDialogConfig | null>(null);
     const transitionValue = useSharedValue(0);
-    const animationDuration: number = 500;
+    const animationDuration: number = 300;
+
+    // const dialogWidthRatio = useDerivedValue(() => {
+    //     return config?.dialogWidthRatio;
+    // });
+    //
+    // const contentMinHeightRatio = useDerivedValue(() => {
+    //     return config?.contentMinHeightRatio;
+    // });
+
+    const dialogWidthRatio = useSharedValue(0.8);
+    const contentMinHeightRatio = useSharedValue(0.4);
 
     // 显示弹窗
     const show = useCallback((newConfig: ActionDialogConfig) => {
         setConfig(newConfig);
+
+        dialogWidthRatio.value = newConfig.dialogWidthRatio ?? 0.8;
+        contentMinHeightRatio.value = newConfig.contentMinHeightRatio ?? 0.4;
+
         transitionValue.value = withTiming(1, {
             duration: animationDuration,
             easing: Easing.out(Easing.cubic),
@@ -100,7 +116,7 @@ const ActionDialog = forwardRef<ActionDialogAPI>((_, ref) => {
             { translateY:  '-50%' },
             { translateY: (1 - transitionValue.value) * 20 },
         ],
-        width: SCREEN_WIDTH *  (config?.dialogWidthRatio ?? 0.8),
+        width: SCREEN_WIDTH *  (dialogWidthRatio.value ?? 0.8),
         display: display.value,
     }));
 
@@ -110,7 +126,7 @@ const ActionDialog = forwardRef<ActionDialogAPI>((_, ref) => {
     }));
 
     const scrollContentStyle = useAnimatedStyle(() => ({
-        height: SCREEN_HEIGHT * (config?.contentMinHeightRatio ?? 0.4),
+        height: SCREEN_HEIGHT * (contentMinHeightRatio.value ?? 0.4),
     }));
 
     // if (!config) {

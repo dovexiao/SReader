@@ -6,6 +6,7 @@ interface NoteStore {
     notes: Note[],
     createNote: (note: Note) => void;
     updateNote: (note: any) => void;
+    deleteNote: (noteId: string) => void;
 }
 
 export const useNoteStore = create<NoteStore>((set, get) => ({
@@ -19,6 +20,11 @@ export const useNoteStore = create<NoteStore>((set, get) => ({
     updateNote: (note: any) => {
         set((state) => ({
             notes: state.notes.map((n) => (n.noteId === note.noteId ? {...n, ...note} : n)),
+        }));
+    },
+    deleteNote: (noteId: string) => {
+        set((state) => ({
+            notes: state.notes.filter((n) => n.noteId !== noteId),
         }));
     },
 }));

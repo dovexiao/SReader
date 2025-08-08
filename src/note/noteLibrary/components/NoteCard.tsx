@@ -1,10 +1,13 @@
 import React from 'react';
-import {View, Text, StyleSheet, Pressable, TouchableOpacity} from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { getTagColor } from '@utils/getTagColor.ts';
-import { RootStackParamList } from '../../../types';
+import { RootStackParamList } from '@/types';
 import { Note } from '../types';
+import { useGlobal } from '@contexts/GlobalContext.tsx';
+import NoteSettingsAction from './NoteSettingsAction.tsx';
+import { MoreOpeIcon } from '@/icon';
 
 interface NoteCardProps {
     note: Note;
@@ -12,12 +15,21 @@ interface NoteCardProps {
 
 export const NoteCard: React.FC<NoteCardProps> = ({ note }) => {
     const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
+    const { bottomActionSheetRef } = useGlobal();
 
     return (
         <TouchableOpacity style={styles.card} onPress={() => navigation.navigate('NoteReader', { noteId: note.noteId })}>
             <View style={styles.header}>
                 <Text style={styles.cardId}>{note.noteId}</Text>
                 <Text style={styles.title} numberOfLines={1} ellipsizeMode={'tail'}>{note.title}</Text>
+                {/*<TopNavigationAction icon={MoreOpeIcon} onPress={() => {*/}
+                {/*    bottomActionSheetRef.current?.show(<SettingsActionModal />);*/}
+                {/*}} />*/}
+                <TouchableOpacity onPress={() => {
+                    bottomActionSheetRef.current?.show(<NoteSettingsAction cardId={note.noteId}/>);
+                }}>
+                    <MoreOpeIcon width={25} height={25} color={'#000'} />
+                </TouchableOpacity>
             </View>
 
             <Text style={styles.introduce} numberOfLines={2} ellipsizeMode={'tail'}>{note.introduce}</Text>
@@ -56,6 +68,7 @@ const styles = StyleSheet.create({
     },
     header: {
         flexDirection: 'row',
+        justifyContent: 'space-between',
         marginBottom: 8,
     },
     cardId: {
@@ -69,6 +82,10 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         color: '#555555',
         marginBottom: 8,
+        flex: 1,
+    },
+    icon: {
+        fontSize: 16,
     },
     introduce: {
         fontSize: 14,

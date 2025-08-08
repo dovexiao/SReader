@@ -1,22 +1,21 @@
 import React from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
-import { useGlobal } from "@contexts/GlobalContext.tsx";
+import { useGlobal } from '@contexts/GlobalContext.tsx';
 
 // 测试页面组件
 const BottomActionSheetTestScreen = () => {
     // 使用全局钩子获取底部操作栏引用
-    const { bottomActionSheetRef } = useGlobal();
+    const { actionDialogRef, bottomActionSheetRef, avatarActionsModalRef } = useGlobal();
 
     // 显示操作栏
-    const showActionSheet = () => {
-        console.log('显示操作栏');
-        bottomActionSheetRef.current?.show(
-            <View style={styles.actionSheetContent}>
+    const showActionSheet1 = () => {
+        actionDialogRef.current?.show({
+            content: <View style={styles.actionSheetContent}>
                 <TouchableOpacity
                     style={styles.menuItem}
                     onPress={() => {
                         console.log('选项一被点击');
-                        bottomActionSheetRef.current?.hide();
+                        actionDialogRef.current?.hide();
                     }}
                 >
                     <Text style={styles.menuText}>选项一</Text>
@@ -26,7 +25,7 @@ const BottomActionSheetTestScreen = () => {
                     style={styles.menuItem}
                     onPress={() => {
                         console.log('选项二被点击');
-                        bottomActionSheetRef.current?.hide();
+                        actionDialogRef.current?.hide();
                     }}
                 >
                     <Text style={styles.menuText}>选项二</Text>
@@ -34,22 +33,58 @@ const BottomActionSheetTestScreen = () => {
 
                 <TouchableOpacity
                     style={styles.cancelButton}
-                    onPress={() => bottomActionSheetRef.current?.hide()}
+                    onPress={() => actionDialogRef.current?.hide()}
                 >
                     <Text style={styles.cancelText}>取消</Text>
                 </TouchableOpacity>
-            </View>
-        );
+            </View>,
+        });
     };
+
+    const showActionSheet2 = () => {
+        bottomActionSheetRef.current?.show(<View style={styles.actionSheetContent}>
+            <TouchableOpacity
+                style={styles.menuItem}
+                onPress={() => {
+                    console.log('选项一被点击');
+                    actionDialogRef.current?.hide();
+                }}
+            >
+                <Text style={styles.menuText}>选项一</Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity
+                style={styles.menuItem}
+                onPress={() => {
+                    console.log('选项二被点击');
+                    actionDialogRef.current?.hide();
+                }}
+            >
+                <Text style={styles.menuText}>选项二</Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity
+                style={styles.cancelButton}
+                onPress={() => actionDialogRef.current?.hide()}
+            >
+                <Text style={styles.cancelText}>取消</Text>
+            </TouchableOpacity>
+        </View>);
+    }
+
+    const showActionSheet3 = () => {
+        avatarActionsModalRef.current?.show();
+    }
 
     return (
         <View style={styles.container}>
-            <Text style={styles.title}>底部操作栏测试</Text>
+            <Text style={styles.title}>功能操作栏测试</Text>
             <TouchableOpacity
                 style={styles.customButton}
                 onPress={() => {
-                    showActionSheet();
-                    console.log('自定义按钮被点击');
+                    showActionSheet1();
+                    // showActionSheet2();
+                    // showActionSheet3();
                 }}
             >
                 <Text style={styles.customButtonText}>自定义按钮显示</Text>
@@ -85,23 +120,25 @@ const styles = StyleSheet.create({
         fontWeight: '500',
     },
     actionSheetContent: {
-        padding: 16,
+        // padding: 16,
+        backgroundColor: '#FFF',
     },
     menuItem: {
         paddingVertical: 18,
         alignItems: 'center',
         borderBottomWidth: StyleSheet.hairlineWidth,
         borderBottomColor: '#e0e0e0',
+        backgroundColor: 'white',
     },
     menuText: {
         fontSize: 16,
         color: '#333',
     },
     cancelButton: {
-        marginTop: 10,
+        // marginTop: 10,
         paddingVertical: 18,
         alignItems: 'center',
-        backgroundColor: '#f5f5f5',
+        backgroundColor: '#FFF',
         borderRadius: 12,
     },
     cancelText: {
