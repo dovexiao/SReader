@@ -15,6 +15,7 @@ import { usePermission } from '@hooks/usePermission.ts';
 type AvatarActionsModalAPI = {
     show: () => void;
     hide: () => void;
+    getVisible: () => boolean;
 };
 
 type AvatarActionsMenu = {
@@ -109,6 +110,7 @@ const AvatarActionsModal = forwardRef<AvatarActionsModalAPI>((_, ref) => {
     useImperativeHandle(ref, () => ({
         show: showActionsModal,
         hide: hideActionsModal,
+        getVisible: () => transitionValue.value > 0,
     }));
 
     return (

@@ -15,11 +15,14 @@ import { AppMainProps } from '@/main/types';
 import ConfirmExit from '@/main/components/ConfirmExit.tsx';
 
 const AppMain: React.FC<AppMainProps> = ({ navigation }) => {
-    const { personCenterRef, actionDialogRef } = useGlobal();
+    const { personCenterRef, actionDialogRef, avatarActionsModalRef } = useGlobal();
 
     useEffect(() => {
         const backHandler = BackHandler.addEventListener('hardwareBackPress', () => {
             if (personCenterRef.current?.getVisible()) {
+                if (avatarActionsModalRef.current?.getVisible()) {
+                    avatarActionsModalRef.current?.hide();
+                }
                 personCenterRef.current?.hide();
                 return true;
             } else {
