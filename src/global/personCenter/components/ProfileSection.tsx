@@ -6,20 +6,20 @@ import {
     Image,
     TouchableOpacity,
 } from 'react-native';
-import { useAuthStore } from '../../../auth/login/stores/auth.store.ts';
+import { useAuthStore } from '@/auth/login/stores/auth.store.ts';
 import RandomAvatar from '@/main/components/RandomAvatar.tsx';
-import { useGlobal } from '../../../contexts/GlobalContext.tsx';
+import { useGlobal } from '@contexts/GlobalContext.tsx';
 
 const ProfileSection = () => {
     const avatar = useAuthStore(state => state.avatar);
-    const { AvatarActionsModalRef } = useGlobal();
+    const { avatarActionsModalRef } = useGlobal();
 
     return (
         <View style={styles.profileSection}>
             <TouchableOpacity
                 style={styles.avatarContainer}
                 onPress={() => {
-                    AvatarActionsModalRef.current.show();
+                    avatarActionsModalRef.current?.show();
                 }}
             >
                 {avatar ?
