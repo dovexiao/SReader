@@ -1,2 +1,1 @@
-export * from './TopTabColumnView';
-export * from './FriendList';
+export * from './NoteRecycleBin.tsx';
