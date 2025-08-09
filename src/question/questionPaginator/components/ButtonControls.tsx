@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
-import { usePagerController } from './PagerController.tsx';
+import { usePagerController } from '../contexts/PagerController.tsx';
 import { Button } from '@ui-kitten/components';
 import { useQuestionPaginatorStore } from '../stores';
 

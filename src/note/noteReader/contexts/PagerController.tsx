@@ -5,9 +5,9 @@ import React, {
     useState,
 } from 'react';
 import { Dimensions, ScrollView } from 'react-native';
-import NotePagerContainer, { ContainerAPI } from './NotePagerContainer.tsx';
-import ButtonControls from './ButtonControls.tsx';
-import NoteDetailContent from './NoteDetailContent.tsx';
+import NotePagerContainer, { ContainerAPI } from '../components/NotePagerContainer.tsx';
+import ButtonControls from '../components/ButtonControls.tsx';
+import NoteDetailContent from '../components/NoteDetailContent.tsx';
 import { Note } from '../../noteLibrary/types';
 import { useNoteReaderStore } from '../stores';
 

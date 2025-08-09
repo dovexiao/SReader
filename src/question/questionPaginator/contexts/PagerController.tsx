@@ -6,10 +6,10 @@ import React, {
 } from 'react';
 import { Dimensions, ScrollView } from 'react-native';
 import { useQuestionPaginatorStore } from '../stores';
-import QuestionDetailContent from './QuestionDetailContent.tsx';
+import QuestionDetailContent from '../components/QuestionDetailContent.tsx';
 import { Question } from '../../questionBank/types';
-import QuestionPagerContainer, { ContainerAPI } from './QuestionPagerContainer.tsx';
-import ButtonControls from './ButtonControls.tsx';
+import QuestionPagerContainer, { ContainerAPI } from '../components/QuestionPagerContainer.tsx';
+import ButtonControls from '../components/ButtonControls.tsx';
 
 const { width: screenWidth } = Dimensions.get('window');
 
