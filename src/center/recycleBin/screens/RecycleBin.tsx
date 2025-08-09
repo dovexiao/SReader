@@ -1,17 +1,12 @@
 import React from 'react';
 import {
     SafeAreaView, StatusBar,
-    StyleSheet, View,
+    StyleSheet, Text, View,
 } from 'react-native';
-import { FriendList, TopTabColumnView } from '@/center/recycleBin/components';
 import TopNavigationOpe from '@/main/components/TopNavigationOpe.tsx';
-import {Divider} from '@ui-kitten/components';
+import { Divider } from '@ui-kitten/components';
 import { RecycleBinProps } from '@/center/recycleBin/types';
-
-const tabs = [
-    { key: 'tab1', icon: 'file-text-outline', label: '笔记', screen: FriendList },
-    { key: 'tab2', icon: 'book-open-outline', label: '题目', screen: FriendList },
-];
+import {TabProvider} from '@/center/recycleBin/contexts/TabContext.tsx';
 
 const RecycleBin: React.FC<RecycleBinProps> = ({ navigation }) => {
     return (
@@ -22,13 +17,7 @@ const RecycleBin: React.FC<RecycleBinProps> = ({ navigation }) => {
                 navigation={navigation}
             />
             <Divider />
-            {/*<TopTabColumnView tabs={tabs.map(tab => ({ icon: tab.icon, label: tab.label }))}>*/}
-            {/*    {tabs.map(tab => (*/}
-            {/*        <tab.screen*/}
-            {/*            key={tab.key}*/}
-            {/*        />*/}
-            {/*    ))}*/}
-            {/*</TopTabColumnView>*/}
+            <TabProvider />
         </SafeAreaView>
     );
 };

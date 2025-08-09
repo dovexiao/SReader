@@ -19,3 +19,8 @@ export type RecycleBinProps = {
     navigation: RecycleBinNavigationProp;
     route: RecycleBinRouteProp;
 };
+
+export type Tab = {
+    label: string;
+    icon: string;
+}
