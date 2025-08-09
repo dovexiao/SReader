@@ -8,9 +8,9 @@ import {
 import { Divider, TopNavigationAction } from '@ui-kitten/components';
 import TopNavigationOpe from '@/main/components/TopNavigationOpe.tsx';
 import { EditIcon } from '@/icon';
-import { useQuestionStore } from '../../questionBank/stores/question.store.ts';
+import { useQuestionStore } from '@/question/questionBank/stores';
 import { useQuestionPaginatorStore } from '../stores';
-import { PagerController } from '../components';
+import { PagerController } from '../contexts';
 import { QuestionPaginatorProps } from '@/question/questionPaginator/types';
 
 const QuestionPaginator: React.FC<QuestionPaginatorProps> = ({ navigation, route }) => {
