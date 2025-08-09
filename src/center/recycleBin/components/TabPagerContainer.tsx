@@ -2,11 +2,12 @@ import React, { forwardRef, useImperativeHandle } from 'react';
 import { Dimensions, View, StyleSheet } from 'react-native';
 import Animated, { runOnJS, useAnimatedRef, useAnimatedScrollHandler } from 'react-native-reanimated';
 import { useRecycleBinStore } from '@/center/recycleBin/stores';
+import {NoteRecycleBin} from '@/center/recycleBin/components/NoteRecycleBin.tsx';
 
 const { width: SCREEN_WIDTH } = Dimensions.get('window');
 
 interface TabPagerContainerProps {
-    children: React.ReactNode[];
+    pages: any[];
 }
 
 // 定义组件暴露的方法接口
@@ -14,16 +15,15 @@ export interface TabPagerContainerAPI {
     scrollToPage: (page: number) => void;
 }
 
-export const TabPagerContainer = forwardRef<TabPagerContainerAPI, TabPagerContainerProps>(({ children }, ref) => {
+export const TabPagerContainer = forwardRef<TabPagerContainerAPI, TabPagerContainerProps>(({ pages }, ref) => {
     const flatListRef = useAnimatedRef<Animated.FlatList<React.ReactNode>>();
 
     const { setCurrentPage } = useRecycleBinStore();
-    const childrenArray = React.Children.toArray(children);
 
     // 暴露给父组件的滑动方法
     useImperativeHandle(ref, () => ({
         scrollToPage: (page: number) => {
-            if (page >= 0 && page < childrenArray.length) {
+            if (page >= 0 && page < pages.length) {
                 flatListRef.current?.scrollToIndex({
                     index: page,
                     animated: true,
@@ -45,15 +45,20 @@ export const TabPagerContainer = forwardRef<TabPagerContainerAPI, TabPagerContai
         },
     });
 
+    const renderItem = (item: any) => (
+        <View style={{
+            flex: 1,
+            width: SCREEN_WIDTH,
+        }}>
+            <NoteRecycleBin />
+        </View>
+    );
+
     return (
         <Animated.FlatList
             ref={flatListRef}
-            data={childrenArray}
-            renderItem={({ item }) => (
-                <View style={styles.page}>
-                    {item}
-                </View>
-            )}
+            data={pages}
+            renderItem={renderItem}
             initialScrollIndex={0}
             initialNumToRender={10}
             keyExtractor={(_, index) => `page-${index}`}
@@ -63,6 +68,8 @@ export const TabPagerContainer = forwardRef<TabPagerContainerAPI, TabPagerContai
             onScroll={scrollHandler}
             scrollEventThrottle={16}
             onMomentumScrollEnd={scrollHandler}
+            style={styles.container}
+            contentContainerStyle={{}}
             getItemLayout={(data, index) => ({
                 length: SCREEN_WIDTH,
                 offset: SCREEN_WIDTH * index,
@@ -75,8 +82,9 @@ export const TabPagerContainer = forwardRef<TabPagerContainerAPI, TabPagerContai
 // TabPagerContainer.displayName = 'TabPagerContainer'; // 设置显示名称，便于调试
 
 const styles = StyleSheet.create({
-    page: {
-        width: SCREEN_WIDTH,
-        height: '100%',
-    }
+    container: {
+        flex: 1,
+        width: '100%',
+        backgroundColor: 'green'
+    },
 });

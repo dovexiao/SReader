@@ -24,3 +24,12 @@ export type Tab = {
     label: string;
     icon: string;
 }
+
+export type NoteSection = {
+    noteId: string;
+    createdAt: string;
+    title: string;
+    content?: string;
+    introduce: string;
+    tags?: string[];
+};

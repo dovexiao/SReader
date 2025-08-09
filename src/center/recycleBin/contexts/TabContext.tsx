@@ -1,9 +1,7 @@
 import React, { createContext, useContext, useRef } from 'react';
-import { Text } from 'react-native';
 import { TabPagerContainer, TabPagerContainerAPI } from '@/center/recycleBin/components/TabPagerContainer.tsx';
 import { TabBarContainer } from '@/center/recycleBin/components/TabBarContainer.tsx';
 import { Tab } from '@/center/recycleBin/types';
-import {FriendList} from "@/center/recycleBin/components";
 
 const tabs: Tab[] = [
     { icon: 'file-text-outline', label: '笔记' },
@@ -30,10 +28,7 @@ export const TabProvider: React.FC<{}> = () => {
     return (
         <TabContext.Provider value={contextValue}>
             <TabBarContainer tabs={tabs} />
-            <TabPagerContainer ref={containerRef} >
-                <FriendList />
-                <Text>313</Text>
-            </TabPagerContainer>
+            <TabPagerContainer ref={containerRef} pages={[{page: 1}, {page: 2}, {page: 3}]} />
         </TabContext.Provider>
     );
 };
