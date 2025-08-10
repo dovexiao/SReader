@@ -2,6 +2,7 @@
 import { RootStackParamList } from '@/types';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { RouteProp } from '@react-navigation/native';
+import { QuestionType } from '@/question/questionBank/types';
 
 type RecycleBinNavigationProp = NativeStackNavigationProp<
     RootStackParamList,
@@ -31,5 +32,13 @@ export type NoteSection = {
     title: string;
     content?: string;
     introduce: string;
+    tags?: string[];
+};
+
+export type QuestionSection = {
+    questionId: string;
+    type: QuestionType;
+    createdAt: string;
+    content: string;
     tags?: string[];
 };

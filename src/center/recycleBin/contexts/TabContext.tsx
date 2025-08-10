@@ -2,8 +2,7 @@ import React, { createContext, useContext, useRef } from 'react';
 import { TabPagerContainer, TabPagerContainerAPI } from '@/center/recycleBin/components/TabPagerContainer.tsx';
 import { TabBarContainer } from '@/center/recycleBin/components/TabBarContainer.tsx';
 import { Tab } from '@/center/recycleBin/types';
-import { Text } from 'react-native';
-import { NoteRecycleBin } from '@/center/recycleBin/components';
+import {NoteRecycleBin, QuestionRecycleBin} from '@/center/recycleBin/components';
 
 const tabs: Tab[] = [
     { icon: 'file-text-outline', label: '笔记' },
@@ -32,7 +31,7 @@ export const TabProvider: React.FC<{}> = () => {
             <TabBarContainer tabs={tabs} />
             <TabPagerContainer ref={containerRef}>
                 <NoteRecycleBin />
-                <Text>13131</Text>
+                <QuestionRecycleBin />
             </TabPagerContainer>
         </TabContext.Provider>
     );
