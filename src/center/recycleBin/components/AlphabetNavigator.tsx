@@ -65,12 +65,12 @@ const styles = StyleSheet.create({
         paddingHorizontal: 5,
     },
     letterText: {
-        fontSize: 12,
+        fontSize: 14,
         fontWeight: 'bold',
         color: '#999',
     },
     activeLetter: {
-        fontSize: 14,
+        fontSize: 18,
     },
     disabledLetter: {
         color: '#ddd',

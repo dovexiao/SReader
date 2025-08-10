@@ -4,7 +4,7 @@ import { useTheme, Text, Icon } from '@ui-kitten/components';
 import Animated, { useAnimatedRef } from 'react-native-reanimated';
 import {useRecycleBinStore} from '@/center/recycleBin/stores';
 import { Tab } from '@/center/recycleBin/types';
-import { useTabContext } from "@/center/recycleBin/contexts/TabContext.tsx";
+import { useTabContext } from '@/center/recycleBin/contexts/TabContext.tsx';
 
 const { width: SCREEN_WIDTH } = Dimensions.get('window');
 
@@ -15,7 +15,7 @@ interface TabBarProps {
 export const TabBarContainer: React.FC<TabBarProps> = ({ tabs }) => {
     const scrollViewRef = useAnimatedRef<Animated.ScrollView>();
 
-    // const setCurrentPage = useRecycleBinStore(state => state.setCurrentPage);
+    const setCurrentPage = useRecycleBinStore(state => state.setCurrentPage);
     const setTabLayouts = useRecycleBinStore((state) => state.setTabLayouts);
 
     const { goSelectedPage } = useTabContext();
@@ -26,7 +26,7 @@ export const TabBarContainer: React.FC<TabBarProps> = ({ tabs }) => {
             x: tabLayout.x - (SCREEN_WIDTH / 2) + (tabLayout.width / 2),
             animated: true,
         });
-        // setCurrentPage(page);
+        setCurrentPage(page);
         goSelectedPage(page);
     };
 

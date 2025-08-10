@@ -42,7 +42,7 @@ const LetterPopup = forwardRef<LetterPopupAPI>((props, ref) => {
 
     const containerStyle = useAnimatedStyle(() => ({
         opacity: fadeAnim.value,
-        transform: [{ translateY: '-50%' }],
+        transform: [{ translateY: '-150%' }],
     }));
 
     return (

@@ -2,6 +2,8 @@ import React, { createContext, useContext, useRef } from 'react';
 import { TabPagerContainer, TabPagerContainerAPI } from '@/center/recycleBin/components/TabPagerContainer.tsx';
 import { TabBarContainer } from '@/center/recycleBin/components/TabBarContainer.tsx';
 import { Tab } from '@/center/recycleBin/types';
+import { Text } from 'react-native';
+import { NoteRecycleBin } from '@/center/recycleBin/components';
 
 const tabs: Tab[] = [
     { icon: 'file-text-outline', label: '笔记' },
@@ -28,7 +30,10 @@ export const TabProvider: React.FC<{}> = () => {
     return (
         <TabContext.Provider value={contextValue}>
             <TabBarContainer tabs={tabs} />
-            <TabPagerContainer ref={containerRef} pages={[{page: 1}, {page: 2}, {page: 3}]} />
+            <TabPagerContainer ref={containerRef}>
+                <NoteRecycleBin />
+                <Text>13131</Text>
+            </TabPagerContainer>
         </TabContext.Provider>
     );
 };
