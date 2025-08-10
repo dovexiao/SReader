@@ -1,6 +1,6 @@
 // 生成示例数据
 import { NoteSection } from '@/center/recycleBin/types';
-import { ALPHABET } from '@/center/recycleBin/components/AlphabetNavigator.tsx';
+import { ALPHABET } from '@/center/recycleBin/components/noteRecycleBin/AlphabetNavigator.tsx';
 import { SectionListData } from 'react-native';
 
 export const generateNoteRecycleBin = (): SectionListData<NoteSection>[] => {

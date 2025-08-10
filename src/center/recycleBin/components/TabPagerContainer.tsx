@@ -2,14 +2,11 @@ import React, {forwardRef, useImperativeHandle, useRef} from 'react';
 import {Dimensions, PanResponder, StyleSheet, View} from 'react-native';
 import Animated, {
     Easing,
-    runOnJS,
-    useAnimatedRef,
-    useAnimatedScrollHandler, useAnimatedStyle,
+    useAnimatedStyle,
     useSharedValue,
-    withSpring, withTiming
+    withTiming
 } from 'react-native-reanimated';
 import {useRecycleBinStore} from '@/center/recycleBin/stores';
-import {NoteRecycleBin} from '@/center/recycleBin/components/NoteRecycleBin.tsx';
 
 const { width: SCREEN_WIDTH } = Dimensions.get('window');
 

@@ -8,7 +8,7 @@ import { MoreOpeIcon } from '@/icon';
 import { getTagColor } from '@utils/getTagColor.ts';
 import { formatTime } from '@utils/formatTime.ts';
 import { useGlobal } from '@contexts/GlobalContext.tsx';
-import NoteRecycleBinSettingsAction from '@/center/recycleBin/components/NoteRecycleBinSettingsAction.tsx';
+import NoteRecycleBinSettingsAction from '@/center/recycleBin/components/noteRecycleBin/NoteRecycleBinSettingsAction.tsx';
 
 const ITEM_HEIGHT: number = 120;
 const HEADER_HEIGHT: number = 40;
@@ -18,12 +18,12 @@ const buildGetItemLayout = getItemLayout<NoteSection>({
     getSectionHeaderHeight: HEADER_HEIGHT,
 });
 
-export interface NoteRecycleBinSectionListAPI {
+export interface SectionBankAPI {
     scrollToSection: (sectionIndex: number) => void;
 }
 
-const NoteRecycleBinSectionList = forwardRef<NoteRecycleBinSectionListAPI>((_, ref) => {
-    const sectionListRef = useRef<SectionList<NoteSection>>(null);
+const SectionBank = forwardRef<SectionBankAPI>((_, ref) => {
+    const sectionBankRef = useRef<SectionList<NoteSection>>(null);
     const themes = useTheme();
 
     const sections = useNoteRecycleBinStore(state => state.sections);
@@ -34,7 +34,7 @@ const NoteRecycleBinSectionList = forwardRef<NoteRecycleBinSectionListAPI>((_, r
     // 暴露给父组件的API方法
     useImperativeHandle(ref, () => ({
         scrollToSection: (sectionIndex: number) => {
-            sectionListRef.current?.scrollToLocation({
+            sectionBankRef.current?.scrollToLocation({
                 sectionIndex: Math.min(Math.max(0, sectionIndex), sections.length - 1),
                 itemIndex: 1,
                 viewOffset: 0,
@@ -94,7 +94,7 @@ const NoteRecycleBinSectionList = forwardRef<NoteRecycleBinSectionListAPI>((_, r
 
     return (
         <SectionList
-            ref={sectionListRef}
+            ref={sectionBankRef}
             sections={sections}
             keyExtractor={(_, index) => 'section' + index}
             renderItem={renderSection}
@@ -196,4 +196,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default NoteRecycleBinSectionList;
+export default SectionBank;

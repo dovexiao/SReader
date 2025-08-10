@@ -23,7 +23,10 @@ const AlphabetNavigator: React.FC<AlphabetNavigatorProps> = ({ onLetterPress }) 
     };
 
     return (
-        <View style={styles.alphabetContainer}>
+        <View style={[
+            styles.alphabetContainer,
+            { transform: [{ translateY: '-50%' }] }
+        ]}>
             {ALPHABET.map(letter => {
                 const isActive = letter === activeLetter;
                 const hasData = sections.some(s => s.title === letter);
@@ -53,7 +56,7 @@ const styles = StyleSheet.create({
     alphabetContainer: {
         position: 'absolute',
         right: 10,
-        top: 0,
+        top: '50%',
         justifyContent: 'space-between',
         alignItems: 'center',
         paddingVertical: 5,

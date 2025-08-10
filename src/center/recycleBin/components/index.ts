@@ -1,1 +1,1 @@
-export * from './NoteRecycleBin.tsx';
+export * from './noteRecycleBin/index';

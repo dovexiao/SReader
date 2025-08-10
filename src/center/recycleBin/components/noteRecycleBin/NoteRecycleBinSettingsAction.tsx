@@ -2,8 +2,8 @@ import { Text } from '@ui-kitten/components';
 import React from 'react';
 import { StyleSheet, TouchableOpacity, View } from 'react-native';
 import { useGlobal } from '@contexts/GlobalContext.tsx';
-import RecoverNoteAction from '@/center/recycleBin/components/RecoverNoteAction.tsx';
-import ClearNoteAction from '@/center/recycleBin/components/ClearNoteAction.tsx';
+import RecoverNoteAction from '@/center/recycleBin/components/noteRecycleBin/RecoverNoteAction.tsx';
+import ClearNoteAction from '@/center/recycleBin/components/noteRecycleBin/ClearNoteAction.tsx';
 
 type ColumnCount = 1 | 2 | 3 | 4;
 

@@ -3,17 +3,17 @@ import {
     StyleSheet,
     View,
 } from 'react-native';
-import NoteRecycleBinSectionList, {
-    NoteRecycleBinSectionListAPI
-} from '@/center/recycleBin/components/NoteRecycleBinSectionList.tsx';
+import SectionList, {
+    SectionBankAPI
+} from '@/center/recycleBin/components/noteRecycleBin/SectionBank.tsx';
 import LetterPopup, {
     LetterPopupAPI
-} from '@/center/recycleBin/components/LetterPopup.tsx';
-import AlphabetNavigator from '@/center/recycleBin/components/AlphabetNavigator.tsx';
+} from '@/center/recycleBin/components/noteRecycleBin/LetterPopup.tsx';
+import AlphabetNavigator from '@/center/recycleBin/components/noteRecycleBin/AlphabetNavigator.tsx';
 import { useNoteRecycleBinStore } from '@/center/recycleBin/stores';
 
 export const NoteRecycleBin = () => {
-    const noteRecycleBinSectionListRef = useRef<NoteRecycleBinSectionListAPI>(null);
+    const noteRecycleBinSectionListRef = useRef<SectionBankAPI>(null);
     const letterPopupRef = useRef<LetterPopupAPI>(null);
 
     const onLetterPress = (letter: string) => {
@@ -24,7 +24,7 @@ export const NoteRecycleBin = () => {
 
     return (
         <View style={styles.container}>
-            <NoteRecycleBinSectionList ref={noteRecycleBinSectionListRef} />
+            <SectionList ref={noteRecycleBinSectionListRef} />
             <LetterPopup ref={letterPopupRef} />
             <AlphabetNavigator onLetterPress={onLetterPress} />
         </View>
