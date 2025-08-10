@@ -1,5 +1,6 @@
 import React from 'react';
 import {
+    ScrollView,
     StyleSheet,
     Text,
     TouchableOpacity,
@@ -17,18 +18,17 @@ const PersonCenter = () => {
             style={styles.gradientContainer}
             colors={['#F9FAFB', '#FFFFFF']}
         >
-            <View style={styles.innerContent}>
+            <ScrollView style={styles.innerContent}>
                 {/* 个人信息区域 */}
                 <ProfileSection />
                 {/* 操作项区域 */}
                 <ActionsSection />
-            </View>
-
-            {/* 退出登录按钮 */}
-            <TouchableOpacity style={styles.logoutButton}>
-                <Icon name="logout" size={20} color="#EF4444" />
-                <Text style={styles.logoutText}>退出登录</Text>
-            </TouchableOpacity>
+                {/* 退出登录按钮 */}
+                <TouchableOpacity style={styles.logoutButton}>
+                    <Icon name="logout" size={20} color="#EF4444" />
+                    <Text style={styles.logoutText}>退出登录</Text>
+                </TouchableOpacity>
+            </ScrollView>
         </LinearGradient>
     );
 };
