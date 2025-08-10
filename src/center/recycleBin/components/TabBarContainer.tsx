@@ -111,7 +111,7 @@ const TabCard = ({ tab, index, onTabPress, onTabLayout }: TabProps) => {
 
 const styles = StyleSheet.create({
     tabBar: {
-        paddingTop: 10,
+        paddingVertical: 10,
         paddingHorizontal: 10,
     },
     tabItem: {
