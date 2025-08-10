@@ -8,7 +8,7 @@ import { MoreOpeIcon } from '@/icon';
 import { getTagColor } from '@utils/getTagColor.ts';
 import { formatTime } from '@utils/formatTime.ts';
 import { useGlobal } from '@contexts/GlobalContext.tsx';
-import NoteRecycleBinSettingsAction from '@/center/recycleBin/components/noteRecycleBin/NoteRecycleBinSettingsAction.tsx';
+import SettingsAction from '@/center/recycleBin/components/noteRecycleBin/SettingsAction.tsx';
 
 const ITEM_HEIGHT: number = 120;
 const HEADER_HEIGHT: number = 40;
@@ -51,7 +51,7 @@ const SectionBank = forwardRef<SectionBankAPI>((_, ref) => {
                 <Text style={styles.title}>{item.title}</Text>
                 <Text style={styles.time} numberOfLines={1} ellipsizeMode={'tail'}>{formatTime(item.createdAt, { format: 'datetime' })}</Text>
                 <TouchableOpacity onPress={() => {
-                    bottomActionSheetRef.current?.show(<NoteRecycleBinSettingsAction cardId={item.noteId}/>);
+                    bottomActionSheetRef.current?.show(<SettingsAction cardId={item.noteId}/>);
                 }}>
                     <MoreOpeIcon width={25} height={25} color={'#000'} />
                 </TouchableOpacity>

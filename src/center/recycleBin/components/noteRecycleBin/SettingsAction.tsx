@@ -7,7 +7,7 @@ import ClearNoteAction from '@/center/recycleBin/components/noteRecycleBin/Clear
 
 type ColumnCount = 1 | 2 | 3 | 4;
 
-export const NoteRecycleBinSettingsAction = ({
+export const SettingsAction = ({
     cardId,
     // columnCount = 3 as ColumnCount
 }: {
@@ -137,4 +137,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default NoteRecycleBinSettingsAction;
+export default SettingsAction;
