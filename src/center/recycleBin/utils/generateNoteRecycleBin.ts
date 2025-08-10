@@ -14,7 +14,7 @@ export const generateNoteRecycleBin = (): SectionListData<NoteSection>[] => {
             noteSections.push({
                 noteId: `${letter}${i}`,
                 title: `${letter}笔记 ${i}`,
-                introduce: 'xxxxx-xxxxx-xxxxx-xxxxx-xxxxx',
+                introduce: '这是' + letter + '笔记 ' + i + ' 的简介',
                 createdAt: new Date().toISOString(),
             });
         }
