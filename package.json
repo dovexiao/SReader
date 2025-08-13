@@ -24,6 +24,8 @@
     "dom-serializer": "^2.0.0",
     "react": "18.3.1",
     "react-native": "0.76.5",
+    "react-native-app-icon-changer": "^1.3.0",
+    "react-native-bootsplash": "^6.3.10",
     "react-native-config": "^1.5.5",
     "react-native-gesture-handler": "^2.25.0",
     "react-native-get-item-layout-section-list": "^0.1.0",

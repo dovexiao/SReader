@@ -2,6 +2,7 @@ import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { RootStackParamList } from '@/types';
+import BootSplash from 'react-native-bootsplash';
 // import AppStart from '@/start/screens/AppStart.tsx';
 // import AppLogin from '@/auth/login/screens/AppLogin.tsx';
 // import AppRegister from '@/auth/register/screens/AppRegister.tsx';
@@ -49,7 +50,11 @@ const HomeNavigator = () => (
 );
 
 export const AppStackNavigator = () => (
-    <NavigationContainer>
+    <NavigationContainer
+        onReady={() => {
+                BootSplash.hide({ fade: true });
+        }}
+    >
         <HomeNavigator />
     </NavigationContainer>
 );
