@@ -98,7 +98,7 @@ const SwipeSidebar = forwardRef<SwipeSidebarAPI, { children: React.ReactNode }>(
                     minVelocity={0.7} // 触发滑动的最小速度
                 >
                     {/* 预留状态栏高度 */}
-                    <View style={{ height: StatusBar.currentHeight }} />
+                    {/*<View style={{ height: StatusBar.currentHeight }} />*/}
                     {/* 传入的子内容（如个人中心具体内容） */}
                     <View style={styles.contentContainer}>
                         {children}
@@ -121,13 +121,13 @@ const styles = StyleSheet.create({
         height: '100%',
         backgroundColor: '#F9FAFB',
         zIndex: 100,
-        borderRightWidth: 1,
-        borderColor: '#ddd',
+        // borderRightWidth: 1,
+        // borderColor: '#ddd',
     },
     contentContainer: {
         flex: 1,
-        paddingHorizontal: 20,
-        paddingTop: 40,
+        // paddingHorizontal: 20,
+        // paddingTop: 20,
     },
     backdrop: {
         ...StyleSheet.absoluteFillObject,

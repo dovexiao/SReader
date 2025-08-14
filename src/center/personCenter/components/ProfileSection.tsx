@@ -41,7 +41,8 @@ export const ProfileSection = () => {
 const styles = StyleSheet.create({
     profileSection: {
         alignItems: 'center',
-        marginBottom: 40,
+        paddingVertical: 60,
+        paddingBottom: 40,
     },
     avatarContainer: {
         width: 100,

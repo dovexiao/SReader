@@ -1,11 +1,7 @@
 import React from 'react';
-import {
-    StyleSheet,
-    View,
-    Text,
-    TouchableOpacity,
-} from 'react-native';
+import { StyleSheet, TouchableOpacity, View } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import { Text } from '@ui-kitten/components';
 import { useMainStore } from '@/main/stores/main.store.ts';
 
 export const ActionsSection = () => {
@@ -13,62 +9,80 @@ export const ActionsSection = () => {
 
     const menuItems = [
         {
+            icon: 'grid-view',
+            title: '笔记史',
+            color: '#4285F4',
+            onPress: () => {
+                console.log('笔记');
+            },
+        },
+        {
+            icon: 'grid-on',
+            title: '题目史',
+            color: '#4285F4',
+            onPress: () => {
+                console.log('书签');
+            },
+        },
+        {
             icon: 'delete',
             title: '回收站',
             color: '#4285F4',
-            onPress: navigateRecycleBin,
-        },
-        {
-            icon: 'settings',
-            title: '设置',
-            color: '#4285F4',
-        },
-        {
-            icon: 'help-outline',
-            title: '反馈帮助',
-            color: '#4285F4',
-        },
-        {
-            icon: 'info-outline',
-            title: '关于 RT',
-            color: '#4285F4',
+            onPress: () => {
+                navigateRecycleBin();
+            },
         },
     ];
 
     return (
-        <View style={styles.quickActionsSection}>
-            {/*<Text style={styles.sectionTitle}>Quick Actions</Text>*/}
+        <View style={styles.sectionContainer}>
+            {/*<Text style={styles.sectionTitle}>功能</Text>*/}
             <View style={styles.menuContainer}>
                 {menuItems.map((item, index) => (
                     <TouchableOpacity key={index} style={styles.menuItem} onPress={() => {
                         item?.onPress?.();
                     }}>
-                        <View style={styles.menuItemLeft}>
-                            <View style={[styles.iconContainer, {backgroundColor: item.color + '15'}]}>
-                                <Icon name={item.icon} size={20} color={item.color} />
-                            </View>
-                            <Text style={styles.menuItemText}>{item.title}</Text>
+                        <View style={[styles.iconContainer, {backgroundColor: item.color + '15'}]}>
+                            <Icon name={item.icon} size={20} color={item.color} />
                         </View>
-                        <Icon name="chevron-right" size={20} color="#9CA3AF" />
+                        <Text style={styles.menuItemText}>{item.title}</Text>
                     </TouchableOpacity>
                 ))}
+                <View style={{ width: '30%' }} />
+                <View style={{ width: '30%' }} />
             </View>
         </View>
     );
 };
 
 const styles = StyleSheet.create({
-    quickActionsSection: {
-        marginBottom: 40,
+    sectionContainer: {
+        marginHorizontal: 20,
+        marginBottom: 30,
     },
     sectionTitle: {
-        fontSize: 18,
-        fontWeight: '600',
-        color: '#1F2937',
-        marginBottom: 16,
+        fontSize: 16,
+        fontWeight: 'bold',
+        color: '#787878',
+        marginLeft: 15,
+        marginBottom: 7,
     },
     menuContainer: {
-        backgroundColor: '#F3F4F6',
+        flexDirection: 'row',
+        flexWrap: 'wrap', // 允许换行
+        justifyContent: 'space-between',
+        backgroundColor: 'transform',
+    },
+    menuItem: {
+        width: '30%',
+        height: 95,
+        // aspectRatio: 1,
+        // flexDirection: 'row',
+        justifyContent: 'space-around',
+        alignItems: 'center',
+        paddingVertical: 5,
+        paddingHorizontal: 5,
+        backgroundColor: '#FFFFFF',
         borderRadius: 12,
         shadowColor: '#000',
         shadowOffset: {
@@ -80,25 +94,13 @@ const styles = StyleSheet.create({
         elevation: 2,
         overflow: 'hidden',
     },
-    menuItem: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'space-between',
-        paddingVertical: 16,
-        paddingHorizontal: 20,
-        backgroundColor: '#FFFFFF',
-    },
-    menuItemLeft: {
-        flexDirection: 'row',
-        alignItems: 'center',
-    },
     iconContainer: {
-        width: 36,
-        height: 36,
+        width: 40,
+        height: 40,
         borderRadius: 18,
         justifyContent: 'center',
         alignItems: 'center',
-        marginRight: 12,
+        // marginRight: 12,
     },
     menuItemText: {
         fontSize: 16,
