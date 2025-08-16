@@ -6,6 +6,7 @@ export type RootStackParamList = {
     AppMain: undefined;
     AppLogin: undefined;
     OneTapLogin: undefined;
+    VerificationLogin: undefined;
     // 笔记模块
     NoteLibrary: undefined;
     NoteReader: {

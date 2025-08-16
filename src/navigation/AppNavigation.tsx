@@ -20,6 +20,7 @@ import AddNoteContent from '@/note/createNote/screens/AddNoteContent.tsx';
 import RecycleBin from '@/center/recycleBin/screens/RecycleBin.tsx';
 import PersonCenter from '@/center/personCenter/screens/PersonCenter.tsx';
 import OneTapLogin from '@/auth/oneTapLogin/screens/OneTapLogin.tsx';
+import VerificationLogin from '@/auth/verificationLogin/screens/VerificationLogin.tsx';
 
 const { Navigator, Screen } = createNativeStackNavigator<RootStackParamList>();
 
@@ -27,6 +28,7 @@ const HomeNavigator = () => (
     <Navigator initialRouteName="OneTapLogin" screenOptions={{headerShown: false}}>
         <Screen name="AppLogin" component={AppLogin} />
         <Screen name="OneTapLogin" component={OneTapLogin} />
+        <Screen name="VerificationLogin" component={VerificationLogin} />
         {/*<Screen name="AppRegister" component={AppRegister} />*/}
         <Screen name="AppMain" component={AppMain} />
         {/* 题目模块 */}

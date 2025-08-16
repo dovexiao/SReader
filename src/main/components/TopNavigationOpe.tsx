@@ -2,10 +2,13 @@ import React from 'react';
 import {Icon, TopNavigation, TopNavigationAction, Text, useTheme} from '@ui-kitten/components';
 import type { IconElement } from '@ui-kitten/components';
 import {StyleSheet, View} from 'react-native';
+import {useNavigation} from "@react-navigation/native";
+import {NativeStackNavigationProp} from "@react-navigation/native-stack";
+import {RootStackParamList} from "@/types";
 
 interface TopNavigationOpeProps {
-    title: string;
-    navigation: any;
+    title?: string;
+    navigation?: any;
     renderItemAccessory?: () => React.ReactElement;
 }
 
@@ -17,11 +20,14 @@ const BackIcon = (props: any): IconElement => (
     />
 );
 
-const TopNavigationOpe: React.FC<TopNavigationOpeProps> = ({ navigation, title, renderItemAccessory }) => {
+const TopNavigationOpe: React.FC<TopNavigationOpeProps> = ({ title, renderItemAccessory }) => {
+    const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
     const themes = useTheme();
 
     const handleGoBack = () => {
-        navigation.goBack();
+        if (navigation.canGoBack()) {
+            navigation.goBack();
+        }
     };
 
     const renderBackAction = (): React.ReactElement => (

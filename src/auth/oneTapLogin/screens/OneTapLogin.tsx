@@ -8,6 +8,9 @@ import {
     TouchableOpacity,
     View,
 } from 'react-native';
+import {useNavigation} from "@react-navigation/native";
+import {NativeStackNavigationProp} from "@react-navigation/native-stack";
+import {RootStackParamList} from "@/types";
 
 const OneTapLogin = () => {
     return (
@@ -87,11 +90,16 @@ const OneTapLoginButton = () => {
 
 const OtherLogin = () => {
     const themes = useTheme();
+    const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
+
+    const handleOtherLogin = () => {
+        navigation.navigate('VerificationLogin');
+    };
 
     return (
         <TouchableOpacity
             style={styles.otherLoginContainer}
-            // onPress={handleOtherLogin}
+            onPress={handleOtherLogin}
         >
             <Text style={[
                 styles.otherLoginText,
@@ -148,10 +156,6 @@ const styles = StyleSheet.create({
     checkboxText: {
         fontSize: 14,
         color: '#888888',
-    },
-    checkboxTextHeight: {
-        fontSize: 14,
-        fontWeight: 'bold',
     },
     button: {
         width: '100%',
