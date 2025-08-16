@@ -4,6 +4,8 @@ import { Question } from '@/question/questionBank/types';
 
 export type RootStackParamList = {
     AppMain: undefined;
+    AppLogin: undefined;
+    OneTapLogin: undefined;
     // 笔记模块
     NoteLibrary: undefined;
     NoteReader: {

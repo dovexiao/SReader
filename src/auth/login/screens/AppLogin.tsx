@@ -11,7 +11,6 @@ import {
     ScrollView,
 } from 'react-native';
 import { Button, Icon } from '@ui-kitten/components';
-import { NavigationProps } from '../../types/navigationType.ts';
 import EmailInput from '../components/EmailInput.tsx';
 import LoginSecureInput from '../components/LoginSecureInput..tsx';
 
@@ -20,14 +19,14 @@ const PRIMARY_COLOR = '#F09050'; // 主橙色
 const TEXT_COLOR_DARK = '#333333';
 const TEXT_COLOR_LIGHT = '#888888';
 
-const AppLogin: React.FC<NavigationProps> = ({ navigation }) => {
+const AppLogin = () => {
     const handleLogin = () => {
 
     };
 
     const handleRegister = () => {
         // 跳转到注册页面
-        navigation.replace('AppRegister');
+        // navigation.replace('AppRegister');
     };
 
     return (

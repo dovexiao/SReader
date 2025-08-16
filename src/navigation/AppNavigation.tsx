@@ -3,8 +3,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { RootStackParamList } from '@/types';
 import BootSplash from 'react-native-bootsplash';
-// import AppStart from '@/start/screens/AppStart.tsx';
-// import AppLogin from '@/auth/login/screens/AppLogin.tsx';
+import AppLogin from '@/auth/login/screens/AppLogin.tsx';
 // import AppRegister from '@/auth/register/screens/AppRegister.tsx';
 import AppMain from '@/main/screen/AppMain.tsx';
 import TestPage from '@/test/TestPage.tsx';
@@ -20,13 +19,14 @@ import AddNoteCover from '@/note/createNote/screens/AddNoteCover.tsx';
 import AddNoteContent from '@/note/createNote/screens/AddNoteContent.tsx';
 import RecycleBin from '@/center/recycleBin/screens/RecycleBin.tsx';
 import PersonCenter from '@/center/personCenter/screens/PersonCenter.tsx';
+import OneTapLogin from '@/auth/oneTapLogin/screens/OneTapLogin.tsx';
 
 const { Navigator, Screen } = createNativeStackNavigator<RootStackParamList>();
 
 const HomeNavigator = () => (
-    <Navigator initialRouteName="AppMain" screenOptions={{headerShown: false}}>
-        {/*<Screen name="AppStart" component={AppStart} />*/}
-        {/*<Screen name="AppLogin" component={AppLogin} />*/}
+    <Navigator initialRouteName="OneTapLogin" screenOptions={{headerShown: false}}>
+        <Screen name="AppLogin" component={AppLogin} />
+        <Screen name="OneTapLogin" component={OneTapLogin} />
         {/*<Screen name="AppRegister" component={AppRegister} />*/}
         <Screen name="AppMain" component={AppMain} />
         {/* 题目模块 */}
