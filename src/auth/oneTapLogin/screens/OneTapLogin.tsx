@@ -8,9 +8,9 @@ import {
     TouchableOpacity,
     View,
 } from 'react-native';
-import {useNavigation} from "@react-navigation/native";
-import {NativeStackNavigationProp} from "@react-navigation/native-stack";
-import {RootStackParamList} from "@/types";
+import { useNavigation } from '@react-navigation/native';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { RootStackParamList } from '@/types';
 
 const OneTapLogin = () => {
     return (
@@ -160,7 +160,7 @@ const styles = StyleSheet.create({
     button: {
         width: '100%',
         height: 50,
-        borderRadius: 12,
+        borderRadius: 8,
         borderWidth: 0,
         marginBottom: 20,
     },

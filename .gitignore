@@ -87,3 +87,5 @@ ios/build/
 
 # Debug logs
 *.log
+
+yarn.lock

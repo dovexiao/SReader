@@ -1,12 +1,14 @@
 // 定义整个应用的路由参数类型
 import { Note } from '@/note/noteLibrary/types';
 import { Question } from '@/question/questionBank/types';
+import VerificationCode from "@/auth/verificationLogin/screens/VerificationCode.tsx";
 
 export type RootStackParamList = {
     AppMain: undefined;
     AppLogin: undefined;
     OneTapLogin: undefined;
     VerificationLogin: undefined;
+    VerificationCode: undefined;
     // 笔记模块
     NoteLibrary: undefined;
     NoteReader: {

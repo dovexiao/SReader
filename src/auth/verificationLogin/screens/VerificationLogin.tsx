@@ -3,11 +3,16 @@ import {
     View,
     Text,
     TouchableOpacity,
-    StyleSheet, SafeAreaView, StatusBar,
+    StyleSheet,
+    SafeAreaView,
+    StatusBar,
 } from 'react-native';
-import TopNavigationOpe from "@/main/components/TopNavigationOpe.tsx";
-import {Button, CheckBox, Divider, Input, useTheme} from "@ui-kitten/components";
-import Icon from "react-native-vector-icons/MaterialIcons";
+import TopNavigationOpe from '@/main/components/TopNavigationOpe.tsx';
+import { Button, CheckBox, Divider, Input, useTheme } from '@ui-kitten/components';
+import Icon from 'react-native-vector-icons/MaterialIcons';
+import { useNavigation } from '@react-navigation/native';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { RootStackParamList } from '@/types';
 
 const VerificationLogin = () => {
     const [phoneNumber, setPhoneNumber] = useState('');
@@ -121,11 +126,13 @@ const VerifyLoginButton = () => {
     // const isChecked = useRegisterStore(state => state.isChecked);
     // const validateForm = useRegisterStore(state => state.validateForm);
     // const resetForm = useRegisterStore(state => state.resetForm);
+    const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
 
     const handleRegister = () => {
         // if (validateForm()) {
         //     resetForm();
         // }
+        navigation.navigate('VerificationCode');
     };
 
     return (
@@ -145,21 +152,9 @@ const styles = StyleSheet.create({
     },
     container: {
         flex: 1,
-        backgroundColor: '#fff',
+        backgroundColor: '#FFF',
         paddingHorizontal: 20,
         paddingTop: 20,
-    },
-    header: {
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        marginBottom: 30,
-    },
-    backText: {
-        fontSize: 24,
-    },
-    helpText: {
-        fontSize: 16,
     },
     title: {
         fontSize: 20,
@@ -206,7 +201,7 @@ const styles = StyleSheet.create({
     button: {
         width: '100%',
         height: 50,
-        borderRadius: 12,
+        borderRadius: 8,
         borderWidth: 0,
         marginBottom: 25,
     },
