@@ -69,12 +69,13 @@ yarn-error.log
 *.xml
 
 # Yarn
-.yarn/*
+!.yarn/*
 !.yarn/patches
 !.yarn/plugins
 !.yarn/releases
 !.yarn/sdks
 !.yarn/versions
+!yarn.lock
 
 # React Native
 android/app/build/
@@ -87,5 +88,3 @@ ios/build/
 
 # Debug logs
 *.log
-
-yarn.lock
