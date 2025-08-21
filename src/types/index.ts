@@ -2,6 +2,7 @@
 import { Note } from '@/note/noteLibrary/types';
 import { Question } from '@/question/questionBank/types';
 import VerificationCode from "@/auth/verificationLogin/screens/VerificationCode.tsx";
+import PasswordLogin from "@/auth/passwordLogin/screens/PasswordLogin.tsx";
 
 export type RootStackParamList = {
     AppMain: undefined;
@@ -9,6 +10,7 @@ export type RootStackParamList = {
     OneTapLogin: undefined;
     VerificationLogin: undefined;
     VerificationCode: undefined;
+    PasswordLogin: undefined;
     // 笔记模块
     NoteLibrary: undefined;
     NoteReader: {

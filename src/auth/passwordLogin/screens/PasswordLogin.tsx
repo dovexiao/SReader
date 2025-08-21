@@ -13,15 +13,13 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { RootStackParamList } from '@/types';
-import { VerificationLoginProps } from '@/auth/verificationLogin/types';
 
-const VerificationLogin: React.FC<VerificationLoginProps> = ({ navigation }) => {
+const PasswordLogin = () => {
     const [phoneNumber, setPhoneNumber] = useState('');
-    const [isAgreed, setIsAgreed] = useState(false);
 
     // 切换协议勾选状态
     const handleAgree = () => {
-        setIsAgreed(!isAgreed);
+        console.log('切换协议勾选状态');
     };
 
     // 验证并登录逻辑
@@ -30,8 +28,8 @@ const VerificationLogin: React.FC<VerificationLoginProps> = ({ navigation }) => 
     };
 
     // 密码登录跳转逻辑
-    const handlePasswordLogin = () => {
-        navigation.navigate('PasswordLogin');
+    const handleVerificationLogin = () => {
+        console.log('跳转到密码登录页面');
     };
 
     // 找回账号逻辑
@@ -58,8 +56,8 @@ const VerificationLogin: React.FC<VerificationLoginProps> = ({ navigation }) => 
             <Divider />
             <View style={styles.container}>
                 {/* 标题与说明 */}
-                <Text style={styles.title}>RTalky 验证登录</Text>
-                <Text style={styles.desc}>未注册的手机号验证通过后将自动注册</Text>
+                <Text style={styles.title}>RTalky 手机号密码登录</Text>
+                {/*<Text style={styles.desc}>未注册的手机号验证通过后将自动注册</Text>*/}
 
                 {/* 手机号输入 */}
                 <Input
@@ -71,12 +69,27 @@ const VerificationLogin: React.FC<VerificationLoginProps> = ({ navigation }) => 
                     keyboardType="phone-pad"
                     accessoryLeft={InputAccessory}
                 />
+                {/* 密码输入 */}
+                <Input
+                    style={styles.phoneInput}
+                    value={phoneNumber}
+                    onChangeText={setPhoneNumber}
+                    size={'large'}
+                    placeholder="请输入密码"
+                    keyboardType="default"
+                    accessoryLeft={InputAccessory}
+                />
 
                 {/* 密码登录跳转 */}
-                <TouchableOpacity style={styles.passwordLoginContainer} onPress={handlePasswordLogin}>
-                    <Icon name={'sync-alt'} size={15} color={'#4285F4'} />
-                    <Text style={styles.passwordLoginText}>密码登录</Text>
-                </TouchableOpacity>
+                <View style={styles.supportLoginContainer}>
+                    <TouchableOpacity style={styles.supportLoginContent} onPress={handleVerificationLogin}>
+                        <Icon name={'sync-alt'} size={15} color={'#4285F4'} />
+                        <Text style={styles.supportLoginText}>验证码登录</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={styles.supportLoginContent} onPress={handleVerificationLogin}>
+                        <Text style={styles.supportLoginText}>忘记密码</Text>
+                    </TouchableOpacity>
+                </View>
 
                 {/* 验证并登录按钮 */}
                 <VerifyLoginButton />
@@ -142,7 +155,7 @@ const VerifyLoginButton = () => {
             onPress={handleRegister}
             // disabled={!isChecked}
         >
-            <Text style={styles.buttonText}>验证并登录</Text>
+            <Text style={styles.buttonText}>登录</Text>
         </Button>
     );
 };
@@ -160,7 +173,7 @@ const styles = StyleSheet.create({
     title: {
         fontSize: 20,
         fontWeight: 'bold',
-        marginBottom: 15,
+        marginBottom: 25,
     },
     desc: {
         fontSize: 14,
@@ -174,12 +187,16 @@ const styles = StyleSheet.create({
     countryCode: {
         fontSize: 16,
     },
-    passwordLoginContainer: {
+    supportLoginContainer: {
         flexDirection: 'row',
+        justifyContent: 'space-between',
         alignItems: 'center',
         marginBottom: 25,
     },
-    passwordLoginText: {
+    supportLoginContent: {
+        flexDirection: 'row',
+    },
+    supportLoginText: {
         fontSize: 14,
         color: '#4285F4',
         marginLeft: 3,
@@ -218,4 +235,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default VerificationLogin;
+export default PasswordLogin;

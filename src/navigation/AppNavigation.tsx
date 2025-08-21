@@ -21,7 +21,8 @@ import RecycleBin from '@/center/recycleBin/screens/RecycleBin.tsx';
 import PersonCenter from '@/center/personCenter/screens/PersonCenter.tsx';
 import OneTapLogin from '@/auth/oneTapLogin/screens/OneTapLogin.tsx';
 import VerificationLogin from '@/auth/verificationLogin/screens/VerificationLogin.tsx';
-import VerificationCode from "@/auth/verificationLogin/screens/VerificationCode.tsx";
+import VerificationCode from '@/auth/verificationLogin/screens/VerificationCode.tsx';
+import PasswordLogin from '@/auth/passwordLogin/screens/PasswordLogin.tsx';
 
 const { Navigator, Screen } = createNativeStackNavigator<RootStackParamList>();
 
@@ -31,6 +32,7 @@ const HomeNavigator = () => (
         <Screen name="OneTapLogin" component={OneTapLogin} />
         <Screen name="VerificationLogin" component={VerificationLogin} />
         <Screen name="VerificationCode" component={VerificationCode} />
+        <Screen name="PasswordLogin" component={PasswordLogin} />
         {/*<Screen name="AppRegister" component={AppRegister} />*/}
         <Screen name="AppMain" component={AppMain} />
         {/* 题目模块 */}
